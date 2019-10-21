@@ -1,10 +1,8 @@
 package main // import "github.com/ykzts/aaa"
 
 import (
-	"context"
 	"log"
 	"os"
-	"os/signal"
 	"strconv"
 	"time"
 
@@ -199,7 +197,7 @@ func index2(client influxdb.Client, now time.Time) error {
 	return client.Write(bp)
 }
 
-func worker(ctx context.Context, client influxdb.Client) error {
+func worker(client influxdb.Client) {
 	ticker := time.NewTicker(10 * time.Second)
 	defer ticker.Stop()
 
@@ -208,20 +206,15 @@ func worker(ctx context.Context, client influxdb.Client) error {
 		log.Printf("Error: %v", err)
 	}
 
-	for {
-		select {
-		case t := <-ticker.C:
-			err = index(client, t)
-			if err != nil {
-				log.Printf("Error: %v", err)
-			}
-		case <-ctx.Done():
-			return ctx.Err()
+	for t := range ticker.C {
+		err = index(client, t)
+		if err != nil {
+			log.Printf("Error: %v", err)
 		}
 	}
 }
 
-func worker2(ctx context.Context, client influxdb.Client) error {
+func worker2(client influxdb.Client) {
 	ticker := time.NewTicker(1 * time.Minute)
 	defer ticker.Stop()
 
@@ -230,20 +223,15 @@ func worker2(ctx context.Context, client influxdb.Client) error {
 		log.Printf("Error: %v", err)
 	}
 
-	for {
-		select {
-		case t := <-ticker.C:
-			err = index2(client, t)
-			if err != nil {
-				log.Printf("Error: %v", err)
-			}
-		case <-ctx.Done():
-			return ctx.Err()
+	for t := range ticker.C {
+		err = index2(client, t)
+		if err != nil {
+			log.Printf("Error: %v", err)
 		}
 	}
 }
 
-func run(ctx context.Context) {
+func main() {
 	conf := influxdb.HTTPConfig{
 		Addr: "http://localhost:8086",
 	}
@@ -253,32 +241,8 @@ func run(ctx context.Context) {
 	}
 	defer client.Close()
 
-	go func() {
-		err := worker(ctx, client)
-		if err != nil {
-			log.Fatal(err)
-		}
-	}()
+	go worker(client)
+	go worker2(client)
 
-	go func() {
-		err := worker2(ctx, client)
-		if err != nil {
-			log.Fatal(err)
-		}
-	}()
-}
-
-func main() {
-	ctx, cancel := context.WithCancel(context.Background())
-	defer cancel()
-
-	c := make(chan os.Signal, 1)
-	signal.Notify(c, os.Interrupt)
-	defer signal.Stop(c)
-
-	go func() {
-		run(ctx)
-	}()
-
-	<-c
+	select {}
 }
