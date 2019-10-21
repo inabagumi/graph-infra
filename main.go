@@ -1,8 +1,10 @@
 package main // import "github.com/ykzts/aaa"
 
 import (
+	"context"
 	"log"
 	"os"
+	"os/signal"
 	"strconv"
 	"time"
 
@@ -102,30 +104,25 @@ func getGroup(id int64) string {
 	return ""
 }
 
-func main() {
-	conf := influxdb.HTTPConfig{
-		Addr: "http://localhost:8086",
-	}
-	c, err := influxdb.NewHTTPClient(conf)
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer c.Close()
+var api *anaconda.TwitterApi
 
-	bp, err := influxdb.NewBatchPoints(influxdb.BatchPointsConfig{
-		Database:  "twitter",
-		Precision: "s",
-	})
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	api := anaconda.NewTwitterApiWithCredentials(
+func init() {
+	api = anaconda.NewTwitterApiWithCredentials(
 		os.Getenv("TWITTER_ACCESS_TOKEN"),
 		os.Getenv("TWITTER_ACCESS_TOKEN_SECRET"),
 		os.Getenv("TWITTER_CONSUMER_KEY"),
 		os.Getenv("TWITTER_CONSUMER_SECRET"),
 	)
+}
+
+func index(client influxdb.Client, now time.Time) error {
+	bp, err := influxdb.NewBatchPoints(influxdb.BatchPointsConfig{
+		Database:  "twitter",
+		Precision: "s",
+	})
+	if err != nil {
+		return err
+	}
 
 	var ids []int64
 	for _, t := range targets {
@@ -134,7 +131,7 @@ func main() {
 
 	users, err := api.GetUsersLookupByIds(ids, nil)
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
 
 	for _, user := range users {
@@ -151,41 +148,137 @@ func main() {
 			"statuses":   user.StatusesCount,
 		}
 
-		pt, err := influxdb.NewPoint("account", tags, fields, time.Now())
+		pt, err := influxdb.NewPoint("account", tags, fields, now)
+		if err != nil {
+			return err
+		}
+
+		log.Println(pt)
+		bp.AddPoint(pt)
+	}
+
+	return client.Write(bp)
+}
+
+func index2(client influxdb.Client, now time.Time) error {
+	bp, err := influxdb.NewBatchPoints(influxdb.BatchPointsConfig{
+		Database:  "twitter",
+		Precision: "s",
+	})
+	if err != nil {
+		return err
+	}
+
+	lists, err := api.GetListsOwnedBy(995247053977485313, nil)
+	if err != nil {
+		return err
+	}
+
+	for _, list := range lists {
+		id := strconv.FormatInt(list.Id, 10)
+
+		tags := map[string]string{
+			"id":    id,
+			"name":  list.Name,
+			"owner": list.User.IdStr,
+		}
+
+		fields := map[string]interface{}{
+			"members": list.MemberCount,
+		}
+
+		pt, err := influxdb.NewPoint("list", tags, fields, time.Now())
 		if err != nil {
 			log.Fatal(err)
 		}
 
+		log.Print(pt)
 		bp.AddPoint(pt)
-
-		if user.ScreenName == "Haneru_Inaba" {
-			lists, err := api.GetListsOwnedBy(user.Id, nil)
-			if err != nil {
-				log.Fatal(err)
-			}
-
-			for _, list := range lists {
-				id := strconv.FormatInt(list.Id, 10)
-
-				tags := map[string]string{
-					"id":    id,
-					"name":  list.Name,
-					"owner": list.User.IdStr,
-				}
-
-				fields := map[string]interface{}{
-					"members": list.MemberCount,
-				}
-
-				pt, err := influxdb.NewPoint("list", tags, fields, time.Now())
-				if err != nil {
-					log.Fatal(err)
-				}
-
-				bp.AddPoint(pt)
-			}
-		}
 	}
 
-	log.Fatal(c.Write(bp))
+	return client.Write(bp)
+}
+
+func worker(ctx context.Context, client influxdb.Client) error {
+	ticker := time.NewTicker(10 * time.Second)
+	defer ticker.Stop()
+
+	err := index(client, time.Now())
+	if err != nil {
+		log.Printf("Error: %v", err)
+	}
+
+	for {
+		select {
+		case t := <-ticker.C:
+			err = index(client, t)
+			if err != nil {
+				log.Printf("Error: %v", err)
+			}
+		case <-ctx.Done():
+			return ctx.Err()
+		}
+	}
+}
+
+func worker2(ctx context.Context, client influxdb.Client) error {
+	ticker := time.NewTicker(1 * time.Minute)
+	defer ticker.Stop()
+
+	err := index2(client, time.Now())
+	if err != nil {
+		log.Printf("Error: %v", err)
+	}
+
+	for {
+		select {
+		case t := <-ticker.C:
+			err = index2(client, t)
+			if err != nil {
+				log.Printf("Error: %v", err)
+			}
+		case <-ctx.Done():
+			return ctx.Err()
+		}
+	}
+}
+
+func run(ctx context.Context) {
+	conf := influxdb.HTTPConfig{
+		Addr: "http://localhost:8086",
+	}
+	client, err := influxdb.NewHTTPClient(conf)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer client.Close()
+
+	go func() {
+		err := worker(ctx, client)
+		if err != nil {
+			log.Fatal(err)
+		}
+	}()
+
+	go func() {
+		err := worker2(ctx, client)
+		if err != nil {
+			log.Fatal(err)
+		}
+	}()
+}
+
+func main() {
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
+
+	c := make(chan os.Signal, 1)
+	signal.Notify(c, os.Interrupt)
+	defer signal.Stop(c)
+
+	go func() {
+		run(ctx)
+	}()
+
+	<-c
 }
