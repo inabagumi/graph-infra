@@ -1,0 +1,50 @@
+version: '3.0'
+services:
+  blackbox-exporter:
+    image: prom/blackbox-exporter:v0.15.1
+    restart: always
+  prometheus:
+    command:
+    - "--config.file=/etc/prometheus/prometheus.yml"
+    - "--storage.tsdb.path=/prometheus"
+    - "--storage.tsdb.retention.time=365d"
+    depends_on:
+    - blackbox-exporter
+    image: prom/prometheus:v2.13.0
+    restart: always
+    volumes:
+    - ./config/prometheus:/etc/prometheus:ro
+    - ./data/prometheus:/prometheus
+  influxdb:
+    image: influxdb:1.7.8-alpine
+    restart: always
+    volumes:
+    - ./data/influxdb:/var/lib/influxdb
+  worker:
+    build: ./worker
+    depends_on:
+    - influxdb
+    env_file: .env
+    image: ykzts/graph-worker
+    restart: always
+  grafana:
+    depends_on:
+    - prometheus
+    - influxdb
+    environment:
+      GF_AUTH_ANONYMOUS_ENABLED: "true"
+      GF_AUTH_ANONYMOUS_ORG_NAME: Inabagumi
+      GF_SERVER_ROOT_URL: https://graph.ykzts.sexy
+    image: grafana/grafana:6.4.3
+    restart: always
+    volumes:
+    - ./data/grafana:/var/lib/grafana
+  nginx:
+    depends_on:
+    - grafana
+    image: nginx:1.17.4-alpine
+    ports:
+    - 80:80
+    restart: always
+    volumes:
+    - ./config/nginx:/etc/nginx:ro
