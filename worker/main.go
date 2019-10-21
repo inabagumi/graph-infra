@@ -1,4 +1,4 @@
-package main // import "github.com/ykzts/aaa"
+package main // import "github.com/ykzts/graph/worker"
 
 import (
 	"log"

@@ -1,4 +1,4 @@
-module github.com/ykzts/aaa
+module github.com/ykzts/graph/worker
 
 go 1.13
 
