@@ -233,7 +233,7 @@ func worker2(client influxdb.Client) {
 
 func main() {
 	conf := influxdb.HTTPConfig{
-		Addr: "http://localhost:8086",
+		Addr: "http://influxdb:8086",
 	}
 	client, err := influxdb.NewHTTPClient(conf)
 	if err != nil {
