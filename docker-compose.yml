@@ -34,11 +34,15 @@ services:
     environment:
       GF_AUTH_ANONYMOUS_ENABLED: "true"
       GF_AUTH_ANONYMOUS_ORG_NAME: Inabagumi
+      GF_EXTERNAL_IMAGE_STORAGE_GCS_BUCKET: ykzts-graph
+      GF_EXTERNAL_IMAGE_STORAGE_GCS_KEY_FILE: /tmp/service-account-key.json
+      GF_EXTERNAL_IMAGE_STORAGE_PROVIDER: gcs
       GF_SERVER_ROOT_URL: https://graph.ykzts.sexy
     image: grafana/grafana:6.4.3
     restart: always
     volumes:
     - ./data/grafana:/var/lib/grafana
+    - ./service-account-key.json:/tmp/service-account-key.json
   nginx:
     depends_on:
     - grafana
