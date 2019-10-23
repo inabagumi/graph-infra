@@ -27,6 +27,8 @@ services:
     env_file: .env
     image: ykzts/graph-worker
     restart: always
+    volumes:
+    - ./config/worker:/etc/worker
   renderer:
     image: grafana/grafana-image-renderer:1.0.5
     restart: always
