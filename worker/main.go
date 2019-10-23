@@ -1,6 +1,8 @@
 package main // import "github.com/ykzts/graph/worker"
 
 import (
+	"encoding/json"
+	"io/ioutil"
 	"log"
 	"os"
 	"strconv"
@@ -10,91 +12,32 @@ import (
 	influxdb "github.com/influxdata/influxdb1-client/v2"
 )
 
-var targets = []struct {
-	ID         int64
-	ScreenName string
-	Group      string
-}{
-	{
-		992355895051866112,
-		"_kanade_kanon",
-		"VApArt",
-	},
-	{
-		993839162099810305,
-		"AniMare_cafe",
-		"AniMare",
-	},
-	{
-		1184117947582697473,
-		"Anko_Kisaki",
-		"VApArt",
-	},
-	{
-		388327297,
-		"camomi_camomi",
-		"VApArt",
-	},
-	{
-		1007316805981892613,
-		"Charlotte_HNST",
-		"HoneyStrap",
-	},
-	{
-		1007290563756871681,
-		"Eli_HNST",
-		"HoneyStrap",
-	},
-	{
-		995247053977485313,
-		"Haneru_Inaba",
-		"AniMare",
-	},
-	{
-		1007247110167674881,
-		"HNST_official",
-		"HoneyStrap",
-	},
-	{
-		995250952373391360,
-		"Hinako_Umori",
-		"AniMare",
-	},
-	{
-		995253301472972801,
-		"Ichika_Souya",
-		"AniMare",
-	},
-	{
-		1007331251685023744,
-		"Mary_HNST",
-		"HoneyStrap",
-	},
-	{
-		1007339408343777281,
-		"Mico_HNST",
-		"HoneyStrap",
-	},
-	{
-		1007268292648505344,
-		"Patra_HNST",
-		"HoneyStrap",
-	},
-	{
-		995258822556991493,
-		"Ran_Hinokuma",
-		"AniMare",
-	},
-	{
-		1091649332539846656,
-		"Uge_And",
-		"VApArt",
-	},
-	{
-		1091634367158337536,
-		"Vtuber_ApArt",
-		"VApArt",
-	},
+type Target struct {
+	ID         int64  `json:"id"`
+	ScreenName string `json:"screen_name"`
+	Group      string `json:"group"`
+}
+
+var api *anaconda.TwitterApi
+var targets []Target
+
+func init() {
+	api = anaconda.NewTwitterApiWithCredentials(
+		os.Getenv("TWITTER_ACCESS_TOKEN"),
+		os.Getenv("TWITTER_ACCESS_TOKEN_SECRET"),
+		os.Getenv("TWITTER_CONSUMER_KEY"),
+		os.Getenv("TWITTER_CONSUMER_SECRET"),
+	)
+
+	file, err := ioutil.ReadFile("/etc/worker/targets.json")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	err = json.Unmarshal([]byte(file), &targets)
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 
 func getGroup(id int64) string {
@@ -105,17 +48,6 @@ func getGroup(id int64) string {
 	}
 
 	return ""
-}
-
-var api *anaconda.TwitterApi
-
-func init() {
-	api = anaconda.NewTwitterApiWithCredentials(
-		os.Getenv("TWITTER_ACCESS_TOKEN"),
-		os.Getenv("TWITTER_ACCESS_TOKEN_SECRET"),
-		os.Getenv("TWITTER_CONSUMER_KEY"),
-		os.Getenv("TWITTER_CONSUMER_SECRET"),
-	)
 }
 
 func index(client influxdb.Client, now time.Time) error {
