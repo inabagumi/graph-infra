@@ -26,6 +26,11 @@ var targets = []struct {
 		"AniMare",
 	},
 	{
+		1184117947582697473,
+		"Anko_Kisaki",
+		"VApArt",
+	},
+	{
 		388327297,
 		"camomi_camomi",
 		"VApArt",
