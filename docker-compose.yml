@@ -27,16 +27,22 @@ services:
     env_file: .env
     image: ykzts/graph-worker
     restart: always
+  renderer:
+    image: grafana/grafana-image-renderer:1.0.5
+    restart: always
   grafana:
     depends_on:
     - prometheus
     - influxdb
+    - renderer
     environment:
       GF_AUTH_ANONYMOUS_ENABLED: "true"
       GF_AUTH_ANONYMOUS_ORG_NAME: Inabagumi
       GF_EXTERNAL_IMAGE_STORAGE_GCS_BUCKET: ykzts-graph
       GF_EXTERNAL_IMAGE_STORAGE_GCS_KEY_FILE: /tmp/service-account-key.json
       GF_EXTERNAL_IMAGE_STORAGE_PROVIDER: gcs
+      GF_RENDERING_CALLBACK_URL: http://grafana:3000/
+      GF_RENDERING_SERVER_URL: http://renderer:8081/render
       GF_SERVER_ROOT_URL: https://graph.ykzts.sexy
     image: grafana/grafana:6.4.3
     restart: always
