@@ -74,7 +74,7 @@ services:
   nginx:
     depends_on:
     - grafana
-    image: nginx:1.17.4-alpine
+    image: nginx:1.17.5-alpine
     ports:
     - 80:80
     restart: always
