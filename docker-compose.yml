@@ -1,12 +1,14 @@
 version: '3.0'
 services:
   node-exporter:
+    command:
+    - "--path.rootfs=/host"
     image: prom/node-exporter:v0.18.1
+    network_mode: host
+    pid: host
     restart: always
     volumes:
-    - /proc:/host/proc:ro
-    - /sys:/host/sys:ro
-    - /:/rootfs:ro
+    - /:/host:ro,rslave
   blackbox-exporter:
     image: prom/blackbox-exporter:v0.15.1
     restart: always
@@ -16,8 +18,9 @@ services:
     volumes:
     - /:/rootfs:ro
     - /var/run:/var/run:rw
-    - /sys:/sys:ro
-    - /var/lib/docker:/var/lib/docker:ro
+    - /sys/:/sys:ro
+    - /var/lib/docker/:/var/lib/docker:ro
+    - /dev/disk/:/dev/disk:ro
   prometheus:
     command:
     - "--config.file=/etc/prometheus/prometheus.yml"
