@@ -30,7 +30,7 @@ services:
     - node-exporter
     - blackbox-exporter
     - cadvisor
-    image: prom/prometheus:v2.13.1
+    image: prom/prometheus:v2.14.0
     restart: always
     volumes:
     - ./config/prometheus:/etc/prometheus:ro
