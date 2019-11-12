@@ -10,7 +10,7 @@ services:
     volumes:
     - /:/host:ro,rslave
   blackbox-exporter:
-    image: prom/blackbox-exporter:v0.15.1
+    image: prom/blackbox-exporter:v0.16.0
     restart: always
   cadvisor:
     image: google/cadvisor:v0.33.0
