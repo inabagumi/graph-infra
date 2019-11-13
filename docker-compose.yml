@@ -36,7 +36,7 @@ services:
     - ./config/prometheus:/etc/prometheus:ro
     - ./data/prometheus:/prometheus
   influxdb:
-    image: influxdb:1.7.8-alpine
+    image: influxdb:1.7.9-alpine
     restart: always
     volumes:
     - ./data/influxdb:/var/lib/influxdb
