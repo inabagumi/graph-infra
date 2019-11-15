@@ -1,4 +1,4 @@
-package main // import "github.com/ykzts/graph/worker"
+package main // import "github.com/inabagumi/graph/worker"
 
 import (
 	"encoding/json"

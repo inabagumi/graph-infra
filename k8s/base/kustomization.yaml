@@ -1,0 +1,8 @@
+bases:
+- influxdb
+- worker
+- grafana-image-renderer
+- grafana
+
+resources:
+- ingress.yaml

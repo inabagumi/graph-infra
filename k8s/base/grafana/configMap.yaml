@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-datasources
+data:
+  influxdb.yaml: |
+    apiVersion: 1
+
+    datasources:
+    - name: Twitter
+      type: influxdb
+      access: proxy
+      orgId: 1
+      url: http://influxdb:8086
+      database: twitter
+      isDefault: true
+      jsonData:
+        httpMode: POST
+      editable: false

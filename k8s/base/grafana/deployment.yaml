@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grafana
+  labels:
+    app: grafana
+spec:
+  selector:
+    matchLabels:
+      app: grafana
+  template:
+    metadata:
+      labels:
+        app: grafana
+    spec:
+      containers:
+      - name: grafana
+        image: grafana/grafana:6.4.4
+        env:
+        - name: GF_AUTH_ANONYMOUS_ENABLED
+          value: "true"
+        - name: GF_EXTERNAL_IMAGE_STORAGE_PROVIDER
+          value: local
+        - name: GF_RENDERING_CALLBACK_URL
+          value: http://grafana:3000/
+        - name: GF_RENDERING_SERVER_URL
+          value: http://grafana-image-renderer:8081/render
+        ports:
+        - containerPort: 3000
+        volumeMounts:
+        - mountPath: /var/lib/grafana
+          name: grafana-persistent-storage
+        - mountPath: /etc/grafana/provisioning/datasources
+          readOnly: true
+          name: grafana-datasources
+        livenessProbe:
+          httpGet:
+            port: 3000
+            path: /api/health
+          initialDelaySeconds: 10
+          periodSeconds: 5
+        readinessProbe:
+          httpGet:
+            port: 3000
+            path: /api/health
+          initialDelaySeconds: 10
+          periodSeconds: 5
+      volumes:
+      - name: grafana-persistent-storage
+        persistentVolumeClaim:
+          claimName: grafana-pv-claim
+      - name: grafana-datasources
+        configMap:
+          name: grafana-datasources
