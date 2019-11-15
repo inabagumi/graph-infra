@@ -1,0 +1,12 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: graph
+spec:
+  rules:
+  - host: graph.localhost
+    http:
+      paths:
+      - backend:
+          serviceName: grafana
+          servicePort: 3000

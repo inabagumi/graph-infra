@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grafana-image-renderer
+  labels:
+    app: grafana-image-renderer
+spec:
+  selector:
+    matchLabels:
+      app: grafana-image-renderer
+  template:
+    metadata:
+      labels:
+        app: grafana-image-renderer
+    spec:
+      containers:
+      - name: grafana-image-renderer
+        image: grafana/grafana-image-renderer:1.0.5
+        ports:
+        - containerPort: 8081
+        livenessProbe:
+          httpGet:
+            port: 8081
+            path: /
+          initialDelaySeconds: 15
+          periodSeconds: 5
+        readinessProbe:
+          httpGet:
+            port: 8081
+            path: /
+          initialDelaySeconds: 15
+          periodSeconds: 5
