@@ -5,6 +5,7 @@ resources:
 - issuer.yaml
 
 patches:
+- patches/grafana.yaml
 - patches/ingress.yaml
 
 patchesJson6902:
