@@ -13,7 +13,7 @@ data:
       orgId: 1
       url: http://influxdb:8086
       database: twitter
-      isDefault: true
+      isDefault: false
       jsonData:
         httpMode: POST
       editable: false
