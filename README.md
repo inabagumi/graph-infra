@@ -1,4 +1,13 @@
-# Graph...
+# Graph
+
+## Requirements
+
+- [`kubectl`](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
+- [`kustomize`](https://github.com/kubernetes-sigs/kustomize/releases)
+- [`skaffold`](https://skaffold.dev/docs/install/)
+
+## Deploy
+
 
 ```console
 $ kubectl create secret generic twitter-credentials \
@@ -7,6 +16,7 @@ $ kubectl create secret generic twitter-credentials \
 $ kubectl create secret generic azure-blob-credentials \
   --from-literal=account-name=... --from-literal=account-key=... \
   --from-literal=container-name=...
+$ skaffold run -p production
 ```
 
 ## License
