@@ -4,7 +4,7 @@ metadata:
   name: graph
 build:
   artifacts:
-  - image: inabagumi/worker
+  - image: e2a4329a.azurecr.io/worker
     context: worker
 deploy:
   kustomize:

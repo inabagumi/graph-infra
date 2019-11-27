@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: worker
-        image: inabagumi/worker
+        image: e2a4329a.azurecr.io/worker
         env:
         - name: TWITTER_ACCESS_TOKEN
           valueFrom:
