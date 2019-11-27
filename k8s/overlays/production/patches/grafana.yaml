@@ -24,7 +24,7 @@ spec:
               name: azure-blob-credentials
               key: container-name
         - name: GF_EXTERNAL_IMAGE_STORAGE_PROVIDER
-          value: azure
+          value: azure_blob
         - name: GF_SERVER_ENABLE_GZIP
           value: "true"
         - name: GF_SERVER_ROOT_URL
