@@ -35,4 +35,4 @@ jobs:
         cd -
     - name: Validate
       run: |
-        kustomize build k8s/overlays/production | kubeval
+        kustomize build k8s/overlays/production | kubeval --ignore-missing-schemas
