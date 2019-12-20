@@ -8,7 +8,7 @@ RUN set -ex \
   && go mod download \
   && go build -o worker main.go
 
-FROM alpine:3.10
+FROM alpine:3.11
 
 COPY --from=build /go/src/app/worker /usr/local/bin/worker
 
