@@ -16,6 +16,9 @@ spec:
       containers:
       - name: grafana-image-renderer
         image: grafana/grafana-image-renderer:1.0.8
+        env:
+        - name: BROWSER_TZ
+          value: Asia/Tokyo
         ports:
         - containerPort: 8081
         livenessProbe:
