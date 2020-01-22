@@ -25,8 +25,6 @@ spec:
               key: container-name
         - name: GF_EXTERNAL_IMAGE_STORAGE_PROVIDER
           value: azure_blob
-        - name: GF_SECURITY_STRICT_TRANSPORT_SECURITY
-          value: "true"
         - name: GF_SERVER_ENABLE_GZIP
           value: "true"
         - name: GF_SERVER_DOMAIN
