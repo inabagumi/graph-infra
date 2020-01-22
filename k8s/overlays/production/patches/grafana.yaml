@@ -25,7 +25,13 @@ spec:
               key: container-name
         - name: GF_EXTERNAL_IMAGE_STORAGE_PROVIDER
           value: azure_blob
+        - name: GF_SECURITY_STRICT_TRANSPORT_SECURITY
+          value: "true"
         - name: GF_SERVER_ENABLE_GZIP
           value: "true"
+        - name: GF_SERVER_DOMAIN
+          value: 21g.social
+        - name: GF_SERVER_ENFORCE_DOMAIN
+          value: "true"
         - name: GF_SERVER_ROOT_URL
-          value: https://graph.haneru.dev
+          value: https://21g.social

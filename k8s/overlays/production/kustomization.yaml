@@ -7,11 +7,3 @@ resources:
 patches:
 - patches/grafana.yaml
 - patches/ingress.yaml
-
-patchesJson6902:
-- target:
-    group: networking.k8s.io
-    version: v1beta1
-    kind: Ingress
-    name: graph
-  path: patches/ingress.json

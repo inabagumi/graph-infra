@@ -4,8 +4,7 @@ metadata:
   name: graph
 spec:
   rules:
-  - host: graph.localhost
-    http:
+  - http:
       paths:
       - backend:
           serviceName: grafana
