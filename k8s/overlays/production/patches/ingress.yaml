@@ -8,5 +8,8 @@ metadata:
 spec:
   tls:
   - hosts:
+    - 21g.social
+    secretName: 21g-tls
+  - hosts:
     - graph.haneru.dev
     secretName: graph-tls
