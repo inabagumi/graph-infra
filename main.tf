@@ -24,7 +24,7 @@ resource "google_compute_managed_ssl_certificate" "default" {
   name = "graph-cert"
 
   managed {
-    domains = ["21g.social."]
+    domains = ["21g.social.", "graph.haneru.dev."]
   }
 }
 
