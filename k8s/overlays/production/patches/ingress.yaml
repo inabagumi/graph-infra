@@ -3,7 +3,7 @@ kind: Ingress
 metadata:
   name: graph
   annotations:
-    ingress.gcp.kubernetes.io/pre-shared-cert: graph-cert
+    ingress.gcp.kubernetes.io/pre-shared-cert: graph-cert, old-cert
     ingress.kubernetes.io/hsts-max-age: "31536000"
     ingress.kubernetes.io/hsts-include-subdomains: "true"
     ingress.kubernetes.io/hsts-preload: "true"
