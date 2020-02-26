@@ -85,8 +85,3 @@ resource "google_container_node_pool" "primary_nodes" {
     ]
   }
 }
-
-resource "google_storage_bucket" "image-store" {
-  name     = "21g-social-images"
-  location = var.region
-}
