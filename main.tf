@@ -20,13 +20,13 @@ resource "google_dns_managed_zone" "default" {
 }
 
 resource "google_dns_record_set" "frontend" {
-  name = "${google_dns_managed_zone.default.dns_name}"
+  name = google_dns_managed_zone.default.dns_name
   type = "A"
   ttl  = 300
 
   managed_zone = google_dns_managed_zone.default.name
 
-  rrdatas = [data.google_compute_global_address.default.address]
+  rrdatas = [google_compute_global_address.default.address]
 }
 
 resource "google_container_cluster" "primary" {
