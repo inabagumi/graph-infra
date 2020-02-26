@@ -10,6 +10,25 @@ provider "google" {
   zone    = var.zone
 }
 
+resource "google_compute_global_address" "default" {
+  name = "${local.name}-ip"
+}
+
+resource "google_dns_managed_zone" "default" {
+  name     = "${local.name}-zone"
+  dns_name = "21g.social."
+}
+
+resource "google_dns_record_set" "frontend" {
+  name = "${google_dns_managed_zone.default.dns_name}"
+  type = "A"
+  ttl  = 300
+
+  managed_zone = google_dns_managed_zone.default.name
+
+  rrdatas = [data.google_compute_global_address.default.address]
+}
+
 resource "google_container_cluster" "primary" {
   name     = "${local.name}-cluster"
   location = var.region
