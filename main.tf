@@ -10,6 +10,24 @@ provider "google" {
   zone    = var.zone
 }
 
+provider "google-beta" {
+  credentials = var.credentials
+
+  project = var.project
+  region  = var.region
+  zone    = var.zone
+}
+
+resource "google_compute_managed_ssl_certificate" "default" {
+  provider = google-beta
+
+  name = "graph-cert"
+
+  managed {
+    domains = ["21g.social."]
+  }
+}
+
 resource "google_compute_global_address" "default" {
   name = "${local.name}-ip"
 }
