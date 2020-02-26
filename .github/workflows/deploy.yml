@@ -4,10 +4,18 @@ on:
   push:
     branches:
     - master
+    paths:
+    - '.github/workflows/deploy.yml'
+    - 'k8s/**'
+    - '!k8s/overlays/development/**'
+    - 'skaffold.yaml'
 
 env:
+  GCP_PROJECT: soul-weight
+  GCP_REGION: asia-northeast1
+  GCP_CLUSTER: graph-cluster
   KUSTOMIZE_VERSION: 2.1.0
-  SKAFFOLD_VERSION: 1.0.1
+  SKAFFOLD_VERSION: 1.4.0
   SKAFFOLD_PROFILE: production
 
 jobs:
@@ -15,27 +23,27 @@ jobs:
     name: Setup, Build, Publish, and Deploy
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout
-      uses: actions/checkout@master
-    - name: Set up Kustomize
-      run: |
-        curl -Lo kustomize https://github.com/kubernetes-sigs/kustomize/releases/download/v${KUSTOMIZE_VERSION}/kustomize_${KUSTOMIZE_VERSION}_linux_amd64
-        sudo install kustomize /usr/local/bin
+    - uses: actions/checkout@master
+    - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+      with:
+        service_account_key: ${{ secrets.GCP_SA_KEY }}
+
     - name: Set up Skaffold
       run: |
         curl -Lo skaffold https://storage.googleapis.com/skaffold/releases/v${SKAFFOLD_VERSION}/skaffold-linux-amd64
         sudo install skaffold /usr/local/bin
-    - uses: Azure/docker-login@v1
-      with:
-        login-server: e2a4329a.azurecr.io
-        username: ${{ secrets.REGISTRY_USERNAME }}
-        password: ${{ secrets.REGISTRY_PASSWORD }}
-    - uses: Azure/k8s-set-context@v1
-      with:
-        kubeconfig: ${{ secrets.KUBE_CONFIG }}
+
+    - name: Set up Kustomize
+      run: |
+        curl -Lo kustomize https://github.com/kubernetes-sigs/kustomize/releases/download/v${KUSTOMIZE_VERSION}/kustomize_${KUSTOMIZE_VERSION}_linux_amd64
+        sudo install kustomize /usr/local/bin
+
     - name: Build, and Publish
       run: |
+        gcloud auth configure-docker
         skaffold build --file-output tags.json
+
     - name: Deploy
       run: |
+        gcloud container clusters get-credentials $GCP_CLUSTER --project $GCP_PROJECT --region $GCP_REGION
         skaffold deploy --build-artifacts tags.json --status-check

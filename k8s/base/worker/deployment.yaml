@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: worker
-        image: e2a4329a.azurecr.io/worker
+        image: asia.gcr.io/soul-weight/worker
         env:
         - name: TWITTER_ACCESS_TOKEN
           valueFrom:
