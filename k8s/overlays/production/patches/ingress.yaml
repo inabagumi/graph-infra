@@ -3,17 +3,9 @@ kind: Ingress
 metadata:
   name: graph
   annotations:
-    kubernetes.io/ingress.class: traefik
-    cert-manager.io/issuer: letsencrypt
+    ingress.gcp.kubernetes.io/pre-shared-cert: graph-cert
     ingress.kubernetes.io/hsts-max-age: "31536000"
     ingress.kubernetes.io/hsts-include-subdomains: "true"
     ingress.kubernetes.io/hsts-preload: "true"
     ingress.kubernetes.io/ssl-redirect: "true"
-spec:
-  tls:
-  - hosts:
-    - 21g.social
-    secretName: 21g-tls
-  - hosts:
-    - graph.haneru.dev
-    secretName: graph-tls
+    kubernetes.io/ingress.global-static-ip-name: graph-ip

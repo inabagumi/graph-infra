@@ -1,17 +1,18 @@
-apiVersion: skaffold/v1
+apiVersion: skaffold/v2alpha4
 kind: Config
 metadata:
   name: graph
 build:
   artifacts:
-  - image: e2a4329a.azurecr.io/worker
+  - image: asia.gcr.io/soul-weight/worker
     context: worker
 deploy:
   kustomize:
-    path: k8s/overlays/development
+    paths:
+    - k8s/overlays/development
 profiles:
 - name: production
-  patches:
-  - op: replace
-    path: /deploy/kustomize/path
-    value: k8s/overlays/production
+  deploy:
+    kustomize:
+      paths:
+      - k8s/overlays/production

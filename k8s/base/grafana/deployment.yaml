@@ -13,6 +13,15 @@ spec:
       labels:
         app: grafana
     spec:
+      initContainers:
+      - name: init-chown-data
+        image: grafana/grafana:6.6.2
+        securityContext:
+          runAsUser: 0
+        command: ["chown", "-R", "grafana:grafana", "/var/lib/grafana"]
+        volumeMounts:
+          - mountPath: /var/lib/grafana
+            name: grafana-persistent-storage
       containers:
       - name: grafana
         image: grafana/grafana:6.6.2
