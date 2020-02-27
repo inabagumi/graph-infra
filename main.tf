@@ -10,14 +10,6 @@ provider "google" {
   zone    = var.zone
 }
 
-provider "google-beta" {
-  credentials = var.credentials
-
-  project = var.project
-  region  = var.region
-  zone    = var.zone
-}
-
 resource "google_compute_global_address" "default" {
   name = "${local.name}-ip"
 }
