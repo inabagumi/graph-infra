@@ -3,5 +3,5 @@ kind: Ingress
 metadata:
   name: graph
   annotations:
-    ingress.gcp.kubernetes.io/pre-shared-cert: graph-certificate, graph-old-certificate
     kubernetes.io/ingress.global-static-ip-name: graph-ip
+    networking.gke.io/managed-certificates: graph-certificate, graph-old-certificate
