@@ -1,0 +1,15 @@
+apiVersion: networking.gke.io/v1beta1
+kind: ManagedCertificate
+metadata:
+  name: graph-certificate
+spec:
+  domains:
+  - 21g.social
+---
+  apiVersion: networking.gke.io/v1beta1
+  kind: ManagedCertificate
+  metadata:
+    name: graph-old-certificate
+  spec:
+    domains:
+    - graph.haneru.dev

@@ -1,6 +1,9 @@
 bases:
 - ../../base
 
+resources:
+- certificate.yaml
+
 patches:
 - patches/grafana.yaml
 - patches/ingress.yaml
