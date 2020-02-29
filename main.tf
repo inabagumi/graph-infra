@@ -44,6 +44,8 @@ resource "google_container_cluster" "primary" {
       issue_client_certificate = false
     }
   }
+
+  ip_allocation_policy {}
 }
 
 resource "google_container_node_pool" "primary_nodes" {
