@@ -49,4 +49,6 @@ kind: Service
 metadata:
   name: grafana
   annotations:
+    beta.cloud.google.com/backend-config:
+      '{"default": "grafana-backend-config"}'
     cloud.google.com/neg: '{"ingress": true}'
