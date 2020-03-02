@@ -8,23 +8,15 @@ spec:
       containers:
       - name: grafana
         env:
-        - name: GF_EXTERNAL_IMAGE_STORAGE_AZURE_BLOB_ACCOUNT_KEY
+        - name: GF_EXTERNAL_IMAGE_STORAGE_GCS_BUCKET
           valueFrom:
             secretKeyRef:
-              name: azure-blob-credentials
-              key: account-key
-        - name: GF_EXTERNAL_IMAGE_STORAGE_AZURE_BLOB_ACCOUNT_NAME
-          valueFrom:
-            secretKeyRef:
-              name: azure-blob-credentials
-              key: account-name
-        - name: GF_EXTERNAL_IMAGE_STORAGE_AZURE_BLOB_CONTAINER_NAME
-          valueFrom:
-            secretKeyRef:
-              name: azure-blob-credentials
-              key: container-name
+              name: gcs-credentials
+              key: bucket
+        - name: GF_EXTERNAL_IMAGE_STORAGE_GCS_KEY_FILE
+          value: /var/secrets/google/key.json
         - name: GF_EXTERNAL_IMAGE_STORAGE_PROVIDER
-          value: azure_blob
+          value: gcs
         - name: GF_SECURITY_COOKIE_SECURE
           value: "true"
         - name: GF_SECURITY_STRICT_TRANSPORT_SECURITY
@@ -43,6 +35,13 @@ spec:
           value: "true"
         - name: GF_SERVER_ROOT_URL
           value: https://21g.social
+        volumeMounts:
+        - name: google-cloud-key
+          mountPath: /var/secrets/google
+      volumes:
+      - name: google-cloud-key
+        secret:
+          secretName: gcs-key
 ---
 apiVersion: v1
 kind: Service
