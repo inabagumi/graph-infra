@@ -2,6 +2,7 @@ bases:
 - ../../base
 
 resources:
+- backendconfig.yaml
 - certificate.yaml
 
 patches:
