@@ -48,28 +48,6 @@ resource "google_container_cluster" "primary" {
   ip_allocation_policy {}
 }
 
-resource "google_container_node_pool" "primary_nodes" {
-  name       = "${local.name}-node-pool"
-  location   = var.region
-  cluster    = google_container_cluster.primary.name
-  node_count = 1
-
-  node_config {
-    preemptible  = true
-    machine_type = local.machine_type
-
-    metadata = {
-      disable-legacy-endpoints = "true"
-    }
-
-    oauth_scopes = [
-      "https://www.googleapis.com/auth/devstorage.read_only",
-      "https://www.googleapis.com/auth/logging.write",
-      "https://www.googleapis.com/auth/monitoring",
-    ]
-  }
-}
-
 resource "google_container_node_pool" "primary_preemptible_nodes" {
   name       = "${local.name}-preemptible-node-pool"
   location   = var.region
