@@ -71,7 +71,7 @@ resource "google_container_node_pool" "primary_nodes" {
 }
 
 resource "google_container_node_pool" "primary_preemptible_nodes" {
-  name       = "${local.name}-node-pool"
+  name       = "${local.name}-preemptible-node-pool"
   location   = var.region
   cluster    = google_container_cluster.primary.name
   node_count = 1
