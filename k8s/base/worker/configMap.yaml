@@ -21,6 +21,11 @@ data:
         "group": "VApArt"
       },
       {
+        "id": 1234696406931136513,
+        "screen_name": "Anna_Kojo",
+        "group": "SugarLyric"
+      },
+      {
         "id": 388327297,
         "screen_name": "camomi_camomi",
         "group": "VApArt"
@@ -29,6 +34,11 @@ data:
         "id": 1007316805981892613,
         "screen_name": "Charlotte_HNST",
         "group": "HoneyStrap"
+      },
+      {
+        "id": 1240652791892172800,
+        "screen_name": "ChrisShishio",
+        "group": "SugarLyric"
       },
       {
         "id": 1007290563756871681,
@@ -84,6 +94,11 @@ data:
         "id": 995258822556991493,
         "screen_name": "Ran_Hinokuma",
         "group": "AniMare"
+      },
+      {
+        "id": 1234697406542802950,
+        "screen_name": "Rene_Ryugasaki",
+        "group": "SugarLyric"
       },
       {
         "id": 1234698396297859072,
