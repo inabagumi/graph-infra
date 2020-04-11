@@ -11,6 +11,11 @@ data:
         "group": "VApArt"
       },
       {
+        "id": 1245697015066984451,
+        "screen_name": "Akane_Haibara",
+        "group": "AniMare"
+      },
+      {
         "id": 993839162099810305,
         "screen_name": "AniMare_cafe",
         "group": "AniMare"
@@ -86,6 +91,11 @@ data:
         "group": "HoneyStrap"
       },
       {
+        "id": 1245694490532175873,
+        "screen_name": "Natsumi_Hashiba",
+        "group": "AniMare"
+      },
+      {
         "id": 1007268292648505344,
         "screen_name": "Patra_HNST",
         "group": "HoneyStrap"
@@ -101,6 +111,11 @@ data:
         "group": "SugarLyric"
       },
       {
+        "id": 1128841181222203393,
+        "screen_name": "shiromiya_mimi",
+        "group": "AniMare"
+      },
+      {
         "id": 1234698396297859072,
         "screen_name": "SugarLyric_PI",
         "group": "SugarLyric"
@@ -114,5 +129,10 @@ data:
         "id": 1091634367158337536,
         "screen_name": "Vtuber_ApArt",
         "group": "VApArt"
-      }
+      },
+      {
+        "id": 1245695747602837504,
+        "screen_name": "Yurari_Momono",
+        "group": "AniMare"
+      },
     ]
