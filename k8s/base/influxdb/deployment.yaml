@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: influxdb
-        image: influxdb:1.7.10-alpine
+        image: influxdb:1.8.0-alpine
         env:
         - name: INFLUXDB_DB
           value: twitter
