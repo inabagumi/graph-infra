@@ -29,7 +29,7 @@ spec:
             name: grafana-persistent-storage
       containers:
       - name: grafana
-        image: grafana/grafana:6.7.2
+        image: grafana/grafana:6.7.3
         env:
         - name: GF_AUTH_ANONYMOUS_ENABLED
           value: "true"
