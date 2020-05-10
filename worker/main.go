@@ -16,6 +16,7 @@ type Target struct {
 	ID         int64  `json:"id"`
 	ScreenName string `json:"screen_name"`
 	Group      string `json:"group"`
+	Retired    bool   `json:"retired"`
 }
 
 var api *anaconda.TwitterApi
@@ -50,6 +51,16 @@ func getGroup(id int64) string {
 	return ""
 }
 
+func getTarget(id int64) Target {
+	for _, target := range targets {
+		if target.ID == id {
+			return target
+		}
+	}
+
+	return Target{}
+}
+
 func index(client influxdb.Client, now time.Time) error {
 	bp, err := influxdb.NewBatchPoints(influxdb.BatchPointsConfig{
 		Database:  "twitter",
@@ -70,10 +81,16 @@ func index(client influxdb.Client, now time.Time) error {
 	}
 
 	for _, user := range users {
+		t := getTarget(user.Id)
+
 		tags := map[string]string{
-			"group":       getGroup(user.Id),
+			"group":       t.Group,
 			"id":          user.IdStr,
 			"screen_name": user.ScreenName,
+		}
+
+		if t.Retired {
+			tags["retired"] = "true"
 		}
 
 		fields := map[string]interface{}{
