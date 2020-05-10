@@ -49,7 +49,7 @@ data:
         "id": 1007290563756871681,
         "screen_name": "Eli_HNST",
         "group": "HoneyStrap",
-        "retired": "true"
+        "retired": true
       },
       {
         "id": 995247053977485313,
@@ -65,7 +65,7 @@ data:
         "id": 995250952373391360,
         "screen_name": "Hinako_Umori",
         "group": "AniMare",
-        "retired": "true"
+        "retired": true
       },
       {
         "id": 995253301472972801,
@@ -141,6 +141,6 @@ data:
         "id": 1245695747602837504,
         "screen_name": "Yurari_Momono",
         "group": "AniMare",
-        "retired": "true"
+        "retired": true
       }
     ]
