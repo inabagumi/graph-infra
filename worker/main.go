@@ -87,6 +87,7 @@ func index(client influxdb.Client, now time.Time) error {
 			"group":       t.Group,
 			"id":          user.IdStr,
 			"screen_name": user.ScreenName,
+			"retired":     "false",
 		}
 
 		if t.Retired {
