@@ -15,8 +15,8 @@ env:
   GCP_PROJECT: soul-weight
   GCP_REGION: asia-northeast1
   GCP_CLUSTER: graph-cluster
-  KUSTOMIZE_VERSION: 2.1.0
-  SKAFFOLD_VERSION: 1.4.0
+  KUSTOMIZE_VERSION: 3.6.0
+  SKAFFOLD_VERSION: 1.10.1
   SKAFFOLD_PROFILE: production
 
 jobs:
@@ -36,7 +36,8 @@ jobs:
 
     - name: Set up Kustomize
       run: |
-        curl -Lo kustomize https://github.com/kubernetes-sigs/kustomize/releases/download/v${KUSTOMIZE_VERSION}/kustomize_${KUSTOMIZE_VERSION}_linux_amd64
+        curl -Lo kustomize.tar.gz https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv${KUSTOMIZE_VERSION}/kustomize_v${KUSTOMIZE_VERSION}_linux_amd64.tar.gz
+        tar xf kustomize.tar.gz
         sudo install kustomize /usr/local/bin
 
     - name: Build, and Publish
