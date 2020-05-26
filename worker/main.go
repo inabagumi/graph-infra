@@ -9,7 +9,8 @@ import (
 	"time"
 
 	"github.com/ChimeraCoder/anaconda"
-	influxdb "github.com/influxdata/influxdb1-client/v2"
+	influxdb2 "github.com/influxdata/influxdb-client-go"
+	"github.com/influxdata/influxdb-client-go/api"
 )
 
 type Target struct {
@@ -19,11 +20,11 @@ type Target struct {
 	Retired    bool   `json:"retired"`
 }
 
-var api *anaconda.TwitterApi
+var twitterApi *anaconda.TwitterApi
 var targets []Target
 
 func init() {
-	api = anaconda.NewTwitterApiWithCredentials(
+	twitterApi = anaconda.NewTwitterApiWithCredentials(
 		os.Getenv("TWITTER_ACCESS_TOKEN"),
 		os.Getenv("TWITTER_ACCESS_TOKEN_SECRET"),
 		os.Getenv("TWITTER_CONSUMER_KEY"),
@@ -41,16 +42,6 @@ func init() {
 	}
 }
 
-func getGroup(id int64) string {
-	for _, target := range targets {
-		if target.ID == id {
-			return target.Group
-		}
-	}
-
-	return ""
-}
-
 func getTarget(id int64) Target {
 	for _, target := range targets {
 		if target.ID == id {
@@ -61,68 +52,44 @@ func getTarget(id int64) Target {
 	return Target{}
 }
 
-func index(client influxdb.Client, now time.Time) error {
-	bp, err := influxdb.NewBatchPoints(influxdb.BatchPointsConfig{
-		Database:  "twitter",
-		Precision: "s",
-	})
-	if err != nil {
-		return err
-	}
-
+func index(writeApi api.WriteApi, now time.Time) error {
 	var ids []int64
 	for _, t := range targets {
 		ids = append(ids, t.ID)
 	}
 
-	users, err := api.GetUsersLookupByIds(ids, nil)
+	users, err := twitterApi.GetUsersLookupByIds(ids, nil)
 	if err != nil {
 		return err
 	}
 
 	for _, user := range users {
 		t := getTarget(user.Id)
-
-		tags := map[string]string{
-			"group":       t.Group,
-			"id":          user.IdStr,
-			"screen_name": user.ScreenName,
-			"retired":     "false",
-		}
+		retired := "false"
 
 		if t.Retired {
-			tags["retired"] = "true"
+			retired = "true"
 		}
 
-		fields := map[string]interface{}{
-			"favourites": user.FavouritesCount,
-			"followers":  user.FollowersCount,
-			"friends":    user.FriendsCount,
-			"statuses":   user.StatusesCount,
-		}
+		p := influxdb2.NewPointWithMeasurement("account").
+			AddTag("group", t.Group).
+			AddTag("id", user.IdStr).
+			AddTag("screen_name", user.ScreenName).
+			AddTag("retired", retired).
+			AddField("favourites", user.FavouritesCount).
+			AddField("followers", user.FollowersCount).
+			AddField("friends", user.FriendsCount).
+			AddField("statuses", user.StatusesCount).
+			SetTime(now)
 
-		pt, err := influxdb.NewPoint("account", tags, fields, now)
-		if err != nil {
-			return err
-		}
-
-		log.Println(pt)
-		bp.AddPoint(pt)
+		writeApi.WritePoint(p)
 	}
 
-	return client.Write(bp)
+	return nil
 }
 
-func index2(client influxdb.Client, now time.Time) error {
-	bp, err := influxdb.NewBatchPoints(influxdb.BatchPointsConfig{
-		Database:  "twitter",
-		Precision: "s",
-	})
-	if err != nil {
-		return err
-	}
-
-	lists, err := api.GetListsOwnedBy(995247053977485313, nil)
+func index2(writeApi api.WriteApi, now time.Time) error {
+	lists, err := twitterApi.GetListsOwnedBy(995247053977485313, nil)
 	if err != nil {
 		return err
 	}
@@ -130,56 +97,52 @@ func index2(client influxdb.Client, now time.Time) error {
 	for _, list := range lists {
 		id := strconv.FormatInt(list.Id, 10)
 
-		tags := map[string]string{
-			"id":    id,
-			"name":  list.Name,
-			"owner": list.User.IdStr,
-		}
+		p := influxdb2.NewPointWithMeasurement("list").
+			AddTag("id", id).
+			AddTag("name", list.Name).
+			AddTag("owner", list.User.IdStr).
+			AddField("members", list.MemberCount)
 
-		fields := map[string]interface{}{
-			"members": list.MemberCount,
-		}
-
-		pt, err := influxdb.NewPoint("list", tags, fields, time.Now())
-		if err != nil {
-			log.Fatal(err)
-		}
-
-		log.Print(pt)
-		bp.AddPoint(pt)
+		writeApi.WritePoint(p)
 	}
 
-	return client.Write(bp)
+	return nil
 }
 
-func worker(client influxdb.Client) {
+func worker(client influxdb2.Client) {
+	writeApi := client.WriteApi("", "twitter")
+	defer writeApi.Close()
+
 	ticker := time.NewTicker(10 * time.Second)
 	defer ticker.Stop()
 
-	err := index(client, time.Now())
+	err := index(writeApi, time.Now())
 	if err != nil {
 		log.Printf("Error: %v", err)
 	}
 
 	for t := range ticker.C {
-		err = index(client, t)
+		err = index(writeApi, t)
 		if err != nil {
 			log.Printf("Error: %v", err)
 		}
 	}
 }
 
-func worker2(client influxdb.Client) {
+func worker2(client influxdb2.Client) {
+	writeApi := client.WriteApi("", "twitter")
+	defer writeApi.Close()
+
 	ticker := time.NewTicker(1 * time.Minute)
 	defer ticker.Stop()
 
-	err := index2(client, time.Now())
+	err := index2(writeApi, time.Now())
 	if err != nil {
 		log.Printf("Error: %v", err)
 	}
 
 	for t := range ticker.C {
-		err = index2(client, t)
+		err = index2(writeApi, t)
 		if err != nil {
 			log.Printf("Error: %v", err)
 		}
@@ -187,13 +150,8 @@ func worker2(client influxdb.Client) {
 }
 
 func main() {
-	conf := influxdb.HTTPConfig{
-		Addr: "http://influxdb:8086",
-	}
-	client, err := influxdb.NewHTTPClient(conf)
-	if err != nil {
-		log.Fatal(err)
-	}
+	client := influxdb2.NewClientWithOptions("http://influxdb:8086", "",
+		influxdb2.DefaultOptions().SetLogLevel(3).SetPrecision(time.Second))
 	defer client.Close()
 
 	go worker(client)

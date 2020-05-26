@@ -1,6 +1,6 @@
 module github.com/ykzts/graph/worker
 
-go 1.13
+go 1.14
 
 require (
 	github.com/ChimeraCoder/anaconda v2.0.0+incompatible
@@ -9,6 +9,5 @@ require (
 	github.com/dustin/go-jsonpointer v0.0.0-20160814072949-ba0abeacc3dc // indirect
 	github.com/dustin/gojson v0.0.0-20160307161227-2e71ec9dd5ad // indirect
 	github.com/garyburd/go-oauth v0.0.0-20180319155456-bca2e7f09a17 // indirect
-	github.com/influxdata/influxdb1-client v0.0.0-20200515024757-02f0bf5dbca3
-	golang.org/x/net v0.0.0-20191014212845-da9a3fd4c582 // indirect
+	github.com/influxdata/influxdb-client-go v1.2.0
 )
