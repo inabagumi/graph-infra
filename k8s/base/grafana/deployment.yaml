@@ -33,6 +33,8 @@ spec:
         env:
         - name: GF_AUTH_ANONYMOUS_ENABLED
           value: "true"
+        - name: GF_INSTALL_PLUGINS
+          value: grafana-influxdb-flux-datasource
         - name: GF_RENDERING_CALLBACK_URL
           value: http://grafana:3000/
         - name: GF_RENDERING_SERVER_URL
