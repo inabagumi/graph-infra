@@ -1,3 +1,4 @@
 resources:
-- statefulset.yaml
+- pvc.yaml
+- deployment.yaml
 - service.yaml
