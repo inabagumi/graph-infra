@@ -26,12 +26,12 @@ spec:
         - containerPort: 8086
         volumeMounts:
         - mountPath: /var/lib/influxdb
-          name: influxdb-persistent-storage
+          name: influxdb-data
         livenessProbe:
           httpGet:
             port: 8086
             path: /ping
-          initialDelaySeconds: 10
+          initialDelaySeconds: 30
           periodSeconds: 5
         readinessProbe:
           httpGet:
@@ -41,7 +41,7 @@ spec:
           periodSeconds: 5
   volumeClaimTemplates:
   - metadata:
-      name: influxdb-persistent-storage
+      name: influxdb-data
       labels:
         app: influxdb
     spec:
@@ -49,4 +49,4 @@ spec:
       - ReadWriteOnce
       resources:
         requests:
-          storage: 50Gi
+          storage: 5Gi
