@@ -7,8 +7,8 @@ metadata:
 spec:
   selector:
     app: influxdb
-  type: NodePort
   ports:
   - protocol: TCP
     port: 8086
     targetPort: 8086
+  clusterIP: None
