@@ -1,3 +1,7 @@
+commonLabels:
+  skaffold.dev/run-id: static
+  app.kubernetes.io/managed-by: skaffold
+
 resources:
 - statefulset.yaml
 - service.yaml
