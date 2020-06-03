@@ -7,6 +7,7 @@ build:
   - image: asia.gcr.io/soul-weight/worker
     context: worker
 deploy:
+  statusCheckDeadlineSeconds: 300
   kustomize:
     paths:
     - k8s/overlays/development
