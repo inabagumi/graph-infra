@@ -39,13 +39,9 @@ spec:
             path: /ping
           initialDelaySeconds: 10
           periodSeconds: 5
-      volumes:
-      - name: influxdb-persistent-storage
-        persistentVolumeClaim:
-          claimName: influxdb-pv-claim
   volumeClaimTemplates:
   - metadata:
-      name: influxdb-pv-claim
+      name: influxdb-persistent-storage
       labels:
         app: influxdb
     spec:
