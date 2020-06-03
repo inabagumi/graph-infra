@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: influxdb
   labels:
@@ -8,8 +8,7 @@ spec:
   selector:
     matchLabels:
       app: influxdb
-  strategy:
-    type: Recreate
+  serviceName: influxdb
   template:
     metadata:
       labels:
@@ -40,7 +39,14 @@ spec:
             path: /ping
           initialDelaySeconds: 10
           periodSeconds: 5
-      volumes:
-      - name: influxdb-persistent-storage
-        persistentVolumeClaim:
-          claimName: influxdb-pv-claim
+  volumeClaimTemplates:
+  - metadata:
+      name: influxdb-persistent-storage
+      labels:
+        app: influxdb
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 50Gi
