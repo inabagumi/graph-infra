@@ -26,7 +26,7 @@ spec:
           runAsUser: 0
         command: ["chown", "-R", "grafana:grafana", "/var/lib/grafana/data"]
         volumeMounts:
-          - mountPath: /var/lib/grafana
+          - mountPath: /var/lib/grafana/data
             name: grafana-persistent-storage
       containers:
       - name: grafana
