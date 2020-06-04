@@ -5,11 +5,15 @@ metadata:
   labels:
     app: grafana
 spec:
+  replicas: 2
   selector:
     matchLabels:
       app: grafana
   strategy:
-    type: Recreate
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
   template:
     metadata:
       labels:
@@ -20,7 +24,7 @@ spec:
         image: grafana/grafana:7.0.3
         securityContext:
           runAsUser: 0
-        command: ["chown", "-R", "grafana:grafana", "/var/lib/grafana"]
+        command: ["chown", "-R", "grafana:grafana", "/var/lib/grafana/data"]
         volumeMounts:
           - mountPath: /var/lib/grafana
             name: grafana-persistent-storage
@@ -32,6 +36,8 @@ spec:
           value: "true"
         - name: GF_INSTALL_PLUGINS
           value: grafana-influxdb-flux-datasource
+        - name: GF_PATHS_DATA
+          value: /var/lib/grafana/data
         - name: GF_RENDERING_CALLBACK_URL
           value: http://grafana:3000/
         - name: GF_RENDERING_SERVER_URL
@@ -41,7 +47,7 @@ spec:
         ports:
         - containerPort: 3000
         volumeMounts:
-        - mountPath: /var/lib/grafana
+        - mountPath: /var/lib/grafana/data
           name: grafana-persistent-storage
         - mountPath: /etc/grafana/provisioning/datasources
           readOnly: true
