@@ -128,7 +128,7 @@ data:
           UCTsEofJvQymp0Dcd4wYBmVQ = true # 桃乃ゆらり
 
     [[inputs.execd]]
-      name_override = "account"
+      name_override = "channel"
 
       command = ["youtube-telegraf-plugin", "-config", "/etc/telegraf/youtube-telegraf-plugin.conf"]
       signal = "none"
