@@ -1,6 +1,7 @@
 bases:
 - influxdb
 - worker
+- telegraf
 - grafana-image-renderer
 - grafana
 
