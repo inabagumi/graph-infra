@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: telegraf-config
 data:
-  telegraf.yaml: |
+  telegraf.conf: |
     # Configuration for telegraf agent
     [agent]
       ## Default data collection interval for all inputs
