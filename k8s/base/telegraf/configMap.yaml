@@ -136,7 +136,7 @@ data:
       command = ["youtube-telegraf-plugin", "-config", "/etc/telegraf/youtube-telegraf-plugin.conf"]
       signal = "none"
 
-  youtube-telegraf-plugin.conf:
+  youtube-telegraf-plugin.conf: |
     # YouTube Telegraf Plugin Configuration
 
     [[inputs.youtube]]
