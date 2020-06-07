@@ -59,22 +59,19 @@ data:
       ## If set to true, do no set the "host" tag in the telegraf agent.
       omit_hostname = true
 
-    [[outputs.influxdb_v2]]
-      ## The URLs of the InfluxDB cluster nodes.
+    [[outputs.influxdb]]
+      ## The full HTTP or UDP URL for your InfluxDB instance.
       ##
       ## Multiple URLs can be specified for a single cluster, only ONE of the
       ## urls will be written to each interval.
-      ## urls exp: http://127.0.0.1:9999
+      # urls = ["unix:///var/run/influxdb.sock"]
+      # urls = ["udp://127.0.0.1:8089"]
+      # urls = ["http://127.0.0.1:8086"]
       urls = ["${INFLUXDB_URL}"]
 
-      ## Token for authentication.
-      token = "${INFLUXDB_TOKEN}"
-
-      ## Organization is the name of the organization you wish to write to; must exist.
-      organization = "${INFLUXDB_ORG}"
-
-      ## Destination bucket to write into.
-      bucket = "youtube"
+      ## The target database for metrics; will be created as needed.
+      ## For UDP url endpoint database needs to be configured on server side.
+      database = "youtube"
 
     [[outputs.health]]
       ## Address and port to listen on.
