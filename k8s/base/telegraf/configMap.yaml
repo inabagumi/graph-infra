@@ -1,0 +1,178 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: telegraf-config
+data:
+  telegraf.yaml: |
+    # Configuration for telegraf agent
+    [agent]
+      ## Default data collection interval for all inputs
+      interval = "10s"
+      ## Rounds collection interval to 'interval'
+      ## ie, if interval="10s" then always collect on :00, :10, :20, etc.
+      round_interval = true
+
+      ## Telegraf will send metrics to outputs in batches of at most
+      ## metric_batch_size metrics.
+      ## This controls the size of writes that Telegraf sends to output plugins.
+      metric_batch_size = 1000
+
+      ## For failed writes, telegraf will cache metric_buffer_limit metrics for each
+      ## output, and will flush this buffer on a successful write. Oldest metrics
+      ## are dropped first when this buffer fills.
+      ## This buffer only fills when writes fail to output plugin(s).
+      metric_buffer_limit = 10000
+
+      ## Collection jitter is used to jitter the collection by a random amount.
+      ## Each plugin will sleep for a random time within jitter before collecting.
+      ## This can be used to avoid many plugins querying things like sysfs at the
+      ## same time, which can have a measurable effect on the system.
+      collection_jitter = "0s"
+
+      ## Default flushing interval for all outputs. Maximum flush_interval will be
+      ## flush_interval + flush_jitter
+      flush_interval = "10s"
+      ## Jitter the flush interval by a random amount. This is primarily to avoid
+      ## large write spikes for users running a large number of telegraf instances.
+      ## ie, a jitter of 5s and interval 10s means flushes will happen every 10-15s
+      flush_jitter = "0s"
+
+      ## By default or when set to "0s", precision will be set to the same
+      ## timestamp order as the collection interval, with the maximum being 1s.
+      ##   ie, when interval = "10s", precision will be "1s"
+      ##       when interval = "250ms", precision will be "1ms"
+      ## Precision will NOT be used for service inputs. It is up to each individual
+      ## service input to set the timestamp at the appropriate precision.
+      ## Valid time units are "ns", "us" (or "µs"), "ms", "s".
+      precision = "s"
+
+      ## Logging configuration:
+      ## Run telegraf with debug log messages.
+      debug = false
+      ## Run telegraf in quiet mode (error log messages only).
+      quiet = false
+      ## Specify the log file name. The empty string means to log to stderr.
+      logfile = ""
+
+      ## Override default hostname, if empty use os.Hostname()
+      hostname = ""
+      ## If set to true, do no set the "host" tag in the telegraf agent.
+      omit_hostname = true
+
+    [[outputs.influxdb_v2]]
+      ## The URLs of the InfluxDB cluster nodes.
+      ##
+      ## Multiple URLs can be specified for a single cluster, only ONE of the
+      ## urls will be written to each interval.
+      ## urls exp: http://127.0.0.1:9999
+      urls = ["${INFLUXDB_URL}"]
+
+      ## Token for authentication.
+      token = "${INFLUXDB_TOKEN}"
+
+      ## Organization is the name of the organization you wish to write to; must exist.
+      organization = "${INFLUXDB_ORG}"
+
+      ## Destination bucket to write into.
+      bucket = "youtube"
+
+    [[outputs.health]]
+      ## Address and port to listen on.
+      ##   ex: service_address = "http://localhost:8080"
+      ##       service_address = "unix:///var/run/telegraf-health.sock"
+      service_address = "http://:8080"
+
+    [[processors.enum]]
+      [[processors.enum.mapping]]
+        tag  = "id"
+        dest = "group"
+
+        [processors.enum.mapping.value_mappings]
+          UC3EhsuKdEkI99TWZwZgWutg = "VApArt"     # 杏戸ゆげ
+          UC0Owc36U9lOyi9Gx9Ic-4qg = "AniMare"    # 因幡はねる
+          UCGiFzwdasSAHILrx-DB1pVQ = "AniMare"    # 稲荷くろむ
+          UChqYnJlFxlBi6DfRz6jRenQ = "AniMare"    # 宇森ひなこ
+          UCXp7sNC0F_qkjickvlYkg-Q = "AniMare"    # 風見くく
+          UCmqrvfLMws-GLGHQcB5dasg = "VApArt"     # 花奏かのん
+          UCL-2thbJ7grC9fmGF4OLuTg = "VApArt"     # 鴨見カモミ
+          UChXm-xAYPfygrbyLo2yCASQ = "VApArt"     # 季咲あんこ
+          UC0xhrAce06OkQfHBqAfLQAQ = "AniMare"    # 奇想天外あにびっと!
+          UCr83W-PdmmbstrvnCn9kdZQ = "VApArt"     # 銀猫ななし
+          UC8BS2IrE9NmxKLX7ObRVyxQ = "AniMare"    # 黒猫ななし
+          UCvPPBoTOor5gm8zSlE2tg4w = "SugarLyric" # 虎城アンナ
+          UCzUNASdzI4PV5SlqtYwAkKQ = "VApArt"     # 小森めと
+          UCwePpiw1ocZRSNSkpKvVISw = "HoneyStrap" # 西園寺メアリ
+          UC--A2dwZW7-M2kID0N6_lfA = "SugarLyric" # 獅子王クリス
+          UCYTz3uIgwVY3ZU-IQJS8r3A = "HoneyStrap" # 島村シャルロット
+          UCtzCQnCT9E4o6U3mHHSHbQQ = "AniMare"    # 白宮みみ
+          UCeLzT-7b2PBcunJplmWtoDg = "HoneyStrap" # 周防パトラ
+          UCDh2bWI5EDu7PavqwICkVpA = "HoneyStrap" # 堰代ミコ
+          UC2kyQhzGOB-JPgcQX9OMgEw = "AniMare"    # 宗谷いちか
+          UC3UKMRQmBcjXWu66cvxcngA = "HoneyStrap" # 蒼月エリ
+          UCgqQ5iuvUyPRHp3rBLuOtCw = "HoneyStrap" # 灰猫ななし
+          UCOgONfZgrG2g0jntQKa6cDw = "AniMare"    # 灰原あかね
+          UC_BlXOQe5OcRC7o0GX8kp8A = "AniMare"    # 羽柴なつみ
+          UCRvpMpzAXBRKJQuk-8-Sdvg = "AniMare"    # 日ノ隈らん
+          UCV4EoK6BVNl7wxuxpUvvSWA = "VApArt"     # 不磨わっと
+          UCoieZAlwgK3uLkIYiJARDQw = "SugarLyric" # 三毛猫ななし
+          UCTsEofJvQymp0Dcd4wYBmVQ = "AniMare"    # 桃乃ゆらり
+          UCW8WKciBixmaqaGqrlTITRQ = "AniMare"    # 柚原いづみ
+          UC2hc-00y-MSR6eYA4eQ4tjQ = "SugarLyric" # 龍ヶ崎リン
+
+      [[processors.enum.mapping]]
+        tag  = "id"
+        dest = "retired"
+        default = false
+
+        [processors.enum.mapping.value_mappings]
+          UCGiFzwdasSAHILrx-DB1pVQ = true # 稲荷くろむ
+          UC3UKMRQmBcjXWu66cvxcngA = true # 蒼月エリ
+          UChqYnJlFxlBi6DfRz6jRenQ = true # 宇森ひなこ
+          UCTsEofJvQymp0Dcd4wYBmVQ = true # 桃乃ゆらり
+
+    [[inputs.execd]]
+      name_override = "account"
+
+      command = ["youtube-telegraf-plugin", "-config", "/etc/telegraf/youtube-telegraf-plugin.conf"]
+      signal = "none"
+
+  youtube-telegraf-plugin.conf:
+    # YouTube Telegraf Plugin Configuration
+
+    [[inputs.youtube]]
+      ## List of channels to monitor.
+      channels = [
+        "UC3EhsuKdEkI99TWZwZgWutg", # 杏戸ゆげ
+        "UC0Owc36U9lOyi9Gx9Ic-4qg", # 因幡はねる
+        "UCGiFzwdasSAHILrx-DB1pVQ", # 稲荷くろむ
+        "UChqYnJlFxlBi6DfRz6jRenQ", # 宇森ひなこ
+        "UCXp7sNC0F_qkjickvlYkg-Q", # 風見くく
+        "UCmqrvfLMws-GLGHQcB5dasg", # 花奏かのん
+        "UCL-2thbJ7grC9fmGF4OLuTg", # 鴨見カモミ
+        "UChXm-xAYPfygrbyLo2yCASQ", # 季咲あんこ
+        "UC0xhrAce06OkQfHBqAfLQAQ", # 奇想天外あにびっと!
+        "UCr83W-PdmmbstrvnCn9kdZQ", # 銀猫ななし
+        "UC8BS2IrE9NmxKLX7ObRVyxQ", # 黒猫ななし
+        "UCvPPBoTOor5gm8zSlE2tg4w", # 虎城アンナ
+        "UCzUNASdzI4PV5SlqtYwAkKQ", # 小森めと
+        "UCwePpiw1ocZRSNSkpKvVISw", # 西園寺メアリ
+        "UC--A2dwZW7-M2kID0N6_lfA", # 獅子王クリス
+        "UCYTz3uIgwVY3ZU-IQJS8r3A", # 島村シャルロット
+        "UCtzCQnCT9E4o6U3mHHSHbQQ", # 白宮みみ
+        "UCeLzT-7b2PBcunJplmWtoDg", # 周防パトラ
+        "UCDh2bWI5EDu7PavqwICkVpA", # 堰代ミコ
+        "UC2kyQhzGOB-JPgcQX9OMgEw", # 宗谷いちか
+        "UC3UKMRQmBcjXWu66cvxcngA", # 蒼月エリ
+        "UCgqQ5iuvUyPRHp3rBLuOtCw", # 灰猫ななし
+        "UCOgONfZgrG2g0jntQKa6cDw", # 灰原あかね
+        "UC_BlXOQe5OcRC7o0GX8kp8A", # 羽柴なつみ
+        "UCRvpMpzAXBRKJQuk-8-Sdvg", # 日ノ隈らん
+        "UCV4EoK6BVNl7wxuxpUvvSWA", # 不磨わっと
+        "UCoieZAlwgK3uLkIYiJARDQw", # 三毛猫ななし
+        "UCTsEofJvQymp0Dcd4wYBmVQ", # 桃乃ゆらり
+        "UCW8WKciBixmaqaGqrlTITRQ", # 柚原いづみ
+        "UC2hc-00y-MSR6eYA4eQ4tjQ" # 龍ヶ崎リン
+      ]
+
+      ## Google API key.
+      api_key = "${GOOGLE_API_KEY}"

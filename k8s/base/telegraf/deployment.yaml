@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: telegraf
+  labels:
+    app: telegraf
+spec:
+  selector:
+    matchLabels:
+      app: telegraf
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: telegraf
+    spec:
+      containers:
+      - name: telegraf
+        image: asia.gcr.io/soul-weight/telegraf
+        env:
+        - name: INFLUXDB_URL
+          value: http://influxdb:8086
+        - name: INFLUXDB_TOKEN
+          value: ""
+        - name: INFLUXDB_ORG
+          value: ""
+        - name: GOOGLE_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: youtube-credentials
+              key: api-key
+        volumeMounts:
+        - mountPath: /etc/telegraf
+          readOnly: true
+          name: telegraf-config
+        livenessProbe:
+          httpGet:
+            port: 8080
+            path: /
+          initialDelaySeconds: 10
+          periodSeconds: 5
+        readinessProbe:
+          httpGet:
+            port: 8080
+            path: /
+          initialDelaySeconds: 10
+          periodSeconds: 5
+      volumes:
+      - name: telegraf-config
+        configMap:
+          name: telegraf-config
