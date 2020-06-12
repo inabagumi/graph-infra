@@ -3,7 +3,7 @@ name: Deploy to k8s cluster
 on:
   push:
     branches:
-    - master
+    - trunk
     paths:
     - '.github/workflows/deploy.yml'
     - 'k8s/**'
