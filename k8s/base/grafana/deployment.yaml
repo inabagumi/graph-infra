@@ -19,15 +19,6 @@ spec:
       labels:
         app: grafana
     spec:
-      initContainers:
-      - name: init-chown-data
-        image: grafana/grafana:7.0.3
-        securityContext:
-          runAsUser: 0
-        command: ["chown", "-R", "grafana:grafana", "/var/lib/grafana/data"]
-        volumeMounts:
-          - mountPath: /var/lib/grafana/data
-            name: grafana-persistent-storage
       containers:
       - name: grafana
         image: grafana/grafana:7.0.3
@@ -47,8 +38,6 @@ spec:
         ports:
         - containerPort: 3000
         volumeMounts:
-        - mountPath: /var/lib/grafana/data
-          name: grafana-persistent-storage
         - mountPath: /etc/grafana/provisioning/datasources
           readOnly: true
           name: grafana-datasources
@@ -64,10 +53,3 @@ spec:
             path: /api/health
           initialDelaySeconds: 10
           periodSeconds: 5
-      volumes:
-      - name: grafana-persistent-storage
-        persistentVolumeClaim:
-          claimName: grafana-pv-claim
-      - name: grafana-datasources
-        configMap:
-          name: grafana-datasources

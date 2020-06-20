@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: grafana-datasources
 data:
-  influxdb.yaml: |
+  datasources.yaml: |
     apiVersion: 1
 
     datasources:
