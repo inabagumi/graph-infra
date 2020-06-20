@@ -53,39 +53,6 @@ resource "google_container_cluster" "primary" {
   ip_allocation_policy {}
 }
 
-resource "google_container_node_pool" "primary_preemptible_nodes" {
-  name       = "${local.name}-preemptible-node-pool"
-  location   = google_container_cluster.primary.location
-  cluster    = google_container_cluster.primary.name
-  node_count = 1
-
-  autoscaling {
-    min_node_count = 1
-    max_node_count = 2
-  }
-
-  management {
-    auto_repair  = true
-    auto_upgrade = true
-  }
-
-  node_config {
-    preemptible  = true
-    machine_type = local.machine_type
-    disk_size_gb = local.disk_size_gb
-
-    metadata = {
-      disable-legacy-endpoints = "true"
-    }
-
-    oauth_scopes = [
-      "https://www.googleapis.com/auth/devstorage.read_only",
-      "https://www.googleapis.com/auth/logging.write",
-      "https://www.googleapis.com/auth/monitoring",
-    ]
-  }
-}
-
 resource "google_container_node_pool" "primary_nodes" {
   name       = "${local.name}-node-pool"
   location   = google_container_cluster.primary.location
@@ -94,7 +61,7 @@ resource "google_container_node_pool" "primary_nodes" {
 
   autoscaling {
     min_node_count = 1
-    max_node_count = 2
+    max_node_count = 5
   }
 
   management {
