@@ -13,7 +13,7 @@ spec:
             secretKeyRef:
               name: cloudsql-db-credentials
               key: hostname
-        - name: GF_DATABASE_PASSWORD
+        - name: GF_DATABASE_NAME
           value: grafana
         - name: GF_DATABASE_PASSWORD
           valueFrom:
