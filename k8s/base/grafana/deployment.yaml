@@ -27,8 +27,6 @@ spec:
           value: "true"
         - name: GF_INSTALL_PLUGINS
           value: grafana-influxdb-flux-datasource
-        - name: GF_PATHS_DATA
-          value: /var/lib/grafana/data
         - name: GF_RENDERING_CALLBACK_URL
           value: http://grafana:3000/
         - name: GF_RENDERING_SERVER_URL
