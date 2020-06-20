@@ -8,6 +8,25 @@ spec:
       containers:
       - name: grafana
         env:
+        - name: GF_DATABASE_HOST
+          valueFrom:
+            secretKeyRef:
+              name: cloudsql-db-credentials
+              key: hostname
+        - name: GF_DATABASE_PASSWORD
+          value: grafana
+        - name: GF_DATABASE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: cloudsql-db-credentials
+              key: password
+        - name: GF_DATABASE_TYPE
+          value: mysql
+        - name: GF_DATABASE_USER
+          valueFrom:
+            secretKeyRef:
+              name: cloudsql-db-credentials
+              key: username
         - name: GF_EXTERNAL_IMAGE_STORAGE_GCS_BUCKET
           valueFrom:
             secretKeyRef:
