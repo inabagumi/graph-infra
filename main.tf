@@ -30,9 +30,9 @@ resource "google_dns_record_set" "frontend" {
 }
 
 resource "google_container_cluster" "primary" {
-  name         = "${local.name}-cluster"
-  location     = var.region
-  node_version = "1.15.12-gke.2"
+  name               = "${local.name}-cluster"
+  location           = var.region
+  min_master_version = "1.15.12-gke.2"
 
   node_locations = [
     var.zone
@@ -57,6 +57,7 @@ resource "google_container_node_pool" "primary_nodes" {
   name       = "${local.name}-node-pool"
   location   = google_container_cluster.primary.location
   cluster    = google_container_cluster.primary.name
+  version    = "1.15.12-gke.2"
   node_count = 2
 
   autoscaling {
