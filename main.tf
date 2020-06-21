@@ -32,7 +32,7 @@ resource "google_dns_record_set" "frontend" {
 resource "google_container_cluster" "primary" {
   name         = "${local.name}-cluster"
   location     = var.region
-  node_version = "1.14.10-gke.36"
+  node_version = "1.15.12-gke.2"
 
   node_locations = [
     var.zone
