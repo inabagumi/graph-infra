@@ -57,7 +57,7 @@ resource "google_container_node_pool" "primary_nodes" {
   name       = "${local.name}-node-pool"
   location   = google_container_cluster.primary.location
   cluster    = google_container_cluster.primary.name
-  version    = google_container_cluster.primary.name.min_master_version
+  version    = google_container_cluster.primary.min_master_version
   node_count = 2
 
   autoscaling {
