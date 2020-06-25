@@ -29,7 +29,7 @@ resource "google_dns_record_set" "frontend" {
   rrdatas = [google_compute_global_address.default.address]
 }
 
-resource "google_container_cluster" "primary0" {
+resource "google_container_cluster" "primary" {
   name               = "${local.name}-cluster"
   location           = var.region
   min_master_version = "1.16.9-gke.6"
@@ -53,7 +53,7 @@ resource "google_container_cluster" "primary0" {
   ip_allocation_policy {}
 }
 
-resource "google_container_cluster" "primary" {
+resource "google_container_cluster" "main" {
   name     = local.name
   location = var.zone
 
@@ -73,11 +73,11 @@ resource "google_container_cluster" "primary" {
   ip_allocation_policy {}
 }
 
-resource "google_container_node_pool" "primary_nodes0" {
+resource "google_container_node_pool" "primary_nodes" {
   name       = "${local.name}-node-pool"
-  location   = google_container_cluster.primary0.location
-  cluster    = google_container_cluster.primary0.name
-  version    = google_container_cluster.primary0.min_master_version
+  location   = google_container_cluster.primary.location
+  cluster    = google_container_cluster.primary.name
+  version    = google_container_cluster.primary.min_master_version
   node_count = 2
 
   autoscaling {
@@ -107,11 +107,11 @@ resource "google_container_node_pool" "primary_nodes0" {
   }
 }
 
-resource "google_container_node_pool" "primary_nodes" {
+resource "google_container_node_pool" "main_nodes" {
   name       = "${local.name}-node-pool"
-  location   = google_container_cluster.primary.location
-  cluster    = google_container_cluster.primary.name
-  version    = google_container_cluster.primary.min_master_version
+  location   = google_container_cluster.main.location
+  cluster    = google_container_cluster.main.name
+  version    = google_container_cluster.main.min_master_version
   node_count = 2
 
   autoscaling {
