@@ -13,8 +13,8 @@ on:
 
 env:
   GCP_PROJECT: soul-weight
-  GCP_REGION: asia-northeast1
-  GCP_CLUSTER: graph-cluster
+  GCP_REGION: asia-northeast1-c
+  GCP_CLUSTER: graph
   KUSTOMIZE_VERSION: 3.6.0
   SKAFFOLD_VERSION: 1.10.1
   SKAFFOLD_PROFILE: production
