@@ -117,8 +117,8 @@ data:
           UC2hc-00y-MSR6eYA4eQ4tjQ = "SugarLyric" # 龍ヶ崎リン
 
       [[processors.enum.mapping]]
-        tag  = "id"
-        dest = "retired"
+        tag     = "id"
+        dest    = "retired"
         default = false
 
         [processors.enum.mapping.value_mappings]
@@ -168,7 +168,7 @@ data:
         "UCoieZAlwgK3uLkIYiJARDQw", # 三毛猫ななし
         "UCTsEofJvQymp0Dcd4wYBmVQ", # 桃乃ゆらり
         "UCW8WKciBixmaqaGqrlTITRQ", # 柚原いづみ
-        "UC2hc-00y-MSR6eYA4eQ4tjQ" # 龍ヶ崎リン
+        "UC2hc-00y-MSR6eYA4eQ4tjQ"  # 龍ヶ崎リン
       ]
 
       ## Google API key.
