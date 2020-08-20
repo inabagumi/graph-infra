@@ -9,8 +9,8 @@ import (
 	"time"
 
 	"github.com/ChimeraCoder/anaconda"
-	influxdb2 "github.com/influxdata/influxdb-client-go"
-	"github.com/influxdata/influxdb-client-go/api"
+	influxdb2 "github.com/influxdata/influxdb-client-go/v2"
+	"github.com/influxdata/influxdb-client-go/v2/api"
 )
 
 type Target struct {
@@ -52,7 +52,7 @@ func getTarget(id int64) Target {
 	return Target{}
 }
 
-func index(writeApi api.WriteApi, now time.Time) error {
+func index(writeAPI api.WriteAPI, now time.Time) error {
 	var ids []int64
 	for _, t := range targets {
 		ids = append(ids, t.ID)
@@ -82,13 +82,13 @@ func index(writeApi api.WriteApi, now time.Time) error {
 			AddField("statuses", user.StatusesCount).
 			SetTime(now)
 
-		writeApi.WritePoint(p)
+		writeAPI.WritePoint(p)
 	}
 
 	return nil
 }
 
-func index2(writeApi api.WriteApi, now time.Time) error {
+func index2(writeAPI api.WriteAPI, now time.Time) error {
 	lists, err := twitterApi.GetListsOwnedBy(995247053977485313, nil)
 	if err != nil {
 		return err
@@ -103,26 +103,26 @@ func index2(writeApi api.WriteApi, now time.Time) error {
 			AddTag("owner", list.User.IdStr).
 			AddField("members", list.MemberCount)
 
-		writeApi.WritePoint(p)
+		writeAPI.WritePoint(p)
 	}
 
 	return nil
 }
 
 func worker(client influxdb2.Client) {
-	writeApi := client.WriteApi("", "twitter")
-	defer writeApi.Close()
+	writeAPI := client.WriteAPI("", "twitter")
+	defer writeAPI.Flush()
 
 	ticker := time.NewTicker(10 * time.Second)
 	defer ticker.Stop()
 
-	err := index(writeApi, time.Now())
+	err := index(writeAPI, time.Now())
 	if err != nil {
 		log.Printf("Error: %v", err)
 	}
 
 	for t := range ticker.C {
-		err = index(writeApi, t)
+		err = index(writeAPI, t)
 		if err != nil {
 			log.Printf("Error: %v", err)
 		}
@@ -130,19 +130,19 @@ func worker(client influxdb2.Client) {
 }
 
 func worker2(client influxdb2.Client) {
-	writeApi := client.WriteApi("", "twitter")
-	defer writeApi.Close()
+	writeAPI := client.WriteAPI("", "twitter")
+	defer writeAPI.Flush()
 
 	ticker := time.NewTicker(1 * time.Minute)
 	defer ticker.Stop()
 
-	err := index2(writeApi, time.Now())
+	err := index2(writeAPI, time.Now())
 	if err != nil {
 		log.Printf("Error: %v", err)
 	}
 
 	for t := range ticker.C {
-		err = index2(writeApi, t)
+		err = index2(writeAPI, t)
 		if err != nil {
 			log.Printf("Error: %v", err)
 		}
