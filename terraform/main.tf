@@ -33,7 +33,7 @@ resource "google_container_cluster" "main" {
   name     = local.name
   location = var.zone
 
-  min_master_version       = "1.16.9-gke.6"
+  min_master_version       = "1.16.13-gke.1"
   remove_default_node_pool = true
   initial_node_count       = 1
 
