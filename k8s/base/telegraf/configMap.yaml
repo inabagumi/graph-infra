@@ -125,6 +125,7 @@ data:
           UC3UKMRQmBcjXWu66cvxcngA = true # 蒼月エリ
           UChqYnJlFxlBi6DfRz6jRenQ = true # 宇森ひなこ
           UCTsEofJvQymp0Dcd4wYBmVQ = true # 桃乃ゆらり
+          UCOgONfZgrG2g0jntQKa6cDw = true # 灰原あかね
 
     [[inputs.execd]]
       name_override = "channel"
