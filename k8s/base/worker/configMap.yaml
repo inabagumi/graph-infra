@@ -13,7 +13,8 @@ data:
       {
         "id": 1245697015066984451,
         "screen_name": "Akane_Haibara",
-        "group": "AniMare"
+        "group": "AniMare",
+        "retired": true
       },
       {
         "id": 993839162099810305,
