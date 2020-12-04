@@ -1,4 +1,4 @@
-FROM golang:1.15.5-buster as build
+FROM golang:1.15.6-buster as build
 
 WORKDIR /go/src/worker
 ADD . /go/src/worker
