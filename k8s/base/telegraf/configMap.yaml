@@ -89,6 +89,7 @@ data:
           UC0Owc36U9lOyi9Gx9Ic-4qg = "AniMare"    # 因幡はねる
           UCGiFzwdasSAHILrx-DB1pVQ = "AniMare"    # 稲荷くろむ
           UChqYnJlFxlBi6DfRz6jRenQ = "AniMare"    # 宇森ひなこ
+          UC3xG1XWzAKt5dxSxktJvtxg = "AniMare"    # 大浦るかこ
           UCXp7sNC0F_qkjickvlYkg-Q = "AniMare"    # 風見くく
           UCmqrvfLMws-GLGHQcB5dasg = "VApArt"     # 花奏かのん
           UChXm-xAYPfygrbyLo2yCASQ = "VApArt"     # 季咲あんこ
@@ -96,6 +97,7 @@ data:
           UCr83W-PdmmbstrvnCn9kdZQ = "VApArt"     # 銀猫ななし
           UC8BS2IrE9NmxKLX7ObRVyxQ = "AniMare"    # 黒猫ななし
           UCvPPBoTOor5gm8zSlE2tg4w = "SugarLyric" # 虎城アンナ
+          UC4PrHgUcAtOoj_LKmUL-uLQ = "AniMare"    # 湖南みあ
           UCzUNASdzI4PV5SlqtYwAkKQ = "VApArt"     # 小森めと
           UCwePpiw1ocZRSNSkpKvVISw = "HoneyStrap" # 西園寺メアリ
           UC--A2dwZW7-M2kID0N6_lfA = "SugarLyric" # 獅子王クリス
@@ -106,7 +108,7 @@ data:
           UC_WOBIopwUih0rytRnr_1Ag = "AniMare"    # 瀬島るい
           UC2kyQhzGOB-JPgcQX9OMgEw = "AniMare"    # 宗谷いちか
           UC3UKMRQmBcjXWu66cvxcngA = "HoneyStrap" # 蒼月エリ
-          UCqskJ0nmw-_eweWfsKvbrzQ = "AniMare"    # 月野木チロル
+          UCqskJ0nmw-_eweWfsKvbrzQ = "AniMare"    # 月野木ちろる
           UCgqQ5iuvUyPRHp3rBLuOtCw = "HoneyStrap" # 灰猫ななし
           UCOgONfZgrG2g0jntQKa6cDw = "AniMare"    # 灰原あかね
           UC_BlXOQe5OcRC7o0GX8kp8A = "AniMare"    # 羽柴なつみ
@@ -146,6 +148,7 @@ data:
         "UC0Owc36U9lOyi9Gx9Ic-4qg", # 因幡はねる
         "UCGiFzwdasSAHILrx-DB1pVQ", # 稲荷くろむ
         "UChqYnJlFxlBi6DfRz6jRenQ", # 宇森ひなこ
+        "UC3xG1XWzAKt5dxSxktJvtxg", # 大浦るかこ
         "UCXp7sNC0F_qkjickvlYkg-Q", # 風見くく
         "UCmqrvfLMws-GLGHQcB5dasg", # 花奏かのん
         "UChXm-xAYPfygrbyLo2yCASQ", # 季咲あんこ
@@ -153,6 +156,7 @@ data:
         "UCr83W-PdmmbstrvnCn9kdZQ", # 銀猫ななし
         "UC8BS2IrE9NmxKLX7ObRVyxQ", # 黒猫ななし
         "UCvPPBoTOor5gm8zSlE2tg4w", # 虎城アンナ
+        "UC4PrHgUcAtOoj_LKmUL-uLQ", # 湖南みあ
         "UCzUNASdzI4PV5SlqtYwAkKQ", # 小森めと
         "UCwePpiw1ocZRSNSkpKvVISw", # 西園寺メアリ
         "UC--A2dwZW7-M2kID0N6_lfA", # 獅子王クリス
@@ -163,7 +167,7 @@ data:
         "UC_WOBIopwUih0rytRnr_1Ag", # 瀬島るい
         "UC2kyQhzGOB-JPgcQX9OMgEw", # 宗谷いちか
         "UC3UKMRQmBcjXWu66cvxcngA", # 蒼月エリ
-        "UCqskJ0nmw-_eweWfsKvbrzQ", # 月野木チロル
+        "UCqskJ0nmw-_eweWfsKvbrzQ", # 月野木ちろる
         "UCgqQ5iuvUyPRHp3rBLuOtCw", # 灰猫ななし
         "UCOgONfZgrG2g0jntQKa6cDw", # 灰原あかね
         "UC_BlXOQe5OcRC7o0GX8kp8A", # 羽柴なつみ
