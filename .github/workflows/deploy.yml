@@ -12,9 +12,6 @@ on:
     - 'worker/**'
 
 env:
-  GCP_PROJECT: soul-weight
-  GCP_REGION: asia-northeast1-c
-  GCP_CLUSTER: graph
   KUSTOMIZE_VERSION: 3.6.0
   SKAFFOLD_VERSION: 1.10.1
   SKAFFOLD_PROFILE: production
@@ -25,9 +22,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
-    - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+    - uses: google-github-actions/setup-gcloud@master
       with:
+        export_default_credentials: true
+        project_id: soul-weight
         service_account_key: ${{ secrets.GCP_SA_KEY }}
+    - uses: google-github-actions/get-gke-credentials@main
+      with:
+        cluster_name: graph
+        location: asia-northeast1-c
 
     - name: Set up Skaffold
       run: |
@@ -47,5 +50,4 @@ jobs:
 
     - name: Deploy
       run: |
-        gcloud container clusters get-credentials $GCP_CLUSTER --project $GCP_PROJECT --region $GCP_REGION
         skaffold deploy --build-artifacts tags.json --status-check=false
