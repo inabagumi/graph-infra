@@ -5,3 +5,4 @@ metadata:
   annotations:
     kubernetes.io/ingress.global-static-ip-name: graph-ip
     networking.gke.io/managed-certificates: graph-certificate, graph-old-certificate
+    networking.gke.io/v1beta1.FrontendConfig: grafana-frontend-config
