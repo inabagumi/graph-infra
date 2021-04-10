@@ -3,6 +3,7 @@ bases:
 
 resources:
 - backendconfig.yaml
+- frontendconfig.yaml
 - certificate.yaml
 
 patches:
