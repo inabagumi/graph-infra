@@ -25,6 +25,10 @@ spec:
         env:
         - name: GF_AUTH_ANONYMOUS_ENABLED
           value: "true"
+        - name: GF_INSTALL_PLUGINS
+          value: https://github.com/doitintl/bigquery-grafana/archive/2.0.2.zip;doit-bigquery-datasource
+        - name: GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS
+          value: doitintl-bigquery-datasource
         - name: GF_RENDERING_CALLBACK_URL
           value: http://grafana:3000/
         - name: GF_RENDERING_SERVER_URL
