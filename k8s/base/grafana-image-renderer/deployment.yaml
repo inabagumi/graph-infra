@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: grafana-image-renderer
-        image: grafana/grafana-image-renderer:2.0.1
+        image: grafana/grafana-image-renderer:2.1.0
         env:
         - name: BROWSER_TZ
           value: Asia/Tokyo
