@@ -320,10 +320,10 @@ data:
       1448968028972933000  # HIYOCRO_PT
     ]
     ## Twitter API consumer key.
-    # consumer_key = "${TWITTER_CONSUMER_KEY}"
+    consumer_key = "${TWITTER_CONSUMER_KEY}"
     ## Twitter API consumer secret.
-    # consumer_secret = "${TWITTER_CONSUMER_SECRET}"
+    consumer_secret = "${TWITTER_CONSUMER_SECRET}"
     ## Twitter API access token.
-    # access_token = "${TWITTER_ACCESS_TOKEN}"
+    access_token = "${TWITTER_ACCESS_TOKEN}"
     ## Twitter API access token secret.
-    # access_token_secret = "${TWITTER_ACCESS_TOKEN_SECRET}"
+    access_token_secret = "${TWITTER_ACCESS_TOKEN_SECRET}"
