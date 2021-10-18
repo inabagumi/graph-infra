@@ -9,7 +9,6 @@ on:
     - 'k8s/**'
     - '!k8s/overlays/development/**'
     - 'skaffold.yaml'
-    - 'worker/**'
 
 env:
   KUSTOMIZE_VERSION: 3.6.0

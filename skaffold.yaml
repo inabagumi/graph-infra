@@ -6,8 +6,6 @@ build:
   artifacts:
   - image: asia.gcr.io/soul-weight/telegraf
     context: telegraf
-  - image: asia.gcr.io/soul-weight/worker
-    context: worker
 deploy:
   statusCheckDeadlineSeconds: 300
   kustomize:
