@@ -157,48 +157,48 @@ data:
         dest = "group"
 
         [processors.enum.mapping.value_mappings]
-          992355895051866100  = "VApArt"     # _kanade_kanon
-          993839162099810300  = "AniMare"    # AniMare_cafe
-          995247053977485300  = "AniMare"    # Haneru_Inaba
-          995250952373391400  = "AniMare"    # Hinako_Umori
-          995253301472972800  = "AniMare"    # Ichika_Souya
-          995258822556991500  = "AniMare"    # Ran_Hinokuma
-          1007247110167674900 = "HoneyStrap" # HNST_official
-          1007268292648505300 = "HoneyStrap" # Patra_HNST
-          1007290563756871700 = "HoneyStrap" # Eli_HNST
-          1007316805981892600 = "HoneyStrap" # Charlotte_HNST
-          1007331251685023700 = "HoneyStrap" # Mary_HNST
-          1007339408343777300 = "HoneyStrap" # Mico_HNST
-          1091634367158337500 = "VApArt"     # Vtuber_ApArt
-          1091649332539846700 = "VApArt"     # Uge_And
-          1113405297949700100 = "AniMare"    # tirol0_0lorit
-          1128841181222203400 = "AniMare"    # shiromiya_mimi
-          1184117947582697500 = "VApArt"     # Anko_Kisaki
-          1224952244719587300 = "AniMare"    # Kuku_Kazami
-          1224956450100764700 = "AniMare"    # Izumi_Yunohara
-          1234696406931136500 = "SugarLyric" # Anna_Kojo
-          1234697406542803000 = "SugarLyric" # Rene_Ryugasaki
-          1234698396297859000 = "SugarLyric" # SugarLyric_PI
+          992355895051866112  = "VApArt"     # _kanade_kanon
+          993839162099810305  = "AniMare"    # AniMare_cafe
+          995247053977485313  = "AniMare"    # Haneru_Inaba
+          995250952373391360  = "AniMare"    # Hinako_Umori
+          995253301472972801  = "AniMare"    # Ichika_Souya
+          995258822556991493  = "AniMare"    # Ran_Hinokuma
+          1007247110167674881 = "HoneyStrap" # HNST_official
+          1007268292648505344 = "HoneyStrap" # Patra_HNST
+          1007290563756871681 = "HoneyStrap" # Eli_HNST
+          1007316805981892613 = "HoneyStrap" # Charlotte_HNST
+          1007331251685023744 = "HoneyStrap" # Mary_HNST
+          1007339408343777281 = "HoneyStrap" # Mico_HNST
+          1091634367158337536 = "VApArt"     # Vtuber_ApArt
+          1091649332539846656 = "VApArt"     # Uge_And
+          1113405297949700096 = "AniMare"    # tirol0_0lorit
+          1128841181222203393 = "AniMare"    # shiromiya_mimi
+          1184117947582697473 = "VApArt"     # Anko_Kisaki
+          1224952244719587328 = "AniMare"    # Kuku_Kazami
+          1224956450100764673 = "AniMare"    # Izumi_Yunohara
+          1234696406931136513 = "SugarLyric" # Anna_Kojo
+          1234697406542802950 = "SugarLyric" # Rene_Ryugasaki
+          1234698396297859072 = "SugarLyric" # SugarLyric_PI
           1240652791892172800 = "SugarLyric" # ChrisShishio
-          1245694490532176000 = "AniMare"    # Natsumi_Hashiba
-          1245695747602837500 = "AniMare"    # Yurari_Momono
-          1245697015066984400 = "AniMare"    # Akane_Haibara
-          1248507657226313700 = "AniMare"    # KisoAnibit
-          1258264128780554200 = "VApArt"     # Met_Komori
-          1258264848011366400 = "VApArt"     # Wat_Huma
-          1308626156447436800 = "AniMare"    # Rui_Seshima
-          1308632177815421000 = "AniMare"    # Hikari_Hira
-          1351387644081520600 = "AniMare"    # Rukako_Oura
-          1351423100026425300 = "AniMare"    # Mia_Konan
-          1397780980597883000 = "AniMare"    # kimagureiinkai
-          1414380215002747000 = "774inc"     # 774inc_vacation
-          1445646417385574400 = "HIYOCRO"    # Sei_Touri
-          1445646752430784500 = "HIYOCRO"    # Nemo_Suzumi
-          1445647446638399500 = "HIYOCRO"    # Canna_Akane
+          1245694490532175873 = "AniMare"    # Natsumi_Hashiba
+          1245695747602837504 = "AniMare"    # Yurari_Momono
+          1245697015066984451 = "AniMare"    # Akane_Haibara
+          1248507657226313728 = "AniMare"    # KisoAnibit
+          1258264128780554241 = "VApArt"     # Met_Komori
+          1258264848011366402 = "VApArt"     # Wat_Huma
+          1308626156447436801 = "AniMare"    # Rui_Seshima
+          1308632177815420933 = "AniMare"    # Hikari_Hira
+          1351387644081520641 = "AniMare"    # Rukako_Oura
+          1351423100026425344 = "AniMare"    # Mia_Konan
+          1397780980597882883 = "AniMare"    # kimagureiinkai
+          1414380215002746881 = "774 inc."   # 774inc_vacation
+          1445646417385574414 = "HIYOCRO"    # Sei_Touri
+          1445646752430784519 = "HIYOCRO"    # Nemo_Suzumi
+          1445647446638399492 = "HIYOCRO"    # Canna_Akane
           1445647483925717000 = "HIYOCRO"    # Popo_Ieiri
-          1445647873882742800 = "HIYOCRO"    # Kiki_Shisui
-          1445647957412384800 = "HIYOCRO"    # Yuri_Kohakuu
-          1448968028972933000 = "HIYOCRO"    # HIYOCRO_PT
+          1445647873882742785 = "HIYOCRO"    # Kiki_Shisui
+          1445647957412384777 = "HIYOCRO"    # Yuri_Kohakuu
+          1448968028972933127 = "HIYOCRO"    # HIYOCRO_PT
 
       [[processors.enum.mapping]]
         tag     = "id"
@@ -206,11 +206,11 @@ data:
         default = false
 
         [processors.enum.mapping.value_mappings]
-          995250952373391400  = true # Hinako_Umori
-          1007290563756871700 = true # Eli_HNST
-          1245694490532176000 = true # Natsumi_Hashiba
-          1245695747602837500 = true # Yurari_Momono
-          1245697015066984400 = true # Akane_Haibara
+          995250952373391360  = true # Hinako_Umori
+          1007290563756871681 = true # Eli_HNST
+          1245694490532175873 = true # Natsumi_Hashiba
+          1245695747602837504 = true # Yurari_Momono
+          1245697015066984451 = true # Akane_Haibara
 
     [[inputs.execd]]
       name_override = "channel"
@@ -276,48 +276,48 @@ data:
     [[inputs.twitter]]
     ## List of accounts to monitor.
     accounts = [
-      992355895051866100,  # _kanade_kanon
-      993839162099810300,  # AniMare_cafe
-      995247053977485300,  # Haneru_Inaba
-      995250952373391400,  # Hinako_Umori
-      995253301472972800,  # Ichika_Souya
-      995258822556991500,  # Ran_Hinokuma
-      1007247110167674900, # HNST_official
-      1007268292648505300, # Patra_HNST
-      1007290563756871700, # Eli_HNST
-      1007316805981892600, # Charlotte_HNST
-      1007331251685023700, # Mary_HNST
-      1007339408343777300, # Mico_HNST
-      1091634367158337500, # Vtuber_ApArt
-      1091649332539846700, # Uge_And
-      1113405297949700100, # tirol0_0lorit
-      1128841181222203400, # shiromiya_mimi
-      1184117947582697500, # Anko_Kisaki
-      1224952244719587300, # Kuku_Kazami
-      1224956450100764700, # Izumi_Yunohara
-      1234696406931136500, # Anna_Kojo
-      1234697406542803000, # Rene_Ryugasaki
-      1234698396297859000, # SugarLyric_PI
+      992355895051866112,  # _kanade_kanon
+      993839162099810305,  # AniMare_cafe
+      995247053977485313,  # Haneru_Inaba
+      995250952373391360,  # Hinako_Umori
+      995253301472972801,  # Ichika_Souya
+      995258822556991493,  # Ran_Hinokuma
+      1007247110167674881, # HNST_official
+      1007268292648505344, # Patra_HNST
+      1007290563756871681, # Eli_HNST
+      1007316805981892613, # Charlotte_HNST
+      1007331251685023744, # Mary_HNST
+      1007339408343777281, # Mico_HNST
+      1091634367158337536, # Vtuber_ApArt
+      1091649332539846656, # Uge_And
+      1113405297949700096, # tirol0_0lorit
+      1128841181222203393, # shiromiya_mimi
+      1184117947582697473, # Anko_Kisaki
+      1224952244719587328, # Kuku_Kazami
+      1224956450100764673, # Izumi_Yunohara
+      1234696406931136513, # Anna_Kojo
+      1234697406542802950, # Rene_Ryugasaki
+      1234698396297859072, # SugarLyric_PI
       1240652791892172800, # ChrisShishio
-      1245694490532176000, # Natsumi_Hashiba
-      1245695747602837500, # Yurari_Momono
-      1245697015066984400, # Akane_Haibara
-      1248507657226313700, # KisoAnibit
-      1258264128780554200, # Met_Komori
-      1258264848011366400, # Wat_Huma
-      1308626156447436800, # Rui_Seshima
-      1308632177815421000, # Hikari_Hira
-      1351387644081520600, # Rukako_Oura
-      1351423100026425300, # Mia_Konan
-      1397780980597883000, # kimagureiinkai
-      1414380215002747000, # 774inc_vacation
-      1445646417385574400, # Sei_Touri
-      1445646752430784500, # Nemo_Suzumi
-      1445647446638399500, # Canna_Akane
+      1245694490532175873, # Natsumi_Hashiba
+      1245695747602837504, # Yurari_Momono
+      1245697015066984451, # Akane_Haibara
+      1248507657226313728, # KisoAnibit
+      1258264128780554241, # Met_Komori
+      1258264848011366402, # Wat_Huma
+      1308626156447436801, # Rui_Seshima
+      1308632177815420933, # Hikari_Hira
+      1351387644081520641, # Rukako_Oura
+      1351423100026425344, # Mia_Konan
+      1397780980597882883, # kimagureiinkai
+      1414380215002746881, # 774inc_vacation
+      1445646417385574414, # Sei_Touri
+      1445646752430784519, # Nemo_Suzumi
+      1445647446638399492, # Canna_Akane
       1445647483925717000, # Popo_Ieiri
-      1445647873882742800, # Kiki_Shisui
-      1445647957412384800, # Yuri_Kohakuu
-      1448968028972933000  # HIYOCRO_PT
+      1445647873882742785, # Kiki_Shisui
+      1445647957412384777, # Yuri_Kohakuu
+      1448968028972933127, # HIYOCRO_PT
     ]
     ## Twitter API consumer key.
     consumer_key = "${TWITTER_CONSUMER_KEY}"
