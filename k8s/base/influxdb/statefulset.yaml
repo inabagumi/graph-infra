@@ -17,16 +17,30 @@ spec:
     spec:
       containers:
       - name: influxdb
-        image: influxdb:1.8.10-alpine
+        image: influxdb:2.0.9-alpine
         env:
-        - name: INFLUXDB_DB
-          value: twitter
-        - name: INFLUXDB_HTTP_FLUX_ENABLED
-          value: "true"
+        - name: DOCKER_INFLUXDB_INIT_MODE
+          value: upgrade
+        - name: DOCKER_INFLUXDB_INIT_USERNAME
+          value: ykzts
+        - name: DOCKER_INFLUXDB_INIT_PASSWORD
+          value: pppp1234
+        - name: DOCKER_INFLUXDB_INIT_ORG
+          value: inabagumi
+        - name: DOCKER_INFLUXDB_INIT_BUCKET
+          value: default
+        - name: DOCKER_INFLUXDB_INIT_ADMIN_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: influxdb-credentials
+              key: token
         ports:
         - containerPort: 8086
         volumeMounts:
         - mountPath: /var/lib/influxdb
+          name: influxdb-data
+        volumeMounts:
+        - mountPath: /var/lib/influxdb2
           name: influxdb-data
         livenessProbe:
           httpGet:
@@ -43,6 +57,16 @@ spec:
   volumeClaimTemplates:
   - metadata:
       name: influxdb-data
+      labels:
+        app: influxdb
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 5Gi
+  - metadata:
+      name: influxdb2-data
       labels:
         app: influxdb
     spec:
