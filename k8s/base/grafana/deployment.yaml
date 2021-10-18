@@ -23,6 +23,8 @@ spec:
       - name: grafana
         image: grafana/grafana:8.2.1
         env:
+        - name: GF_ALERTING_ENABLED
+          value: "false"
         - name: GF_AUTH_ANONYMOUS_ENABLED
           value: "true"
         - name: GF_INSTALL_PLUGINS
@@ -35,6 +37,8 @@ spec:
           value: http://grafana-image-renderer:8081/render
         - name: GF_SNAPSHOTS_EXTERNAL_ENABLED
           value: "false"
+        - name: GF_UNIFIED_ALERTING_ENABLED
+          value: "true"
         ports:
         - containerPort: 3000
         volumeMounts:
