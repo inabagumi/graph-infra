@@ -37,6 +37,11 @@ data:
         "group": "SugarLyric"
       },
       {
+        "id": 1445647446638399492,
+        "screen_name": "Canna_Akane",
+        "group": "HIYOCRO"
+      },
+      {
         "id": 1007316805981892613,
         "screen_name": "Charlotte_HNST",
         "group": "HoneyStrap"
@@ -89,6 +94,11 @@ data:
         "group": "AniMare"
       },
       {
+        "id": 1445647873882742785,
+        "screen_name": "Kiki_Shisui",
+        "group": "HIYOCRO"
+      },
+      {
         "id": 1248507657226313728,
         "screen_name": "KisoAnibit",
         "group": "AniMare"
@@ -126,12 +136,23 @@ data:
       {
         "id": 1245694490532175873,
         "screen_name": "Natsumi_Hashiba",
-        "group": "AniMare"
+        "group": "AniMare",
+        "retired": true
+      },
+      {
+        "id": 1445646752430784519,
+        "screen_name": "Nemo_Suzumi",
+        "group": "HIYOCRO"
       },
       {
         "id": 1007268292648505344,
         "screen_name": "Patra_HNST",
         "group": "HoneyStrap"
+      },
+      {
+        "id": 1445647483925717000,
+        "screen_name": "Popo_Ieiri",
+        "group": "HIYOCRO"
       },
       {
         "id": 995258822556991493,
@@ -152,6 +173,11 @@ data:
         "id": 1351387644081520641,
         "screen_name": "Rukako_Oura",
         "group": "AniMare"
+      },
+      {
+        "id": 1445646417385574414,
+        "screen_name": "Sei_Touri",
+        "group": "HIYOCRO"
       },
       {
         "id": 1128841181222203393,
@@ -183,6 +209,11 @@ data:
         "screen_name": "Yurari_Momono",
         "group": "AniMare",
         "retired": true
+      },
+      {
+        "id": 1445647957412384777,
+        "screen_name": "Yuri_Kohakuu",
+        "group": "HIYOCRO"
       },
       {
         "id": 1258264848011366402,
