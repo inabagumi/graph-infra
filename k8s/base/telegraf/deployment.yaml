@@ -25,9 +25,12 @@ spec:
         - name: INFLUXDB_URL
           value: http://influxdb:8086
         - name: INFLUXDB_TOKEN
-          value: ""
+          valueFrom:
+            secretKeyRef:
+              name: influxdb-credentials
+              key: token
         - name: INFLUXDB_ORG
-          value: ""
+          value: inabagumi
         - name: GOOGLE_API_KEY
           valueFrom:
             secretKeyRef:
