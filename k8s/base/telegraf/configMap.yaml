@@ -73,6 +73,24 @@ data:
       ## For UDP url endpoint database needs to be configured on server side.
       database = "youtube"
 
+      namepass = ["channel"]
+
+    [[outputs.influxdb]]
+      ## The full HTTP or UDP URL for your InfluxDB instance.
+      ##
+      ## Multiple URLs can be specified for a single cluster, only ONE of the
+      ## urls will be written to each interval.
+      # urls = ["unix:///var/run/influxdb.sock"]
+      # urls = ["udp://127.0.0.1:8089"]
+      # urls = ["http://127.0.0.1:8086"]
+      urls = ["${INFLUXDB_URL}"]
+
+      ## The target database for metrics; will be created as needed.
+      ## For UDP url endpoint database needs to be configured on server side.
+      database = "twitter"
+
+      namepass = ["account"]
+
     [[outputs.health]]
       ## Address and port to listen on.
       ##   ex: service_address = "http://localhost:8080"
@@ -132,11 +150,78 @@ data:
           UChqYnJlFxlBi6DfRz6jRenQ = true # 宇森ひなこ
           UCTsEofJvQymp0Dcd4wYBmVQ = true # 桃乃ゆらり
           UCOgONfZgrG2g0jntQKa6cDw = true # 灰原あかね
+          UC_BlXOQe5OcRC7o0GX8kp8A = true # 羽柴なつみ
+
+      [[processors.enum.mapping]]
+        tag  = "id"
+        dest = "group"
+
+        [processors.enum.mapping.value_mappings]
+          992355895051866100  = "VApArt"     # _kanade_kanon
+          993839162099810300  = "AniMare"    # AniMare_cafe
+          995247053977485300  = "AniMare"    # Haneru_Inaba
+          995250952373391400  = "AniMare"    # Hinako_Umori
+          995253301472972800  = "AniMare"    # Ichika_Souya
+          995258822556991500  = "AniMare"    # Ran_Hinokuma
+          1007247110167674900 = "HoneyStrap" # HNST_official
+          1007268292648505300 = "HoneyStrap" # Patra_HNST
+          1007290563756871700 = "HoneyStrap" # Eli_HNST
+          1007316805981892600 = "HoneyStrap" # Charlotte_HNST
+          1007331251685023700 = "HoneyStrap" # Mary_HNST
+          1007339408343777300 = "HoneyStrap" # Mico_HNST
+          1091634367158337500 = "VApArt"     # Vtuber_ApArt
+          1091649332539846700 = "VApArt"     # Uge_And
+          1113405297949700100 = "AniMare"    # tirol0_0lorit
+          1128841181222203400 = "AniMare"    # shiromiya_mimi
+          1184117947582697500 = "VApArt"     # Anko_Kisaki
+          1224952244719587300 = "AniMare"    # Kuku_Kazami
+          1224956450100764700 = "AniMare"    # Izumi_Yunohara
+          1234696406931136500 = "SugarLyric" # Anna_Kojo
+          1234697406542803000 = "SugarLyric" # Rene_Ryugasaki
+          1234698396297859000 = "SugarLyric" # SugarLyric_PI
+          1240652791892172800 = "SugarLyric" # ChrisShishio
+          1245694490532176000 = "AniMare"    # Natsumi_Hashiba
+          1245695747602837500 = "AniMare"    # Yurari_Momono
+          1245697015066984400 = "AniMare"    # Akane_Haibara
+          1248507657226313700 = "AniMare"    # KisoAnibit
+          1258264128780554200 = "VApArt"     # Met_Komori
+          1258264848011366400 = "VApArt"     # Wat_Huma
+          1308626156447436800 = "AniMare"    # Rui_Seshima
+          1308632177815421000 = "AniMare"    # Hikari_Hira
+          1351387644081520600 = "AniMare"    # Rukako_Oura
+          1351423100026425300 = "AniMare"    # Mia_Konan
+          1397780980597883000 = "AniMare"    # kimagureiinkai
+          1414380215002747000 = "774inc"     # 774inc_vacation
+          1445646417385574400 = "HIYOCRO"    # Sei_Touri
+          1445646752430784500 = "HIYOCRO"    # Nemo_Suzumi
+          1445647446638399500 = "HIYOCRO"    # Canna_Akane
+          1445647483925717000 = "HIYOCRO"    # Popo_Ieiri
+          1445647873882742800 = "HIYOCRO"    # Kiki_Shisui
+          1445647957412384800 = "HIYOCRO"    # Yuri_Kohakuu
+          1448968028972933000 = "HIYOCRO"    # HIYOCRO_PT
+
+      [[processors.enum.mapping]]
+        tag     = "id"
+        dest    = "retired"
+        default = false
+
+        [processors.enum.mapping.value_mappings]
+          995250952373391400  = true # Hinako_Umori
+          1007290563756871700 = true # Eli_HNST
+          1245694490532176000 = true # Natsumi_Hashiba
+          1245695747602837500 = true # Yurari_Momono
+          1245697015066984400 = true # Akane_Haibara
 
     [[inputs.execd]]
       name_override = "channel"
 
       command = ["youtube-telegraf-plugin", "-config", "/etc/telegraf/youtube-telegraf-plugin.conf"]
+      signal = "none"
+
+    [[inputs.execd]]
+      name_override = "account"
+
+      command = ["twitter-telegraf-plugin", "-config", "/etc/telegraf/twitter-telegraf-plugin.conf"]
       signal = "none"
 
   youtube-telegraf-plugin.conf: |
@@ -184,3 +269,61 @@ data:
 
       ## Google API key.
       api_key = "${GOOGLE_API_KEY}"
+
+  twitter-telegraf-plugin.conf: |
+    # Twitter Telegraf Plugin Configuration
+
+    [[inputs.twitter]]
+    ## List of accounts to monitor.
+    accounts = [
+      992355895051866100,  # _kanade_kanon
+      993839162099810300,  # AniMare_cafe
+      995247053977485300,  # Haneru_Inaba
+      995250952373391400,  # Hinako_Umori
+      995253301472972800,  # Ichika_Souya
+      995258822556991500,  # Ran_Hinokuma
+      1007247110167674900, # HNST_official
+      1007268292648505300, # Patra_HNST
+      1007290563756871700, # Eli_HNST
+      1007316805981892600, # Charlotte_HNST
+      1007331251685023700, # Mary_HNST
+      1007339408343777300, # Mico_HNST
+      1091634367158337500, # Vtuber_ApArt
+      1091649332539846700, # Uge_And
+      1113405297949700100, # tirol0_0lorit
+      1128841181222203400, # shiromiya_mimi
+      1184117947582697500, # Anko_Kisaki
+      1224952244719587300, # Kuku_Kazami
+      1224956450100764700, # Izumi_Yunohara
+      1234696406931136500, # Anna_Kojo
+      1234697406542803000, # Rene_Ryugasaki
+      1234698396297859000, # SugarLyric_PI
+      1240652791892172800, # ChrisShishio
+      1245694490532176000, # Natsumi_Hashiba
+      1245695747602837500, # Yurari_Momono
+      1245697015066984400, # Akane_Haibara
+      1248507657226313700, # KisoAnibit
+      1258264128780554200, # Met_Komori
+      1258264848011366400, # Wat_Huma
+      1308626156447436800, # Rui_Seshima
+      1308632177815421000, # Hikari_Hira
+      1351387644081520600, # Rukako_Oura
+      1351423100026425300, # Mia_Konan
+      1397780980597883000, # kimagureiinkai
+      1414380215002747000, # 774inc_vacation
+      1445646417385574400, # Sei_Touri
+      1445646752430784500, # Nemo_Suzumi
+      1445647446638399500, # Canna_Akane
+      1445647483925717000, # Popo_Ieiri
+      1445647873882742800, # Kiki_Shisui
+      1445647957412384800, # Yuri_Kohakuu
+      1448968028972933000  # HIYOCRO_PT
+    ]
+    ## Twitter API consumer key.
+    # consumer_key = "${TWITTER_CONSUMER_KEY}"
+    ## Twitter API consumer secret.
+    # consumer_secret = "${TWITTER_CONSUMER_SECRET}"
+    ## Twitter API access token.
+    # access_token = "${TWITTER_ACCESS_TOKEN}"
+    ## Twitter API access token secret.
+    # access_token_secret = "${TWITTER_ACCESS_TOKEN_SECRET}"

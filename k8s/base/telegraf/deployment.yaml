@@ -33,6 +33,26 @@ spec:
             secretKeyRef:
               name: youtube-credentials
               key: api-key
+        - name: TWITTER_ACCESS_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: twitter-credentials
+              key: access-token
+        - name: TWITTER_ACCESS_TOKEN_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: twitter-credentials
+              key: access-token-secret
+        - name: TWITTER_CONSUMER_KEY
+          valueFrom:
+            secretKeyRef:
+              name: twitter-credentials
+              key: consumer-key
+        - name: TWITTER_CONSUMER_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: twitter-credentials
+              key: consumer-secret
         volumeMounts:
         - mountPath: /etc/telegraf
           readOnly: true
