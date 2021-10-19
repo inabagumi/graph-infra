@@ -1,5 +1,5 @@
 bases:
-- influxdb
+- influxdb2
 - telegraf
 - grafana-image-renderer
 - grafana

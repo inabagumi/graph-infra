@@ -19,7 +19,7 @@ spec:
         app: influxdb2
     spec:
       containers:
-      - name: influxdb
+      - name: influxdb2
         image: influxdb:2.0.9-alpine
         env:
         - name: DOCKER_INFLUXDB_INIT_MODE

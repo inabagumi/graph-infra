@@ -23,7 +23,7 @@ spec:
         image: asia.gcr.io/soul-weight/telegraf
         env:
         - name: INFLUXDB_URL
-          value: http://influxdb:8086
+          value: http://influxdb2:8086
         - name: INFLUXDB_TOKEN
           valueFrom:
             secretKeyRef:
