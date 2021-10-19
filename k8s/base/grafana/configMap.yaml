@@ -11,7 +11,7 @@ data:
       type: influxdb
       access: proxy
       orgId: 1
-      url: http://influxdb:8086
+      url: http://influxdb2:8086
       database: twitter
       isDefault: false
       jsonData:
