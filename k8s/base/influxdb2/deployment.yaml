@@ -44,7 +44,7 @@ spec:
           name: influxdb-data
         volumeMounts:
         - mountPath: /var/lib/influxdb2
-          name: influxdb-data
+          name: influxdb2-data
         livenessProbe:
           httpGet:
             port: 8086
@@ -57,24 +57,3 @@ spec:
             path: /ping
           initialDelaySeconds: 10
           periodSeconds: 5
-  volumeClaimTemplates:
-  - metadata:
-      name: influxdb-data
-      labels:
-        app: influxdb2
-    spec:
-      accessModes:
-      - ReadWriteOnce
-      resources:
-        requests:
-          storage: 5Gi
-  - metadata:
-      name: influxdb2-data
-      labels:
-        app: influxdb2
-    spec:
-      accessModes:
-      - ReadWriteOnce
-      resources:
-        requests:
-          storage: 5Gi
