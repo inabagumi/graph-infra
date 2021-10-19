@@ -57,3 +57,10 @@ spec:
             path: /ping
           initialDelaySeconds: 10
           periodSeconds: 5
+      volumes:
+      - name: influxdb-data
+        persistentVolumeClaim:
+          claimName: influxdb-data
+      - name: influxdb2-data
+        persistentVolumeClaim:
+          claimName: influxdb2-data
