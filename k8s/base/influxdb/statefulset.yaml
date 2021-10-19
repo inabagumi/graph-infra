@@ -18,22 +18,6 @@ spec:
       containers:
       - name: influxdb
         image: influxdb:2.0.9-alpine
-        env:
-        - name: DOCKER_INFLUXDB_INIT_MODE
-          value: upgrade
-        - name: DOCKER_INFLUXDB_INIT_USERNAME
-          value: ykzts
-        - name: DOCKER_INFLUXDB_INIT_PASSWORD
-          value: pppp1234
-        - name: DOCKER_INFLUXDB_INIT_ORG
-          value: inabagumi
-        - name: DOCKER_INFLUXDB_INIT_BUCKET
-          value: default
-        - name: DOCKER_INFLUXDB_INIT_ADMIN_TOKEN
-          valueFrom:
-            secretKeyRef:
-              name: influxdb-credentials
-              key: token
         ports:
         - containerPort: 8086
         volumeMounts:
