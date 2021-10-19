@@ -1,19 +1,22 @@
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
-  name: influxdb
+  name: influxdb2
   labels:
-    app: influxdb
+    app: influxdb2
 spec:
-  replicas: 1
   selector:
     matchLabels:
-      app: influxdb
-  serviceName: influxdb
+      app: influxdb2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
   template:
     metadata:
       labels:
-        app: influxdb
+        app: influxdb2
     spec:
       containers:
       - name: influxdb
@@ -58,7 +61,7 @@ spec:
   - metadata:
       name: influxdb-data
       labels:
-        app: influxdb
+        app: influxdb2
     spec:
       accessModes:
       - ReadWriteOnce
@@ -68,7 +71,7 @@ spec:
   - metadata:
       name: influxdb2-data
       labels:
-        app: influxdb
+        app: influxdb2
     spec:
       accessModes:
       - ReadWriteOnce
