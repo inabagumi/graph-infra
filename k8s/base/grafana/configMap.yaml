@@ -6,14 +6,4 @@ data:
   datasources.yaml: |
     apiVersion: 1
 
-    datasources:
-    - name: Twitter
-      type: influxdb
-      access: proxy
-      orgId: 1
-      url: http://influxdb2:8086
-      database: twitter
-      isDefault: false
-      jsonData:
-        httpMode: POST
-      editable: false
+    datasources: []
