@@ -49,4 +49,4 @@ jobs:
 
     - name: Deploy
       run: |
-        skaffold deploy --build-artifacts tags.json --label skaffold.dev/run-id="static" --status-check=false
+        skaffold deploy --build-artifacts tags.json --status-check=false
