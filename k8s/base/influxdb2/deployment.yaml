@@ -42,7 +42,6 @@ spec:
         volumeMounts:
         - mountPath: /var/lib/influxdb
           name: influxdb-data
-        volumeMounts:
         - mountPath: /var/lib/influxdb2
           name: influxdb2-data
         livenessProbe:
