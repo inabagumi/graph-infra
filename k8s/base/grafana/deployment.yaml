@@ -27,6 +27,8 @@ spec:
           value: "false"
         - name: GF_AUTH_ANONYMOUS_ENABLED
           value: "true"
+        - name: GF_AUTH_ANONYMOUS_ORG_NAME
+          value: Haneru Developers
         - name: GF_INSTALL_PLUGINS
           value: https://github.com/doitintl/bigquery-grafana/archive/2.0.2.zip;doit-bigquery-datasource
         - name: GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS
