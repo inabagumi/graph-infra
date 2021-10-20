@@ -293,7 +293,7 @@ data:
     [[inputs.execd]]
       name_override = "channel"
 
-      command = ["youtube-telegraf-plugin", "-config", "/etc/telegraf/youtube-telegraf-plugin.conf"]
+      command = ["youtube-telegraf-plugin", "-config", "/etc/telegraf/youtube-telegraf-plugin.conf", "-poll_interval", "30s"]
       signal = "none"
 
     [[inputs.execd]]
