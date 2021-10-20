@@ -223,25 +223,6 @@ data:
           UCW8WKciBixmaqaGqrlTITRQ = "AniMare"    # 柚原いづみ
           UC2hc-00y-MSR6eYA4eQ4tjQ = "SugarLyric" # 龍ヶ崎リン
 
-      [[processors.enum.mapping]]
-        field   = "channel"
-        tag     = "id"
-        dest    = "retired"
-        default = false
-
-        [processors.enum.mapping.value_mappings]
-          UCGiFzwdasSAHILrx-DB1pVQ = true # 稲荷くろむ
-          UC3UKMRQmBcjXWu66cvxcngA = true # 蒼月エリ
-          UChqYnJlFxlBi6DfRz6jRenQ = true # 宇森ひなこ
-          UCTsEofJvQymp0Dcd4wYBmVQ = true # 桃乃ゆらり
-          UCOgONfZgrG2g0jntQKa6cDw = true # 灰原あかね
-          UC_BlXOQe5OcRC7o0GX8kp8A = true # 羽柴なつみ
-
-      [[processors.enum.mapping]]
-        tag  = "id"
-        dest = "group"
-
-        [processors.enum.mapping.value_mappings]
           992355895051866112  = "VApArt"     # _kanade_kanon
           993839162099810305  = "AniMare"    # AniMare_cafe
           995247053977485313  = "AniMare"    # Haneru_Inaba
@@ -286,12 +267,18 @@ data:
           1448968028972933127 = "HIYOCRO"    # HIYOCRO_PT
 
       [[processors.enum.mapping]]
-        field   = "account"
         tag     = "id"
         dest    = "retired"
         default = false
 
         [processors.enum.mapping.value_mappings]
+          UCGiFzwdasSAHILrx-DB1pVQ = true # 稲荷くろむ
+          UC3UKMRQmBcjXWu66cvxcngA = true # 蒼月エリ
+          UChqYnJlFxlBi6DfRz6jRenQ = true # 宇森ひなこ
+          UCTsEofJvQymp0Dcd4wYBmVQ = true # 桃乃ゆらり
+          UCOgONfZgrG2g0jntQKa6cDw = true # 灰原あかね
+          UC_BlXOQe5OcRC7o0GX8kp8A = true # 羽柴なつみ
+
           995250952373391360  = true # Hinako_Umori
           1007290563756871681 = true # Eli_HNST
           1245694490532175873 = true # Natsumi_Hashiba
