@@ -224,6 +224,7 @@ data:
           UC2hc-00y-MSR6eYA4eQ4tjQ = "SugarLyric" # 龍ヶ崎リン
 
       [[processors.enum.mapping]]
+        field   = "channel"
         tag     = "id"
         dest    = "retired"
         default = false
@@ -285,6 +286,7 @@ data:
           1448968028972933127 = "HIYOCRO"    # HIYOCRO_PT
 
       [[processors.enum.mapping]]
+        field   = "account"
         tag     = "id"
         dest    = "retired"
         default = false
