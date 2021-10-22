@@ -1,5 +1,4 @@
 resources:
 - configMap.yaml
-- pvc.yaml
 - deployment.yaml
 - service.yaml
