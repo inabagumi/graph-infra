@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: influxdb2
-        image: influxdb:2.1.0-alpine
+        image: influxdb:2.1.1-alpine
         ports:
         - containerPort: 8086
         volumeMounts:
