@@ -1,414 +1,414 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-name: telegraf-config
+  name: telegraf-config
 data:
-telegraf.conf: |
-  # Configuration for telegraf agent
-  [agent]
-    ## Default data collection interval for all inputs
-    interval = "10s"
-    ## Rounds collection interval to 'interval'
-    ## ie, if interval="10s" then always collect on :00, :10, :20, etc.
-    round_interval = true
+  telegraf.conf: |
+    # Configuration for telegraf agent
+    [agent]
+      ## Default data collection interval for all inputs
+      interval = "10s"
+      ## Rounds collection interval to 'interval'
+      ## ie, if interval="10s" then always collect on :00, :10, :20, etc.
+      round_interval = true
 
-    ## Telegraf will send metrics to outputs in batches of at most
-    ## metric_batch_size metrics.
-    ## This controls the size of writes that Telegraf sends to output plugins.
-    metric_batch_size = 1000
+      ## Telegraf will send metrics to outputs in batches of at most
+      ## metric_batch_size metrics.
+      ## This controls the size of writes that Telegraf sends to output plugins.
+      metric_batch_size = 1000
 
-    ## For failed writes, telegraf will cache metric_buffer_limit metrics for each
-    ## output, and will flush this buffer on a successful write. Oldest metrics
-    ## are dropped first when this buffer fills.
-    ## This buffer only fills when writes fail to output plugin(s).
-    metric_buffer_limit = 10000
+      ## For failed writes, telegraf will cache metric_buffer_limit metrics for each
+      ## output, and will flush this buffer on a successful write. Oldest metrics
+      ## are dropped first when this buffer fills.
+      ## This buffer only fills when writes fail to output plugin(s).
+      metric_buffer_limit = 10000
 
-    ## Collection jitter is used to jitter the collection by a random amount.
-    ## Each plugin will sleep for a random time within jitter before collecting.
-    ## This can be used to avoid many plugins querying things like sysfs at the
-    ## same time, which can have a measurable effect on the system.
-    collection_jitter = "0s"
+      ## Collection jitter is used to jitter the collection by a random amount.
+      ## Each plugin will sleep for a random time within jitter before collecting.
+      ## This can be used to avoid many plugins querying things like sysfs at the
+      ## same time, which can have a measurable effect on the system.
+      collection_jitter = "0s"
 
-    ## Default flushing interval for all outputs. Maximum flush_interval will be
-    ## flush_interval + flush_jitter
-    flush_interval = "10s"
-    ## Jitter the flush interval by a random amount. This is primarily to avoid
-    ## large write spikes for users running a large number of telegraf instances.
-    ## ie, a jitter of 5s and interval 10s means flushes will happen every 10-15s
-    flush_jitter = "0s"
+      ## Default flushing interval for all outputs. Maximum flush_interval will be
+      ## flush_interval + flush_jitter
+      flush_interval = "10s"
+      ## Jitter the flush interval by a random amount. This is primarily to avoid
+      ## large write spikes for users running a large number of telegraf instances.
+      ## ie, a jitter of 5s and interval 10s means flushes will happen every 10-15s
+      flush_jitter = "0s"
 
-    ## By default or when set to "0s", precision will be set to the same
-    ## timestamp order as the collection interval, with the maximum being 1s.
-    ##   ie, when interval = "10s", precision will be "1s"
-    ##       when interval = "250ms", precision will be "1ms"
-    ## Precision will NOT be used for service inputs. It is up to each individual
-    ## service input to set the timestamp at the appropriate precision.
-    ## Valid time units are "ns", "us" (or "µs"), "ms", "s".
-    precision = "0s"
+      ## By default or when set to "0s", precision will be set to the same
+      ## timestamp order as the collection interval, with the maximum being 1s.
+      ##   ie, when interval = "10s", precision will be "1s"
+      ##       when interval = "250ms", precision will be "1ms"
+      ## Precision will NOT be used for service inputs. It is up to each individual
+      ## service input to set the timestamp at the appropriate precision.
+      ## Valid time units are "ns", "us" (or "µs"), "ms", "s".
+      precision = "0s"
 
-    ## Logging configuration:
-    ## Run telegraf with debug log messages.
-    debug = false
-    ## Run telegraf in quiet mode (error log messages only).
-    quiet = false
-    ## Specify the log file name. The empty string means to log to stderr.
-    logfile = ""
+      ## Logging configuration:
+      ## Run telegraf with debug log messages.
+      debug = false
+      ## Run telegraf in quiet mode (error log messages only).
+      quiet = false
+      ## Specify the log file name. The empty string means to log to stderr.
+      logfile = ""
 
-    ## Override default hostname, if empty use os.Hostname()
-    hostname = ""
-    ## If set to true, do no set the "host" tag in the telegraf agent.
-    omit_hostname = true
+      ## Override default hostname, if empty use os.Hostname()
+      hostname = ""
+      ## If set to true, do no set the "host" tag in the telegraf agent.
+      omit_hostname = true
 
-  # Configuration for sending metrics to InfluxDB
-  [[outputs.influxdb_v2]]
-    ## The URLs of the InfluxDB cluster nodes.
-    ##
-    ## Multiple URLs can be specified for a single cluster, only ONE of the
-    ## urls will be written to each interval.
-    ##   ex: urls = ["https://us-west-2-1.aws.cloud2.influxdata.com"]
-    # urls = ["http://127.0.0.1:8086"]
-    urls = ["${INFLUXDB_URL}"]
+    # Configuration for sending metrics to InfluxDB
+    [[outputs.influxdb_v2]]
+      ## The URLs of the InfluxDB cluster nodes.
+      ##
+      ## Multiple URLs can be specified for a single cluster, only ONE of the
+      ## urls will be written to each interval.
+      ##   ex: urls = ["https://us-west-2-1.aws.cloud2.influxdata.com"]
+      # urls = ["http://127.0.0.1:8086"]
+      urls = ["${INFLUXDB_URL}"]
+    
+      ## Token for authentication.
+      token = "${INFLUXDB_TOKEN}"
+    
+      ## Organization is the name of the organization you wish to write to; must exist.
+      organization = "${INFLUXDB_ORG}"
+    
+      ## Destination bucket to write into.
+      bucket = "youtube"
+    
+      ## The value of this tag will be used to determine the bucket.  If this
+      ## tag is not set the 'bucket' option is used as the default.
+      # bucket_tag = ""
+    
+      ## If true, the bucket tag will not be added to the metric.
+      # exclude_bucket_tag = false
+    
+      ## Timeout for HTTP messages.
+      # timeout = "5s"
+    
+      ## Additional HTTP headers
+      # http_headers = {"X-Special-Header" = "Special-Value"}
+    
+      ## HTTP Proxy override, if unset values the standard proxy environment
+      ## variables are consulted to determine which proxy, if any, should be used.
+      # http_proxy = "http://corporate.proxy:3128"
+    
+      ## HTTP User-Agent
+      # user_agent = "telegraf"
+    
+      ## Content-Encoding for write request body, can be set to "gzip" to
+      ## compress body or "identity" to apply no encoding.
+      # content_encoding = "gzip"
+    
+      ## Enable or disable uint support for writing uints influxdb 2.0.
+      # influx_uint_support = false
+    
+      ## Optional TLS Config for use on HTTP connections.
+      # tls_ca = "/etc/telegraf/ca.pem"
+      # tls_cert = "/etc/telegraf/cert.pem"
+      # tls_key = "/etc/telegraf/key.pem"
+      ## Use TLS but skip chain & host verification
+      # insecure_skip_verify = false
 
-    ## Token for authentication.
-    token = "${INFLUXDB_TOKEN}"
+      namepass = ["channel"]
 
-    ## Organization is the name of the organization you wish to write to; must exist.
-    organization = "${INFLUXDB_ORG}"
+    # Configuration for sending metrics to InfluxDB
+    [[outputs.influxdb_v2]]
+      ## The URLs of the InfluxDB cluster nodes.
+      ##
+      ## Multiple URLs can be specified for a single cluster, only ONE of the
+      ## urls will be written to each interval.
+      ##   ex: urls = ["https://us-west-2-1.aws.cloud2.influxdata.com"]
+      # urls = ["http://127.0.0.1:8086"]
+      urls = ["${INFLUXDB_URL}"]
+    
+      ## Token for authentication.
+      token = "${INFLUXDB_TOKEN}"
+    
+      ## Organization is the name of the organization you wish to write to; must exist.
+      organization = "${INFLUXDB_ORG}"
+    
+      ## Destination bucket to write into.
+      bucket = "twitter"
+    
+      ## The value of this tag will be used to determine the bucket.  If this
+      ## tag is not set the 'bucket' option is used as the default.
+      # bucket_tag = ""
+    
+      ## If true, the bucket tag will not be added to the metric.
+      # exclude_bucket_tag = false
+    
+      ## Timeout for HTTP messages.
+      # timeout = "5s"
+    
+      ## Additional HTTP headers
+      # http_headers = {"X-Special-Header" = "Special-Value"}
+    
+      ## HTTP Proxy override, if unset values the standard proxy environment
+      ## variables are consulted to determine which proxy, if any, should be used.
+      # http_proxy = "http://corporate.proxy:3128"
+    
+      ## HTTP User-Agent
+      # user_agent = "telegraf"
+    
+      ## Content-Encoding for write request body, can be set to "gzip" to
+      ## compress body or "identity" to apply no encoding.
+      # content_encoding = "gzip"
+    
+      ## Enable or disable uint support for writing uints influxdb 2.0.
+      # influx_uint_support = false
+    
+      ## Optional TLS Config for use on HTTP connections.
+      # tls_ca = "/etc/telegraf/ca.pem"
+      # tls_cert = "/etc/telegraf/cert.pem"
+      # tls_key = "/etc/telegraf/key.pem"
+      ## Use TLS but skip chain & host verification
+      # insecure_skip_verify = false
 
-    ## Destination bucket to write into.
-    bucket = "youtube"
+      namepass = ["account"]
 
-    ## The value of this tag will be used to determine the bucket.  If this
-    ## tag is not set the 'bucket' option is used as the default.
-    # bucket_tag = ""
+    [[outputs.health]]
+      ## Address and port to listen on.
+      ##   ex: service_address = "http://localhost:8080"
+      ##       service_address = "unix:///var/run/telegraf-health.sock"
+      service_address = "http://:8080"
 
-    ## If true, the bucket tag will not be added to the metric.
-    # exclude_bucket_tag = false
+    [[processors.enum]]
+      [[processors.enum.mapping]]
+        tag  = "id"
+        dest = "group"
 
-    ## Timeout for HTTP messages.
-    # timeout = "5s"
+        [processors.enum.mapping.value_mappings]
+          UCkpqb53xiOvOgNYEbNpFSyw = "HIYOCRO"    # 茜音カンナ
+          UC3EhsuKdEkI99TWZwZgWutg = "VApArt"     # 杏戸ゆげ
+          UC_hjHmi-ODGhHlSzD16p5Pw = "HIYOCRO"    # 家入ポポ
+          UC0Owc36U9lOyi9Gx9Ic-4qg = "AniMare"    # 因幡はねる
+          UCGiFzwdasSAHILrx-DB1pVQ = "AniMare"    # 稲荷くろむ
+          UChqYnJlFxlBi6DfRz6jRenQ = "AniMare"    # 宇森ひなこ
+          UC3xG1XWzAKt5dxSxktJvtxg = "AniMare"    # 大浦るかこ
+          UCXp7sNC0F_qkjickvlYkg-Q = "AniMare"    # 風見くく
+          UCmqrvfLMws-GLGHQcB5dasg = "VApArt"     # 花奏かのん
+          UChXm-xAYPfygrbyLo2yCASQ = "VApArt"     # 季咲あんこ
+          UC0xhrAce06OkQfHBqAfLQAQ = "AniMare"    # 奇想天外あにびっと!
+          UCjm74OvxjKhpGOj1DP117kQ = "AniMare"    # きまぐれ委員会
+          UCr83W-PdmmbstrvnCn9kdZQ = "VApArt"     # 銀猫ななし
+          UC8BS2IrE9NmxKLX7ObRVyxQ = "AniMare"    # 黒猫ななし
+          UCvPPBoTOor5gm8zSlE2tg4w = "SugarLyric" # 虎城アンナ
+          UC4PrHgUcAtOoj_LKmUL-uLQ = "AniMare"    # 湖南みあ
+          UCGyywYAJd2O5Y7yUyr7qBRQ = "HIYOCRO"    # 瑚白ユリ
+          UCzUNASdzI4PV5SlqtYwAkKQ = "VApArt"     # 小森めと
+          UCwePpiw1ocZRSNSkpKvVISw = "HoneyStrap" # 西園寺メアリ
+          UC--A2dwZW7-M2kID0N6_lfA = "SugarLyric" # 獅子王クリス
+          UC3MBUvkVTI9p-p0be7y7TQA = "HIYOCRO"    # 紫水キキ
+          UCYTz3uIgwVY3ZU-IQJS8r3A = "HoneyStrap" # 島村シャルロット
+          UCtzCQnCT9E4o6U3mHHSHbQQ = "AniMare"    # 白宮みみ
+          UCeLzT-7b2PBcunJplmWtoDg = "HoneyStrap" # 周防パトラ
+          UCBJ6nejlzes6mm9UruaxQsA = "HIYOCRO"    # 涼海ネモ
+          UCDh2bWI5EDu7PavqwICkVpA = "HoneyStrap" # 堰代ミコ
+          UC_WOBIopwUih0rytRnr_1Ag = "AniMare"    # 瀬島るい
+          UC2kyQhzGOB-JPgcQX9OMgEw = "AniMare"    # 宗谷いちか
+          UC3UKMRQmBcjXWu66cvxcngA = "HoneyStrap" # 蒼月エリ
+          UCqskJ0nmw-_eweWfsKvbrzQ = "AniMare"    # 月野木ちろる
+          UCBxw5bdrbKO7E60E4s3KgQg = "HIYOCRO"    # 橙里セイ
+          UCgqQ5iuvUyPRHp3rBLuOtCw = "HoneyStrap" # 灰猫ななし
+          UCOgONfZgrG2g0jntQKa6cDw = "AniMare"    # 灰原あかね
+          UC_BlXOQe5OcRC7o0GX8kp8A = "AniMare"    # 羽柴なつみ
+          UCRvpMpzAXBRKJQuk-8-Sdvg = "AniMare"    # 日ノ隈らん
+          UCFsWaTQ7kT76jNNGeGIKNSA = "AniMare"    # 飛良ひかり
+          UCV4EoK6BVNl7wxuxpUvvSWA = "VApArt"     # 不磨わっと
+          UCoieZAlwgK3uLkIYiJARDQw = "SugarLyric" # 三毛猫ななし
+          UCTsEofJvQymp0Dcd4wYBmVQ = "AniMare"    # 桃乃ゆらり
+          UCW8WKciBixmaqaGqrlTITRQ = "AniMare"    # 柚原いづみ
+          UC2hc-00y-MSR6eYA4eQ4tjQ = "SugarLyric" # 龍ヶ崎リン
+          UCJEpkwwDiTKS5lxwFttEbIQ = "774inc"     # ななし公式チャンネル
 
-    ## Additional HTTP headers
-    # http_headers = {"X-Special-Header" = "Special-Value"}
+          992355895051866112  = "VApArt"     # _kanade_kanon
+          993839162099810305  = "AniMare"    # AniMare_cafe
+          995247053977485313  = "AniMare"    # Haneru_Inaba
+          995250952373391360  = "AniMare"    # Hinako_Umori
+          995253301472972801  = "AniMare"    # Ichika_Souya
+          995258822556991493  = "AniMare"    # Ran_Hinokuma
+          1007247110167674881 = "HoneyStrap" # HNST_official
+          1007268292648505344 = "HoneyStrap" # Patra_HNST
+          1007290563756871681 = "HoneyStrap" # Eli_HNST
+          1007316805981892613 = "HoneyStrap" # Charlotte_HNST
+          1007331251685023744 = "HoneyStrap" # Mary_HNST
+          1007339408343777281 = "HoneyStrap" # Mico_HNST
+          1091634367158337536 = "VApArt"     # Vtuber_ApArt
+          1091649332539846656 = "VApArt"     # Uge_And
+          1113405297949700096 = "AniMare"    # tirol0_0lorit
+          1128841181222203393 = "AniMare"    # shiromiya_mimi
+          1184117947582697473 = "VApArt"     # Anko_Kisaki
+          1224952244719587328 = "AniMare"    # Kuku_Kazami
+          1224956450100764673 = "AniMare"    # Izumi_Yunohara
+          1234696406931136513 = "SugarLyric" # Anna_Kojo
+          1234697406542802950 = "SugarLyric" # Rene_Ryugasaki
+          1234698396297859072 = "SugarLyric" # SugarLyric_PI
+          1240652791892172800 = "SugarLyric" # ChrisShishio
+          1245694490532175873 = "AniMare"    # Natsumi_Hashiba
+          1245695747602837504 = "AniMare"    # Yurari_Momono
+          1245697015066984451 = "AniMare"    # Akane_Haibara
+          1248507657226313728 = "AniMare"    # KisoAnibit
+          1258264128780554241 = "VApArt"     # Met_Komori
+          1258264848011366402 = "VApArt"     # Wat_Huma
+          1308626156447436801 = "AniMare"    # Rui_Seshima
+          1308632177815420933 = "AniMare"    # Hikari_Hira
+          1351387644081520641 = "AniMare"    # Rukako_Oura
+          1351423100026425344 = "AniMare"    # Mia_Konan
+          1397780980597882883 = "AniMare"    # kimagureiinkai
+          1414380215002746881 = "774inc"     # 774inc_vacation
+          1445646417385574414 = "HIYOCRO"    # Sei_Touri
+          1445646752430784519 = "HIYOCRO"    # Nemo_Suzumi
+          1445647446638399492 = "HIYOCRO"    # Canna_Akane
+          1445647483925717000 = "HIYOCRO"    # Popo_Ieiri
+          1445647873882742785 = "HIYOCRO"    # Kiki_Shisui
+          1445647957412384777 = "HIYOCRO"    # Yuri_Kohakuu
+          1448968028972933127 = "HIYOCRO"    # HIYOCRO_PT
+          1509546454016495626 = "774inc"     # Nanashi_774inc
 
-    ## HTTP Proxy override, if unset values the standard proxy environment
-    ## variables are consulted to determine which proxy, if any, should be used.
-    # http_proxy = "http://corporate.proxy:3128"
+      [[processors.enum.mapping]]
+        tag     = "id"
+        dest    = "retired"
+        default = false
 
-    ## HTTP User-Agent
-    # user_agent = "telegraf"
+        [processors.enum.mapping.value_mappings]
+          UCGiFzwdasSAHILrx-DB1pVQ = true # 稲荷くろむ
+          UC3UKMRQmBcjXWu66cvxcngA = true # 蒼月エリ
+          UChqYnJlFxlBi6DfRz6jRenQ = true # 宇森ひなこ
+          UCTsEofJvQymp0Dcd4wYBmVQ = true # 桃乃ゆらり
+          UCOgONfZgrG2g0jntQKa6cDw = true # 灰原あかね
+          UC_BlXOQe5OcRC7o0GX8kp8A = true # 羽柴なつみ
+          UCtzCQnCT9E4o6U3mHHSHbQQ = true # 白宮みみ
 
-    ## Content-Encoding for write request body, can be set to "gzip" to
-    ## compress body or "identity" to apply no encoding.
-    # content_encoding = "gzip"
+          995250952373391360  = true # Hinako_Umori
+          1007290563756871681 = true # Eli_HNST
+          1245694490532175873 = true # Natsumi_Hashiba
+          1245695747602837504 = true # Yurari_Momono
+          1245697015066984451 = true # Akane_Haibara
+          1128841181222203393 = true # shiromiya_mimi
 
-    ## Enable or disable uint support for writing uints influxdb 2.0.
-    # influx_uint_support = false
+    [[inputs.execd]]
+      name_override = "channel"
 
-    ## Optional TLS Config for use on HTTP connections.
-    # tls_ca = "/etc/telegraf/ca.pem"
-    # tls_cert = "/etc/telegraf/cert.pem"
-    # tls_key = "/etc/telegraf/key.pem"
-    ## Use TLS but skip chain & host verification
-    # insecure_skip_verify = false
+      command = ["youtube-telegraf-plugin", "-config", "/etc/telegraf/youtube-telegraf-plugin.conf", "-poll_interval", "30s"]
+      signal = "none"
 
-    namepass = ["channel"]
+    [[inputs.execd]]
+      name_override = "account"
 
-  # Configuration for sending metrics to InfluxDB
-  [[outputs.influxdb_v2]]
-    ## The URLs of the InfluxDB cluster nodes.
-    ##
-    ## Multiple URLs can be specified for a single cluster, only ONE of the
-    ## urls will be written to each interval.
-    ##   ex: urls = ["https://us-west-2-1.aws.cloud2.influxdata.com"]
-    # urls = ["http://127.0.0.1:8086"]
-    urls = ["${INFLUXDB_URL}"]
+      command = ["twitter-telegraf-plugin", "-config", "/etc/telegraf/twitter-telegraf-plugin.conf"]
+      signal = "none"
 
-    ## Token for authentication.
-    token = "${INFLUXDB_TOKEN}"
+  youtube-telegraf-plugin.conf: |
+    # YouTube Telegraf Plugin Configuration
 
-    ## Organization is the name of the organization you wish to write to; must exist.
-    organization = "${INFLUXDB_ORG}"
+    [[inputs.youtube]]
+      ## List of channels to monitor.
+      channels = [
+        "UCkpqb53xiOvOgNYEbNpFSyw", # 茜音カンナ
+        "UC3EhsuKdEkI99TWZwZgWutg", # 杏戸ゆげ
+        "UC_hjHmi-ODGhHlSzD16p5Pw", # 家入ポポ
+        "UC0Owc36U9lOyi9Gx9Ic-4qg", # 因幡はねる
+        "UCGiFzwdasSAHILrx-DB1pVQ", # 稲荷くろむ
+        "UChqYnJlFxlBi6DfRz6jRenQ", # 宇森ひなこ
+        "UC3xG1XWzAKt5dxSxktJvtxg", # 大浦るかこ
+        "UCXp7sNC0F_qkjickvlYkg-Q", # 風見くく
+        "UCmqrvfLMws-GLGHQcB5dasg", # 花奏かのん
+        "UChXm-xAYPfygrbyLo2yCASQ", # 季咲あんこ
+        "UC0xhrAce06OkQfHBqAfLQAQ", # 奇想天外あにびっと!
+        "UCjm74OvxjKhpGOj1DP117kQ", # きまぐれ委員会
+        "UCr83W-PdmmbstrvnCn9kdZQ", # 銀猫ななし
+        "UC8BS2IrE9NmxKLX7ObRVyxQ", # 黒猫ななし
+        "UCvPPBoTOor5gm8zSlE2tg4w", # 虎城アンナ
+        "UC4PrHgUcAtOoj_LKmUL-uLQ", # 湖南みあ
+        "UCGyywYAJd2O5Y7yUyr7qBRQ", # 瑚白ユリ
+        "UCzUNASdzI4PV5SlqtYwAkKQ", # 小森めと
+        "UCwePpiw1ocZRSNSkpKvVISw", # 西園寺メアリ
+        "UC--A2dwZW7-M2kID0N6_lfA", # 獅子王クリス
+        "UC3MBUvkVTI9p-p0be7y7TQA", # 紫水キキ
+        "UCYTz3uIgwVY3ZU-IQJS8r3A", # 島村シャルロット
+        "UCtzCQnCT9E4o6U3mHHSHbQQ", # 白宮みみ
+        "UCeLzT-7b2PBcunJplmWtoDg", # 周防パトラ
+        "UCBJ6nejlzes6mm9UruaxQsA", # 涼海ネモ
+        "UCDh2bWI5EDu7PavqwICkVpA", # 堰代ミコ
+        "UC_WOBIopwUih0rytRnr_1Ag", # 瀬島るい
+        "UC2kyQhzGOB-JPgcQX9OMgEw", # 宗谷いちか
+        "UC3UKMRQmBcjXWu66cvxcngA", # 蒼月エリ
+        "UCqskJ0nmw-_eweWfsKvbrzQ", # 月野木ちろる
+        "UCBxw5bdrbKO7E60E4s3KgQg", # 橙里セイ
+        "UCJEpkwwDiTKS5lxwFttEbIQ", # ななし公式チャンネル
+        "UCgqQ5iuvUyPRHp3rBLuOtCw", # 灰猫ななし
+        "UCOgONfZgrG2g0jntQKa6cDw", # 灰原あかね
+        "UC_BlXOQe5OcRC7o0GX8kp8A", # 羽柴なつみ
+        "UCRvpMpzAXBRKJQuk-8-Sdvg", # 日ノ隈らん
+        "UCFsWaTQ7kT76jNNGeGIKNSA", # 飛良ひかり
+        "UCV4EoK6BVNl7wxuxpUvvSWA", # 不磨わっと
+        "UCoieZAlwgK3uLkIYiJARDQw", # 三毛猫ななし
+        "UCTsEofJvQymp0Dcd4wYBmVQ", # 桃乃ゆらり
+        "UCW8WKciBixmaqaGqrlTITRQ", # 柚原いづみ
+        "UC2hc-00y-MSR6eYA4eQ4tjQ"  # 龍ヶ崎リン
+      ]
 
-    ## Destination bucket to write into.
-    bucket = "twitter"
+      ## Google API key.
+      api_key = "${GOOGLE_API_KEY}"
 
-    ## The value of this tag will be used to determine the bucket.  If this
-    ## tag is not set the 'bucket' option is used as the default.
-    # bucket_tag = ""
+  twitter-telegraf-plugin.conf: |
+    # Twitter Telegraf Plugin Configuration
 
-    ## If true, the bucket tag will not be added to the metric.
-    # exclude_bucket_tag = false
-
-    ## Timeout for HTTP messages.
-    # timeout = "5s"
-
-    ## Additional HTTP headers
-    # http_headers = {"X-Special-Header" = "Special-Value"}
-
-    ## HTTP Proxy override, if unset values the standard proxy environment
-    ## variables are consulted to determine which proxy, if any, should be used.
-    # http_proxy = "http://corporate.proxy:3128"
-
-    ## HTTP User-Agent
-    # user_agent = "telegraf"
-
-    ## Content-Encoding for write request body, can be set to "gzip" to
-    ## compress body or "identity" to apply no encoding.
-    # content_encoding = "gzip"
-
-    ## Enable or disable uint support for writing uints influxdb 2.0.
-    # influx_uint_support = false
-
-    ## Optional TLS Config for use on HTTP connections.
-    # tls_ca = "/etc/telegraf/ca.pem"
-    # tls_cert = "/etc/telegraf/cert.pem"
-    # tls_key = "/etc/telegraf/key.pem"
-    ## Use TLS but skip chain & host verification
-    # insecure_skip_verify = false
-
-    namepass = ["account"]
-
-  [[outputs.health]]
-    ## Address and port to listen on.
-    ##   ex: service_address = "http://localhost:8080"
-    ##       service_address = "unix:///var/run/telegraf-health.sock"
-    service_address = "http://:8080"
-
-  [[processors.enum]]
-    [[processors.enum.mapping]]
-      tag  = "id"
-      dest = "group"
-
-      [processors.enum.mapping.value_mappings]
-        UCkpqb53xiOvOgNYEbNpFSyw = "HIYOCRO"    # 茜音カンナ
-        UC3EhsuKdEkI99TWZwZgWutg = "VApArt"     # 杏戸ゆげ
-        UC_hjHmi-ODGhHlSzD16p5Pw = "HIYOCRO"    # 家入ポポ
-        UC0Owc36U9lOyi9Gx9Ic-4qg = "AniMare"    # 因幡はねる
-        UCGiFzwdasSAHILrx-DB1pVQ = "AniMare"    # 稲荷くろむ
-        UChqYnJlFxlBi6DfRz6jRenQ = "AniMare"    # 宇森ひなこ
-        UC3xG1XWzAKt5dxSxktJvtxg = "AniMare"    # 大浦るかこ
-        UCXp7sNC0F_qkjickvlYkg-Q = "AniMare"    # 風見くく
-        UCmqrvfLMws-GLGHQcB5dasg = "VApArt"     # 花奏かのん
-        UChXm-xAYPfygrbyLo2yCASQ = "VApArt"     # 季咲あんこ
-        UC0xhrAce06OkQfHBqAfLQAQ = "AniMare"    # 奇想天外あにびっと!
-        UCjm74OvxjKhpGOj1DP117kQ = "AniMare"    # きまぐれ委員会
-        UCr83W-PdmmbstrvnCn9kdZQ = "VApArt"     # 銀猫ななし
-        UC8BS2IrE9NmxKLX7ObRVyxQ = "AniMare"    # 黒猫ななし
-        UCvPPBoTOor5gm8zSlE2tg4w = "SugarLyric" # 虎城アンナ
-        UC4PrHgUcAtOoj_LKmUL-uLQ = "AniMare"    # 湖南みあ
-        UCGyywYAJd2O5Y7yUyr7qBRQ = "HIYOCRO"    # 瑚白ユリ
-        UCzUNASdzI4PV5SlqtYwAkKQ = "VApArt"     # 小森めと
-        UCwePpiw1ocZRSNSkpKvVISw = "HoneyStrap" # 西園寺メアリ
-        UC--A2dwZW7-M2kID0N6_lfA = "SugarLyric" # 獅子王クリス
-        UC3MBUvkVTI9p-p0be7y7TQA = "HIYOCRO"    # 紫水キキ
-        UCYTz3uIgwVY3ZU-IQJS8r3A = "HoneyStrap" # 島村シャルロット
-        UCtzCQnCT9E4o6U3mHHSHbQQ = "AniMare"    # 白宮みみ
-        UCeLzT-7b2PBcunJplmWtoDg = "HoneyStrap" # 周防パトラ
-        UCBJ6nejlzes6mm9UruaxQsA = "HIYOCRO"    # 涼海ネモ
-        UCDh2bWI5EDu7PavqwICkVpA = "HoneyStrap" # 堰代ミコ
-        UC_WOBIopwUih0rytRnr_1Ag = "AniMare"    # 瀬島るい
-        UC2kyQhzGOB-JPgcQX9OMgEw = "AniMare"    # 宗谷いちか
-        UC3UKMRQmBcjXWu66cvxcngA = "HoneyStrap" # 蒼月エリ
-        UCqskJ0nmw-_eweWfsKvbrzQ = "AniMare"    # 月野木ちろる
-        UCBxw5bdrbKO7E60E4s3KgQg = "HIYOCRO"    # 橙里セイ
-        UCgqQ5iuvUyPRHp3rBLuOtCw = "HoneyStrap" # 灰猫ななし
-        UCOgONfZgrG2g0jntQKa6cDw = "AniMare"    # 灰原あかね
-        UC_BlXOQe5OcRC7o0GX8kp8A = "AniMare"    # 羽柴なつみ
-        UCRvpMpzAXBRKJQuk-8-Sdvg = "AniMare"    # 日ノ隈らん
-        UCFsWaTQ7kT76jNNGeGIKNSA = "AniMare"    # 飛良ひかり
-        UCV4EoK6BVNl7wxuxpUvvSWA = "VApArt"     # 不磨わっと
-        UCoieZAlwgK3uLkIYiJARDQw = "SugarLyric" # 三毛猫ななし
-        UCTsEofJvQymp0Dcd4wYBmVQ = "AniMare"    # 桃乃ゆらり
-        UCW8WKciBixmaqaGqrlTITRQ = "AniMare"    # 柚原いづみ
-        UC2hc-00y-MSR6eYA4eQ4tjQ = "SugarLyric" # 龍ヶ崎リン
-        UCJEpkwwDiTKS5lxwFttEbIQ = "774inc"     # ななし公式チャンネル
-
-        992355895051866112  = "VApArt"     # _kanade_kanon
-        993839162099810305  = "AniMare"    # AniMare_cafe
-        995247053977485313  = "AniMare"    # Haneru_Inaba
-        995250952373391360  = "AniMare"    # Hinako_Umori
-        995253301472972801  = "AniMare"    # Ichika_Souya
-        995258822556991493  = "AniMare"    # Ran_Hinokuma
-        1007247110167674881 = "HoneyStrap" # HNST_official
-        1007268292648505344 = "HoneyStrap" # Patra_HNST
-        1007290563756871681 = "HoneyStrap" # Eli_HNST
-        1007316805981892613 = "HoneyStrap" # Charlotte_HNST
-        1007331251685023744 = "HoneyStrap" # Mary_HNST
-        1007339408343777281 = "HoneyStrap" # Mico_HNST
-        1091634367158337536 = "VApArt"     # Vtuber_ApArt
-        1091649332539846656 = "VApArt"     # Uge_And
-        1113405297949700096 = "AniMare"    # tirol0_0lorit
-        1128841181222203393 = "AniMare"    # shiromiya_mimi
-        1184117947582697473 = "VApArt"     # Anko_Kisaki
-        1224952244719587328 = "AniMare"    # Kuku_Kazami
-        1224956450100764673 = "AniMare"    # Izumi_Yunohara
-        1234696406931136513 = "SugarLyric" # Anna_Kojo
-        1234697406542802950 = "SugarLyric" # Rene_Ryugasaki
-        1234698396297859072 = "SugarLyric" # SugarLyric_PI
-        1240652791892172800 = "SugarLyric" # ChrisShishio
-        1245694490532175873 = "AniMare"    # Natsumi_Hashiba
-        1245695747602837504 = "AniMare"    # Yurari_Momono
-        1245697015066984451 = "AniMare"    # Akane_Haibara
-        1248507657226313728 = "AniMare"    # KisoAnibit
-        1258264128780554241 = "VApArt"     # Met_Komori
-        1258264848011366402 = "VApArt"     # Wat_Huma
-        1308626156447436801 = "AniMare"    # Rui_Seshima
-        1308632177815420933 = "AniMare"    # Hikari_Hira
-        1351387644081520641 = "AniMare"    # Rukako_Oura
-        1351423100026425344 = "AniMare"    # Mia_Konan
-        1397780980597882883 = "AniMare"    # kimagureiinkai
-        1414380215002746881 = "774inc"     # 774inc_vacation
-        1445646417385574414 = "HIYOCRO"    # Sei_Touri
-        1445646752430784519 = "HIYOCRO"    # Nemo_Suzumi
-        1445647446638399492 = "HIYOCRO"    # Canna_Akane
-        1445647483925717000 = "HIYOCRO"    # Popo_Ieiri
-        1445647873882742785 = "HIYOCRO"    # Kiki_Shisui
-        1445647957412384777 = "HIYOCRO"    # Yuri_Kohakuu
-        1448968028972933127 = "HIYOCRO"    # HIYOCRO_PT
-        1509546454016495626 = "774inc"     # Nanashi_774inc
-
-    [[processors.enum.mapping]]
-      tag     = "id"
-      dest    = "retired"
-      default = false
-
-      [processors.enum.mapping.value_mappings]
-        UCGiFzwdasSAHILrx-DB1pVQ = true # 稲荷くろむ
-        UC3UKMRQmBcjXWu66cvxcngA = true # 蒼月エリ
-        UChqYnJlFxlBi6DfRz6jRenQ = true # 宇森ひなこ
-        UCTsEofJvQymp0Dcd4wYBmVQ = true # 桃乃ゆらり
-        UCOgONfZgrG2g0jntQKa6cDw = true # 灰原あかね
-        UC_BlXOQe5OcRC7o0GX8kp8A = true # 羽柴なつみ
-        UCtzCQnCT9E4o6U3mHHSHbQQ = true # 白宮みみ
-
-        995250952373391360  = true # Hinako_Umori
-        1007290563756871681 = true # Eli_HNST
-        1245694490532175873 = true # Natsumi_Hashiba
-        1245695747602837504 = true # Yurari_Momono
-        1245697015066984451 = true # Akane_Haibara
-        1128841181222203393 = true # shiromiya_mimi
-
-  [[inputs.execd]]
-    name_override = "channel"
-
-    command = ["youtube-telegraf-plugin", "-config", "/etc/telegraf/youtube-telegraf-plugin.conf", "-poll_interval", "30s"]
-    signal = "none"
-
-  [[inputs.execd]]
-    name_override = "account"
-
-    command = ["twitter-telegraf-plugin", "-config", "/etc/telegraf/twitter-telegraf-plugin.conf"]
-    signal = "none"
-
-youtube-telegraf-plugin.conf: |
-  # YouTube Telegraf Plugin Configuration
-
-  [[inputs.youtube]]
-    ## List of channels to monitor.
-    channels = [
-      "UCkpqb53xiOvOgNYEbNpFSyw", # 茜音カンナ
-      "UC3EhsuKdEkI99TWZwZgWutg", # 杏戸ゆげ
-      "UC_hjHmi-ODGhHlSzD16p5Pw", # 家入ポポ
-      "UC0Owc36U9lOyi9Gx9Ic-4qg", # 因幡はねる
-      "UCGiFzwdasSAHILrx-DB1pVQ", # 稲荷くろむ
-      "UChqYnJlFxlBi6DfRz6jRenQ", # 宇森ひなこ
-      "UC3xG1XWzAKt5dxSxktJvtxg", # 大浦るかこ
-      "UCXp7sNC0F_qkjickvlYkg-Q", # 風見くく
-      "UCmqrvfLMws-GLGHQcB5dasg", # 花奏かのん
-      "UChXm-xAYPfygrbyLo2yCASQ", # 季咲あんこ
-      "UC0xhrAce06OkQfHBqAfLQAQ", # 奇想天外あにびっと!
-      "UCjm74OvxjKhpGOj1DP117kQ", # きまぐれ委員会
-      "UCr83W-PdmmbstrvnCn9kdZQ", # 銀猫ななし
-      "UC8BS2IrE9NmxKLX7ObRVyxQ", # 黒猫ななし
-      "UCvPPBoTOor5gm8zSlE2tg4w", # 虎城アンナ
-      "UC4PrHgUcAtOoj_LKmUL-uLQ", # 湖南みあ
-      "UCGyywYAJd2O5Y7yUyr7qBRQ", # 瑚白ユリ
-      "UCzUNASdzI4PV5SlqtYwAkKQ", # 小森めと
-      "UCwePpiw1ocZRSNSkpKvVISw", # 西園寺メアリ
-      "UC--A2dwZW7-M2kID0N6_lfA", # 獅子王クリス
-      "UC3MBUvkVTI9p-p0be7y7TQA", # 紫水キキ
-      "UCYTz3uIgwVY3ZU-IQJS8r3A", # 島村シャルロット
-      "UCtzCQnCT9E4o6U3mHHSHbQQ", # 白宮みみ
-      "UCeLzT-7b2PBcunJplmWtoDg", # 周防パトラ
-      "UCBJ6nejlzes6mm9UruaxQsA", # 涼海ネモ
-      "UCDh2bWI5EDu7PavqwICkVpA", # 堰代ミコ
-      "UC_WOBIopwUih0rytRnr_1Ag", # 瀬島るい
-      "UC2kyQhzGOB-JPgcQX9OMgEw", # 宗谷いちか
-      "UC3UKMRQmBcjXWu66cvxcngA", # 蒼月エリ
-      "UCqskJ0nmw-_eweWfsKvbrzQ", # 月野木ちろる
-      "UCBxw5bdrbKO7E60E4s3KgQg", # 橙里セイ
-      "UCJEpkwwDiTKS5lxwFttEbIQ", # ななし公式チャンネル
-      "UCgqQ5iuvUyPRHp3rBLuOtCw", # 灰猫ななし
-      "UCOgONfZgrG2g0jntQKa6cDw", # 灰原あかね
-      "UC_BlXOQe5OcRC7o0GX8kp8A", # 羽柴なつみ
-      "UCRvpMpzAXBRKJQuk-8-Sdvg", # 日ノ隈らん
-      "UCFsWaTQ7kT76jNNGeGIKNSA", # 飛良ひかり
-      "UCV4EoK6BVNl7wxuxpUvvSWA", # 不磨わっと
-      "UCoieZAlwgK3uLkIYiJARDQw", # 三毛猫ななし
-      "UCTsEofJvQymp0Dcd4wYBmVQ", # 桃乃ゆらり
-      "UCW8WKciBixmaqaGqrlTITRQ", # 柚原いづみ
-      "UC2hc-00y-MSR6eYA4eQ4tjQ"  # 龍ヶ崎リン
+    [[inputs.twitter]]
+    ## List of accounts to monitor.
+    accounts = [
+      992355895051866112,  # _kanade_kanon
+      993839162099810305,  # AniMare_cafe
+      995247053977485313,  # Haneru_Inaba
+      995250952373391360,  # Hinako_Umori
+      995253301472972801,  # Ichika_Souya
+      995258822556991493,  # Ran_Hinokuma
+      1007247110167674881, # HNST_official
+      1007268292648505344, # Patra_HNST
+      1007290563756871681, # Eli_HNST
+      1007316805981892613, # Charlotte_HNST
+      1007331251685023744, # Mary_HNST
+      1007339408343777281, # Mico_HNST
+      1091634367158337536, # Vtuber_ApArt
+      1091649332539846656, # Uge_And
+      1113405297949700096, # tirol0_0lorit
+      1128841181222203393, # shiromiya_mimi
+      1184117947582697473, # Anko_Kisaki
+      1224952244719587328, # Kuku_Kazami
+      1224956450100764673, # Izumi_Yunohara
+      1234696406931136513, # Anna_Kojo
+      1234697406542802950, # Rene_Ryugasaki
+      1234698396297859072, # SugarLyric_PI
+      1240652791892172800, # ChrisShishio
+      1245694490532175873, # Natsumi_Hashiba
+      1245695747602837504, # Yurari_Momono
+      1245697015066984451, # Akane_Haibara
+      1248507657226313728, # KisoAnibit
+      1258264128780554241, # Met_Komori
+      1258264848011366402, # Wat_Huma
+      1308626156447436801, # Rui_Seshima
+      1308632177815420933, # Hikari_Hira
+      1351387644081520641, # Rukako_Oura
+      1351423100026425344, # Mia_Konan
+      1397780980597882883, # kimagureiinkai
+      1414380215002746881, # 774inc_vacation
+      1445646417385574414, # Sei_Touri
+      1445646752430784519, # Nemo_Suzumi
+      1445647446638399492, # Canna_Akane
+      1445647483925717000, # Popo_Ieiri
+      1445647873882742785, # Kiki_Shisui
+      1445647957412384777, # Yuri_Kohakuu
+      1448968028972933127, # HIYOCRO_PT
+      1509546454016495626, # Nanashi_774inc
     ]
-
-    ## Google API key.
-    api_key = "${GOOGLE_API_KEY}"
-
-twitter-telegraf-plugin.conf: |
-  # Twitter Telegraf Plugin Configuration
-
-  [[inputs.twitter]]
-  ## List of accounts to monitor.
-  accounts = [
-    992355895051866112,  # _kanade_kanon
-    993839162099810305,  # AniMare_cafe
-    995247053977485313,  # Haneru_Inaba
-    995250952373391360,  # Hinako_Umori
-    995253301472972801,  # Ichika_Souya
-    995258822556991493,  # Ran_Hinokuma
-    1007247110167674881, # HNST_official
-    1007268292648505344, # Patra_HNST
-    1007290563756871681, # Eli_HNST
-    1007316805981892613, # Charlotte_HNST
-    1007331251685023744, # Mary_HNST
-    1007339408343777281, # Mico_HNST
-    1091634367158337536, # Vtuber_ApArt
-    1091649332539846656, # Uge_And
-    1113405297949700096, # tirol0_0lorit
-    1128841181222203393, # shiromiya_mimi
-    1184117947582697473, # Anko_Kisaki
-    1224952244719587328, # Kuku_Kazami
-    1224956450100764673, # Izumi_Yunohara
-    1234696406931136513, # Anna_Kojo
-    1234697406542802950, # Rene_Ryugasaki
-    1234698396297859072, # SugarLyric_PI
-    1240652791892172800, # ChrisShishio
-    1245694490532175873, # Natsumi_Hashiba
-    1245695747602837504, # Yurari_Momono
-    1245697015066984451, # Akane_Haibara
-    1248507657226313728, # KisoAnibit
-    1258264128780554241, # Met_Komori
-    1258264848011366402, # Wat_Huma
-    1308626156447436801, # Rui_Seshima
-    1308632177815420933, # Hikari_Hira
-    1351387644081520641, # Rukako_Oura
-    1351423100026425344, # Mia_Konan
-    1397780980597882883, # kimagureiinkai
-    1414380215002746881, # 774inc_vacation
-    1445646417385574414, # Sei_Touri
-    1445646752430784519, # Nemo_Suzumi
-    1445647446638399492, # Canna_Akane
-    1445647483925717000, # Popo_Ieiri
-    1445647873882742785, # Kiki_Shisui
-    1445647957412384777, # Yuri_Kohakuu
-    1448968028972933127, # HIYOCRO_PT
-    1509546454016495626, # Nanashi_774inc
-  ]
-  ## Twitter API consumer key.
-  consumer_key = "${TWITTER_CONSUMER_KEY}"
-  ## Twitter API consumer secret.
-  consumer_secret = "${TWITTER_CONSUMER_SECRET}"
-  ## Twitter API access token.
-  access_token = "${TWITTER_ACCESS_TOKEN}"
-  ## Twitter API access token secret.
-  access_token_secret = "${TWITTER_ACCESS_TOKEN_SECRET}"
+    ## Twitter API consumer key.
+    consumer_key = "${TWITTER_CONSUMER_KEY}"
+    ## Twitter API consumer secret.
+    consumer_secret = "${TWITTER_CONSUMER_SECRET}"
+    ## Twitter API access token.
+    access_token = "${TWITTER_ACCESS_TOKEN}"
+    ## Twitter API access token secret.
+    access_token_secret = "${TWITTER_ACCESS_TOKEN_SECRET}"
