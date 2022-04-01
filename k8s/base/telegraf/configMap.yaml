@@ -44,7 +44,7 @@ data:
       ## Precision will NOT be used for service inputs. It is up to each individual
       ## service input to set the timestamp at the appropriate precision.
       ## Valid time units are "ns", "us" (or "µs"), "ms", "s".
-      precision = "s"
+      precision = "0s"
 
       ## Logging configuration:
       ## Run telegraf with debug log messages.
