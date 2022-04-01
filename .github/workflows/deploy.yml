@@ -21,12 +21,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
-    - uses: google-github-actions/setup-gcloud@master
+    - uses: google-github-actions/setup-gcloud@v0
       with:
         export_default_credentials: true
         project_id: soul-weight
         service_account_key: ${{ secrets.GCP_SA_KEY }}
-    - uses: google-github-actions/get-gke-credentials@main
+    - uses: google-github-actions/get-gke-credentials@v0
       with:
         cluster_name: graph
         location: asia-northeast1-c
