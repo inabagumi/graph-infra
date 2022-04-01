@@ -266,6 +266,7 @@ data:
           1445647873882742785 = "HIYOCRO"    # Kiki_Shisui
           1445647957412384777 = "HIYOCRO"    # Yuri_Kohakuu
           1448968028972933127 = "HIYOCRO"    # HIYOCRO_PT
+          1509546454016495626 = "774inc"     # Nanashi_774inc
 
       [[processors.enum.mapping]]
         tag     = "id"
@@ -399,6 +400,7 @@ data:
       1445647873882742785, # Kiki_Shisui
       1445647957412384777, # Yuri_Kohakuu
       1448968028972933127, # HIYOCRO_PT
+      1509546454016495626, # Nanashi_774inc
     ]
     ## Twitter API consumer key.
     consumer_key = "${TWITTER_CONSUMER_KEY}"
