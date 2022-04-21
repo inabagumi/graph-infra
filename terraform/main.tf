@@ -33,7 +33,7 @@ resource "google_container_cluster" "main" {
   name     = local.name
   location = var.zone
 
-  min_master_version       = "1.18.17-gke.100"
+  release_channel          = "Regular"
   remove_default_node_pool = true
   initial_node_count       = 1
 
@@ -53,7 +53,6 @@ resource "google_container_node_pool" "main_nodes" {
   name       = "${local.name}-node-pool"
   location   = google_container_cluster.main.location
   cluster    = google_container_cluster.main.name
-  version    = google_container_cluster.main.min_master_version
   node_count = 2
 
   autoscaling {
