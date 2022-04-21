@@ -33,7 +33,6 @@ resource "google_container_cluster" "main" {
   name     = local.name
   location = var.zone
 
-  release_channel          = "Regular"
   remove_default_node_pool = true
   initial_node_count       = 1
 
@@ -44,6 +43,10 @@ resource "google_container_cluster" "main" {
     client_certificate_config {
       issue_client_certificate = false
     }
+  }
+  
+  release_channel {
+    channel = "REGULAR"
   }
 
   ip_allocation_policy {}
