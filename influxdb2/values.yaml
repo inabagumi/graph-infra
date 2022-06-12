@@ -1,0 +1,22 @@
+nodeSelector:
+  cloud.google.com/gke-spot: "true"
+
+livenessProbe:
+  failureThreshold: 3
+  initialDelaySeconds: 0
+  path: /health
+  periodSeconds: 10
+  scheme: HTTP
+  timeoutSeconds: 1
+
+readinessProbe:
+  failureThreshold: 3
+  initialDelaySeconds: 0
+  path: /health
+  periodSeconds: 10
+  scheme: HTTP
+  successThreshold: 1
+  timeoutSeconds: 1
+
+persistence:
+  size: 10Gi

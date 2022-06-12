@@ -22,6 +22,11 @@ terraform {
       source  = "integrations/github"
       version = "4.26.1"
     }
+
+    helm = {
+      source  = "hashicorp/helm"
+      version = "2.5.1"
+    }
   }
 }
 
@@ -39,10 +44,26 @@ provider "github" {
   owner = var.repo_owner
 }
 
-locals {
-  db_name = "grafana"
-  name    = "graph"
+provider "helm" {
+  kubernetes {
+    cluster_ca_certificate = base64decode(module.gke.ca_certificate)
+    host                   = "https://${module.gke.endpoint}"
+    token                  = data.google_client_config.default.access_token
+  }
 }
+
+locals {
+  db_name                = "grafana"
+  master_auth_subnetwork = "${local.name}-master-subnet"
+  name                   = "graph"
+  network_name           = "${local.name}-network"
+  pods_range_name        = "ip-range-pods-${local.name}"
+  subnet_name            = "${local.name}-subnet"
+  subnet_names           = [for subnet_self_link in module.vpc.subnets_self_links : split("/", subnet_self_link)[length(split("/", subnet_self_link)) - 1]]
+  svc_range_name         = "ip-range-svc-${local.name}"
+}
+
+data "google_client_config" "default" {}
 
 data "google_compute_network" "default" {
   name = "default"
@@ -71,6 +92,38 @@ module "gh_oidc" {
   }
 }
 
+module "vpc" {
+  source  = "terraform-google-modules/network/google"
+  version = "5.1.0"
+
+  network_name = local.network_name
+  project_id   = var.project
+  secondary_ranges = {
+    (local.subnet_name) = [
+      {
+        range_name    = local.pods_range_name
+        ip_cidr_range = "192.168.0.0/18"
+      },
+      {
+        range_name    = local.svc_range_name
+        ip_cidr_range = "192.168.64.0/18"
+      },
+    ]
+  }
+  subnets = [
+    {
+      subnet_name   = local.subnet_name
+      subnet_ip     = "10.0.0.0/17"
+      subnet_region = var.region
+    },
+    {
+      subnet_name   = local.master_auth_subnetwork
+      subnet_ip     = "10.60.0.0/17"
+      subnet_region = var.region
+    },
+  ]
+}
+
 resource "google_compute_global_address" "default" {
   name = "${local.name}-ip"
 }
@@ -96,12 +149,12 @@ module "mysql-db" {
 
   availability_type = "ZONAL"
   backup_configuration = {
-    binary_log_enabled = true
-    enabled = true
-    location = "asia"
-    retained_backups = 7
-    retention_unit = "COUNT"
-    start_time = "20:00"
+    binary_log_enabled             = true
+    enabled                        = true
+    location                       = "asia"
+    retained_backups               = 7
+    retention_unit                 = "COUNT"
+    start_time                     = "20:00"
     transaction_log_retention_days = 7
   }
   database_flags = [
@@ -132,6 +185,11 @@ module "mysql-db" {
   region                          = var.region
   tier                            = "db-f1-micro"
   zone                            = "${var.region}-a"
+}
+
+resource "google_storage_bucket" "image-store" {
+  name     = "21g-social-images"
+  location = var.region
 }
 
 resource "google_container_cluster" "main" {
@@ -188,9 +246,26 @@ resource "google_container_node_pool" "main_nodes" {
   }
 }
 
-resource "google_storage_bucket" "image-store" {
-  name     = "21g-social-images"
-  location = var.region
+module "gke" {
+  source  = "terraform-google-modules/kubernetes-engine/google//modules/beta-autopilot-public-cluster"
+  version = "21.1.0"
+
+  ip_range_pods     = local.pods_range_name
+  ip_range_services = local.svc_range_name
+  name              = local.name
+  network           = "vpc-01"
+  project_id        = var.project
+  region            = var.region
+  release_channel   = "REGULAR"
+  subnetwork        = local.subnet_names[index(module.vpc.subnets_names, local.subnet_name)]
+}
+
+resource "helm_release" "influxdb2" {
+  chart      = "influxdb2"
+  name       = "influxdb2"
+  repository = "https://helm.influxdata.com/"
+  values     = [file("../influxdb2/values.yaml")]
+  version    = "2.2.0"
 }
 
 resource "github_actions_secret" "project" {
