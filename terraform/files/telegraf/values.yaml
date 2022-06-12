@@ -5,16 +5,14 @@ env:
   value: inabagumi
 
 volumes:
-- name: telegraf-config
+- name: telegraf-plugins-config
   configMap:
-    name: telegraf-config
+    name: telegraf-plugins-config
 mountPoints:
-- name: telegraf-config
-  mountPath: /etc
-  subPath: twitter-telegraf-plugin.conf
-- name: telegraf-config
-  mountPath: /etc
-  subPath: youtube-telegraf-plugin.conf
+- name: telegraf-plugins-config
+  mountPath: /etc/telegraf-plugins
+  readOnly: true
+
 
 nodeSelector:
   cloud.google.com/gke-spot: "true"
@@ -177,7 +175,7 @@ config:
       command:
       - youtube-telegraf-plugin
       - -config
-      - /etc/youtube-telegraf-plugin.conf
+      - /etc/telegraf-plugins/youtube-telegraf-plugin.conf
       - -poll_interval
       - 30s
       signal: none
@@ -187,5 +185,5 @@ config:
       command:
       - twitter-telegraf-plugin
       - -config
-      - /etc/twitter-telegraf-plugin.conf
+      - /etc/telegraf-plugins/twitter-telegraf-plugin.conf
       signal: none
