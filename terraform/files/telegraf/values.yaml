@@ -197,6 +197,7 @@ metrics:
 
 hooks:
   postStart:
+  - mkdir -p /etc/telegraf-plugins
   - wget -O twitter-telegraf-plugin.tar.gz https://github.com/inabagumi/twitter-telegraf-plugin/releases/download/v${TWITTER_TELEGRAF_PLUGIN_VERSION}/twitter-telegraf-plugin-${TWITTER_TELEGRAF_PLUGIN_VERSION}_linux_amd64.tar.gz
   - echo "$TWITTER_TELEGRAF_PLUGIN_SHA256 *twitter-telegraf-plugin.tar.gz" | sha256sum -c
   - mkdir -p /usr/src/twitter-telegraf-plugin
@@ -204,6 +205,7 @@ hooks:
   - rm twitter-telegraf-plugin.tar.gz
   - mv /usr/src/twitter-telegraf-plugin/twitter-telegraf-plugin /usr/local/bin
   - rm -rf /usr/src/twitter-telegraf-plugin
+  - touch /etc/telegraf-plugins/twitter-telegraf-plugin.conf
   - wget -O youtube-telegraf-plugin.tar.gz https://github.com/inabagumi/youtube-telegraf-plugin/releases/download/v${YOUTUBE_TELEGRAF_PLUGIN_VERSION}/youtube-telegraf-plugin-${YOUTUBE_TELEGRAF_PLUGIN_VERSION}_linux_amd64.tar.gz
   - echo "$YOUTUBE_TELEGRAF_PLUGIN_SHA256 *youtube-telegraf-plugin.tar.gz" | sha256sum -c
   - mkdir -p /usr/src/youtube-telegraf-plugin
@@ -211,3 +213,5 @@ hooks:
   - rm youtube-telegraf-plugin.tar.gz
   - mv /usr/src/youtube-telegraf-plugin/youtube-telegraf-plugin /usr/local/bin
   - rm -rf /usr/src/youtube-telegraf-plugin
+  - touch /etc/telegraf-plugins/youtube-telegraf-plugin.conf
+  - chown -R telegraf:telegraf /etc/telegraf-plugins
