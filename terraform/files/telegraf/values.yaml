@@ -189,3 +189,7 @@ config:
       - -config
       - /etc/twitter-telegraf-plugin.conf
       signal: none
+
+metrics:
+  health:
+    enabled: true
