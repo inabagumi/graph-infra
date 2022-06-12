@@ -46,10 +46,6 @@ config:
           dest: group
 
           value_mappings:
-            healthy: 1
-            problem: 2
-            critical: 3
-
             UCkpqb53xiOvOgNYEbNpFSyw: HIYOCRO    # 茜音カンナ
             UC3EhsuKdEkI99TWZwZgWutg: VApArt     # 杏戸ゆげ
             UC_hjHmi-ODGhHlSzD16p5Pw: HIYOCRO    # 家入ポポ
@@ -93,49 +89,49 @@ config:
             UC2hc-00y-MSR6eYA4eQ4tjQ: SugarLyric # 龍ヶ崎リン
             UCJEpkwwDiTKS5lxwFttEbIQ: 774inc     # ななし公式チャンネル
 
-            "992355895051866112": VApArt      # _kanade_kanon
-            "993839162099810305": AniMare     # AniMare_cafe
-            "995247053977485313": AniMare     # Haneru_Inaba
-            "995250952373391360": AniMare     # Hinako_Umori
-            "995253301472972801": 774inc      # Ichika_Souya
-            "995258822556991493": AniMare     # Ran_Hinokuma
-            "1007247110167674881": HoneyStrap # HNST_official
-            "1007268292648505344": HoneyStrap # Patra_HNST
-            "1007290563756871681": HoneyStrap # Eli_HNST
-            "1007316805981892613": HoneyStrap # Charlotte_HNST
-            "1007331251685023744": HoneyStrap # Mary_HNST
-            "1007339408343777281": HoneyStrap # Mico_HNST
-            "1091634367158337536": VApArt     # Vtuber_ApArt
-            "1091649332539846656": VApArt     # Uge_And
-            "1113405297949700096": AniMare    # tirol0_0lorit
-            "1128841181222203393": AniMare    # shiromiya_mimi
-            "1184117947582697473": VApArt     # Anko_Kisaki
-            "1224952244719587328": AniMare    # Kuku_Kazami
-            "1224956450100764673": AniMare    # Izumi_Yunohara
-            "1234696406931136513": SugarLyric # Anna_Kojo
-            "1234697406542802950": SugarLyric # Rene_Ryugasaki
-            "1234698396297859072": SugarLyric # SugarLyric_PI
-            "1240652791892172800": SugarLyric # ChrisShishio
-            "1245694490532175873": AniMare    # Natsumi_Hashiba
-            "1245695747602837504": AniMare    # Yurari_Momono
-            "1245697015066984451": AniMare    # Akane_Haibara
-            "1248507657226313728": AniMare    # KisoAnibit
-            "1258264128780554241": VApArt     # Met_Komori
-            "1258264848011366402": VApArt     # Wat_Huma
-            "1308626156447436801": AniMare    # Rui_Seshima
-            "1308632177815420933": AniMare    # Hikari_Hira
-            "1351387644081520641": AniMare    # Rukako_Oura
-            "1351423100026425344": AniMare    # Mia_Konan
-            "1397780980597882883": AniMare    # kimagureiinkai
-            "1414380215002746881": 774inc     # 774inc_vacation
-            "1445646417385574414": HIYOCRO    # Sei_Touri
-            "1445646752430784519": HIYOCRO    # Nemo_Suzumi
-            "1445647446638399492": HIYOCRO    # Canna_Akane
-            "1445647483925717000": HIYOCRO    # Popo_Ieiri
-            "1445647873882742785": HIYOCRO    # Kiki_Shisui
-            "1445647957412384777": HIYOCRO    # Yuri_Kohakuu
-            "1448968028972933127": HIYOCRO    # HIYOCRO_PT
-            "1509546454016495626": 774inc     # Nanashi_774inc
+            992355895051866112: VApArt      # _kanade_kanon
+            993839162099810305: AniMare     # AniMare_cafe
+            995247053977485313: AniMare     # Haneru_Inaba
+            995250952373391360: AniMare     # Hinako_Umori
+            995253301472972801: 774inc      # Ichika_Souya
+            995258822556991493: AniMare     # Ran_Hinokuma
+            1007247110167674881: HoneyStrap # HNST_official
+            1007268292648505344: HoneyStrap # Patra_HNST
+            1007290563756871681: HoneyStrap # Eli_HNST
+            1007316805981892613: HoneyStrap # Charlotte_HNST
+            1007331251685023744: HoneyStrap # Mary_HNST
+            1007339408343777281: HoneyStrap # Mico_HNST
+            1091634367158337536: VApArt     # Vtuber_ApArt
+            1091649332539846656: VApArt     # Uge_And
+            1113405297949700096: AniMare    # tirol0_0lorit
+            1128841181222203393: AniMare    # shiromiya_mimi
+            1184117947582697473: VApArt     # Anko_Kisaki
+            1224952244719587328: AniMare    # Kuku_Kazami
+            1224956450100764673: AniMare    # Izumi_Yunohara
+            1234696406931136513: SugarLyric # Anna_Kojo
+            1234697406542802950: SugarLyric # Rene_Ryugasaki
+            1234698396297859072: SugarLyric # SugarLyric_PI
+            1240652791892172800: SugarLyric # ChrisShishio
+            1245694490532175873: AniMare    # Natsumi_Hashiba
+            1245695747602837504: AniMare    # Yurari_Momono
+            1245697015066984451: AniMare    # Akane_Haibara
+            1248507657226313728: AniMare    # KisoAnibit
+            1258264128780554241: VApArt     # Met_Komori
+            1258264848011366402: VApArt     # Wat_Huma
+            1308626156447436801: AniMare    # Rui_Seshima
+            1308632177815420933: AniMare    # Hikari_Hira
+            1351387644081520641: AniMare    # Rukako_Oura
+            1351423100026425344: AniMare    # Mia_Konan
+            1397780980597882883: AniMare    # kimagureiinkai
+            1414380215002746881: 774inc     # 774inc_vacation
+            1445646417385574414: HIYOCRO    # Sei_Touri
+            1445646752430784519: HIYOCRO    # Nemo_Suzumi
+            1445647446638399492: HIYOCRO    # Canna_Akane
+            1445647483925717000: HIYOCRO    # Popo_Ieiri
+            1445647873882742785: HIYOCRO    # Kiki_Shisui
+            1445647957412384777: HIYOCRO    # Yuri_Kohakuu
+            1448968028972933127: HIYOCRO    # HIYOCRO_PT
+            1509546454016495626: 774inc     # Nanashi_774inc
       - mapping:
           tag: id
           dest: retired
@@ -150,12 +146,12 @@ config:
             UC_BlXOQe5OcRC7o0GX8kp8A: true # 羽柴なつみ
             UCtzCQnCT9E4o6U3mHHSHbQQ: true # 白宮みみ
 
-            "995250952373391360": true  # Hinako_Umori
-            "1007290563756871681": true # Eli_HNST
-            "1245694490532175873": true # Natsumi_Hashiba
-            "1245695747602837504": true # Yurari_Momono
-            "1245697015066984451": true # Akane_Haibara
-            "1128841181222203393": true # shiromiya_mimi
+            995250952373391360: true  # Hinako_Umori
+            1007290563756871681: true # Eli_HNST
+            1245694490532175873: true # Natsumi_Hashiba
+            1245695747602837504: true # Yurari_Momono
+            1245697015066984451: true # Akane_Haibara
+            1128841181222203393: true # shiromiya_mimi
   outputs:
   - influxdb_v2:
       urls:
@@ -199,21 +195,19 @@ metrics:
   health:
     enabled: true
 
-
 hooks:
-  postStart2: ["/bin/sh", "-c", "echo Telegraf started"]
   postStart:
   - wget -O twitter-telegraf-plugin.tar.gz https://github.com/inabagumi/twitter-telegraf-plugin/releases/download/v${TWITTER_TELEGRAF_PLUGIN_VERSION}/twitter-telegraf-plugin-${TWITTER_TELEGRAF_PLUGIN_VERSION}_linux_amd64.tar.gz
-	- echo "$TWITTER_TELEGRAF_PLUGIN_SHA256 *twitter-telegraf-plugin.tar.gz" | sha256sum -c
-	- mkdir -p /usr/src/twitter-telegraf-plugin
-	- tar -xzf twitter-telegraf-plugin.tar.gz -C /usr/src/twitter-telegraf-plugin
-	- rm twitter-telegraf-plugin.tar.gz
-	- mv /usr/src/twitter-telegraf-plugin/twitter-telegraf-plugin /usr/local/bin
-	- rm -rf /usr/src/twitter-telegraf-plugin
-	- wget -O youtube-telegraf-plugin.tar.gz https://github.com/inabagumi/youtube-telegraf-plugin/releases/download/v${YOUTUBE_TELEGRAF_PLUGIN_VERSION}/youtube-telegraf-plugin-${YOUTUBE_TELEGRAF_PLUGIN_VERSION}_linux_amd64.tar.gz
-	- echo "$YOUTUBE_TELEGRAF_PLUGIN_SHA256 *youtube-telegraf-plugin.tar.gz" | sha256sum -c
-	- mkdir -p /usr/src/youtube-telegraf-plugin
-	- tar -xzf youtube-telegraf-plugin.tar.gz -C /usr/src/youtube-telegraf-plugin
-	- rm youtube-telegraf-plugin.tar.gz
-	- mv /usr/src/youtube-telegraf-plugin/youtube-telegraf-plugin /usr/local/bin
-	- rm -rf /usr/src/youtube-telegraf-plugin
+  - echo "$TWITTER_TELEGRAF_PLUGIN_SHA256 *twitter-telegraf-plugin.tar.gz" | sha256sum -c
+  - mkdir -p /usr/src/twitter-telegraf-plugin
+  - tar -xzf twitter-telegraf-plugin.tar.gz -C /usr/src/twitter-telegraf-plugin
+  - rm twitter-telegraf-plugin.tar.gz
+  - mv /usr/src/twitter-telegraf-plugin/twitter-telegraf-plugin /usr/local/bin
+  - rm -rf /usr/src/twitter-telegraf-plugin
+  - wget -O youtube-telegraf-plugin.tar.gz https://github.com/inabagumi/youtube-telegraf-plugin/releases/download/v${YOUTUBE_TELEGRAF_PLUGIN_VERSION}/youtube-telegraf-plugin-${YOUTUBE_TELEGRAF_PLUGIN_VERSION}_linux_amd64.tar.gz
+  - echo "$YOUTUBE_TELEGRAF_PLUGIN_SHA256 *youtube-telegraf-plugin.tar.gz" | sha256sum -c
+  - mkdir -p /usr/src/youtube-telegraf-plugin
+  - tar -xzf youtube-telegraf-plugin.tar.gz -C /usr/src/youtube-telegraf-plugin
+  - rm youtube-telegraf-plugin.tar.gz
+  - mv /usr/src/youtube-telegraf-plugin/youtube-telegraf-plugin /usr/local/bin
+  - rm -rf /usr/src/youtube-telegraf-plugin
