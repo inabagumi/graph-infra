@@ -291,14 +291,14 @@ module "gke" {
   subnetwork                      = local.subnet_names[index(module.vpc.subnets_names, local.subnet_name)]
 }
 
-resource "kubernetes_config_map_v1" "telegraf_config" {
+resource "kubernetes_config_map_v1" "telegraf_plugins_config" {
   data = {
     "twitter-telegraf-plugin.conf" = file("${path.module}/files/telegraf/twitter-telegraf-plugin.conf")
     "youtube-telegraf-plugin.conf" = file("${path.module}/files/telegraf/youtube-telegraf-plugin.conf")
   }
 
   metadata {
-    name = "telegraf-config"
+    name = "telegraf-plugins-config"
   }
 }
 
