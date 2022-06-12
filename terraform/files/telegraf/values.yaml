@@ -1,7 +1,8 @@
 envFromSecret: telegraf-tokens
 
 env:
-  INFLUXDB_ORG: inabagumi
+- name: INFLUXDB_ORG
+  value: inabagumi
 
 volumes:
 - name: telegraf-config
