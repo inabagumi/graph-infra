@@ -288,6 +288,7 @@ resource "helm_release" "influxdb2" {
   version    = "2.1.0"
 }
 
+/*
 resource "helm_release" "telegraf" {
   chart      = "telegraf"
   name       = "telegraf"
@@ -305,6 +306,7 @@ resource "helm_release" "telegraf" {
     value = "latest"
   }
 }
+*/
 
 resource "github_actions_secret" "project" {
   plaintext_value = var.project

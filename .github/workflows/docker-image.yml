@@ -22,7 +22,7 @@ jobs:
         token_format: access_token
         workload_identity_provider: ${{ secrets.GOOGLE_WORKLOAD_IDENTITY_PROVIDER }}
     - id: meta
-      name: name: Docker meta
+      name: Docker meta
       uses: docker/metadata-action@v4
       with:
         images: |
