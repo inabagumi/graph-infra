@@ -1,0 +1,49 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+    - id: auth
+      name: Authenticate to Google Cloud
+      uses: google-github-actions/auth@v0
+      with:
+        service_account: ${{ secrets.GOOGLE_SERVICE_ACCOUNT }}
+        token_format: access_token
+        workload_identity_provider: ${{ secrets.GOOGLE_WORKLOAD_IDENTITY_PROVIDER }}
+    - id: meta
+      name: name: Docker meta
+      uses: docker/metadata-action@v4
+      with:
+        images: |
+          ${{ secrets.GOOGLE_REGION }}-docker.pkg.dev/${{ secrets.GOOGLE_PROJECT }}/containers/telegraf
+        labels: |
+          org.opencontainers.image.title=Telegraf
+          org.opencontainers.image.description=The plugin-driven server agent for collecting & reporting metrics.
+          org.opencontainers.image.vendor=InfluxData
+        tags: |
+          type=raw,value=latest,enable={{is_default_branch}}
+          type=schedule,pattern={{date 'YYYYMMDD'}}
+    - name: Login to GAR
+      uses: docker/login-action@v2
+      with:
+        registry: ${{ secrets.GOOGLE_REGION }}-docker.pkg.dev
+        username: oauth2accesstoken
+        password: ${{ steps.auth.outputs.access_token }}
+    - name: Build and push
+      uses: docker/build-push-action@v3
+      with:
+        context: telegraf
+        labels: ${{ steps.meta.outputs.labels }}
+        push: true
+        tags: ${{ steps.meta.outputs.tags }}

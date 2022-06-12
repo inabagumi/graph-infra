@@ -192,6 +192,25 @@ resource "google_storage_bucket" "image-store" {
   location = var.region
 }
 
+resource "google_artifact_registry_repository" "containers" {
+  provider = google-beta
+
+  format        = "DOCKER"
+  location      = var.region
+  project       = var.project
+  repository_id = "containers"
+}
+
+resource "google_artifact_registry_repository_iam_member" "gha" {
+  provider = google-beta
+
+  location   = google_artifact_registry_repository.containers.location
+  member     = "serviceAccount:${google_service_account.gha.email}"
+  project    = google_artifact_registry_repository.containers.project
+  repository = google_artifact_registry_repository.containers.name
+  role       = "roles/artifactregistry.writer"
+}
+
 resource "google_container_cluster" "main" {
   name     = local.name
   location = "${var.region}-c"
@@ -266,7 +285,25 @@ resource "helm_release" "influxdb2" {
   name       = "influxdb2"
   repository = "https://helm.influxdata.com/"
   values     = [file("../influxdb2/values.yaml")]
-  version    = "2.1.0   "
+  version    = "2.1.0"
+}
+
+resource "helm_release" "telegraf" {
+  chart      = "telegraf"
+  name       = "telegraf"
+  repository = "https://helm.influxdata.com/"
+  values     = [file("../telegraf/values.yaml")]
+  version    = "1.8.18"
+
+  set {
+    name  = "image.repo"
+    value = "${var.region}-docker.pkg.dev/${var.project}/containers/telegraf"
+  }
+
+  set {
+    name  = "image.tag"
+    value = "latest"
+  }
 }
 
 resource "github_actions_secret" "project" {
