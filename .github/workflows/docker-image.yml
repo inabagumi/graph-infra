@@ -29,9 +29,11 @@ jobs:
           org.opencontainers.image.title=Telegraf
           org.opencontainers.image.description=The plugin-driven server agent for collecting & reporting metrics.
           org.opencontainers.image.vendor=InfluxData
+          org.opencontainers.image.url=https://github.com/inabagumi/graph-infra/tree/main/telegraf
+          org.opencontainers.image.source=https://github.com/inabagumi/graph-infra/tree/main/telegraf
         tags: |
           type=raw,value=latest,enable={{is_default_branch}}
-          type=schedule,pattern={{date 'YYYYMMDD'}}
+          type=raw,value={{date 'YYYYMMDD'}},enable={{is_default_branch}}
     - name: Login to GAR
       uses: docker/login-action@v2
       with:
