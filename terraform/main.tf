@@ -27,6 +27,11 @@ terraform {
       source  = "hashicorp/helm"
       version = "2.5.1"
     }
+
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = "2.11.0"
+    }
   }
 }
 
@@ -50,6 +55,12 @@ provider "helm" {
     host                   = "https://${module.gke.endpoint}"
     token                  = data.google_client_config.default.access_token
   }
+}
+
+provider "kubernetes" {
+  cluster_ca_certificate = base64decode(module.gke.ca_certificate)
+  host                   = "https://${module.gke.endpoint}"
+  token                  = data.google_client_config.default.access_token
 }
 
 locals {
@@ -280,20 +291,30 @@ module "gke" {
   subnetwork                      = local.subnet_names[index(module.vpc.subnets_names, local.subnet_name)]
 }
 
+resource "kubernetes_config_map_v1" "telegraf_config" {
+  data = {
+    "twitter-telegraf-plugin.conf" = file("${path.module}/files/telegraf/twitter-telegraf-plugin.conf")
+    "youtube-telegraf-plugin.conf" = file("${path.module}/files/telegraf/youtube-telegraf-plugin.conf")
+  }
+
+  metadata {
+    name = "telegraf-config"
+  }
+}
+
 resource "helm_release" "influxdb2" {
   chart      = "influxdb2"
   name       = "influxdb2"
   repository = "https://helm.influxdata.com/"
-  values     = [file("../influxdb2/values.yaml")]
+  values     = [file("${path.module}/files/influxdb2/values.yaml")]
   version    = "2.1.0"
 }
 
-/*
 resource "helm_release" "telegraf" {
   chart      = "telegraf"
   name       = "telegraf"
   repository = "https://helm.influxdata.com/"
-  values     = [file("../telegraf/values.yaml")]
+  values     = [file("${path.module}/files/telegraf/values.yaml")]
   version    = "1.8.18"
 
   set {
@@ -305,8 +326,77 @@ resource "helm_release" "telegraf" {
     name  = "image.tag"
     value = "latest"
   }
+
+  set {
+    name  = "env[1].name"
+    value = "INFLUXDB_TOKEN"
+  }
+
+  set_sensitive {
+    name  = "env[1].value"
+    value = ""
+  }
+
+  set {
+    name  = "env[2].name"
+    value = "INFLUXDB_ORG"
+  }
+
+  set {
+    name  = "env[2].value"
+    value = ""
+  }
+
+  set {
+    name  = "env[3].name"
+    value = "GOOGLE_API_KEY"
+  }
+
+  set_sensitive {
+    name  = "env[3].value"
+    value = ""
+  }
+
+  set {
+    name  = "env[4].name"
+    value = "TWITTER_ACCESS_TOKEN"
+  }
+
+  set_sensitive {
+    name  = "env[4].value"
+    value = ""
+  }
+
+  set {
+    name  = "env[5].name"
+    value = "TWITTER_ACCESS_TOKEN_SECRET"
+  }
+
+  set_sensitive {
+    name  = "env[5].value"
+    value = ""
+  }
+
+  set {
+    name  = "env[6].name"
+    value = "TWITTER_CONSUMER_KEY"
+  }
+
+  set_sensitive {
+    name  = "env[6].value"
+    value = ""
+  }
+
+  set {
+    name  = "env[7].name"
+    value = "TWITTER_CONSUMER_SECRET"
+  }
+
+  set_sensitive {
+    name  = "env[7].value"
+    value = ""
+  }
 }
-*/
 
 resource "github_actions_secret" "project" {
   plaintext_value = var.project
