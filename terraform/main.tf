@@ -302,6 +302,22 @@ resource "kubernetes_config_map_v1" "telegraf_config" {
   }
 }
 
+resource "kubernetes_secret_v1" "telegraf-tokens" {
+  data = {
+    INFLUXDB_TOKEN              = ""
+    GOOGLE_API_KEY              = ""
+    TWITTER_ACCESS_TOKEN        = ""
+    TWITTER_ACCESS_TOKEN_SECRET = ""
+    TWITTER_CONSUMER_KEY        = ""
+    TWITTER_CONSUMER_SECRET     = ""
+  }
+  type = "Opaque"
+
+  metadata {
+    name = "telegraf-tokens"
+  }
+}
+
 resource "helm_release" "influxdb2" {
   chart      = "influxdb2"
   name       = "influxdb2"
@@ -325,76 +341,6 @@ resource "helm_release" "telegraf" {
   set {
     name  = "image.tag"
     value = "latest"
-  }
-
-  set {
-    name  = "env[1].name"
-    value = "INFLUXDB_TOKEN"
-  }
-
-  set_sensitive {
-    name  = "env[1].value"
-    value = ""
-  }
-
-  set {
-    name  = "env[2].name"
-    value = "INFLUXDB_ORG"
-  }
-
-  set {
-    name  = "env[2].value"
-    value = ""
-  }
-
-  set {
-    name  = "env[3].name"
-    value = "GOOGLE_API_KEY"
-  }
-
-  set_sensitive {
-    name  = "env[3].value"
-    value = ""
-  }
-
-  set {
-    name  = "env[4].name"
-    value = "TWITTER_ACCESS_TOKEN"
-  }
-
-  set_sensitive {
-    name  = "env[4].value"
-    value = ""
-  }
-
-  set {
-    name  = "env[5].name"
-    value = "TWITTER_ACCESS_TOKEN_SECRET"
-  }
-
-  set_sensitive {
-    name  = "env[5].value"
-    value = ""
-  }
-
-  set {
-    name  = "env[6].name"
-    value = "TWITTER_CONSUMER_KEY"
-  }
-
-  set_sensitive {
-    name  = "env[6].value"
-    value = ""
-  }
-
-  set {
-    name  = "env[7].name"
-    value = "TWITTER_CONSUMER_SECRET"
-  }
-
-  set_sensitive {
-    name  = "env[7].value"
-    value = ""
   }
 }
 
