@@ -332,16 +332,6 @@ resource "helm_release" "telegraf" {
   repository = "https://helm.influxdata.com/"
   values     = [file("${path.module}/files/telegraf/values.yaml")]
   version    = "1.8.18"
-
-  set {
-    name  = "image.repo"
-    value = "${var.region}-docker.pkg.dev/${var.project}/containers/telegraf"
-  }
-
-  set {
-    name  = "image.tag"
-    value = "latest"
-  }
 }
 
 resource "github_actions_secret" "project" {
