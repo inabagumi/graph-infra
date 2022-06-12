@@ -12,8 +12,6 @@ jobs:
       id-token: write
     steps:
     - uses: actions/checkout@v3
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
     - id: auth
       name: Authenticate to Google Cloud
       uses: google-github-actions/auth@v0
