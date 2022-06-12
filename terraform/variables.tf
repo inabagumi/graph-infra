@@ -1,8 +1,17 @@
-variable "project" {}
-variable "credentials" {}
-variable "region" {}
-variable "zone" {}
+variable "project" {
+  type = string
+}
 
-locals {
-  name = "graph"
+variable "region" {
+  default = "asia-northeast1"
+  type    = string
+}
+variable "repo_name" {
+  default = "graph-infra"
+  type    = string
+}
+
+variable "repo_owner" {
+  default = "inabagumi"
+  type    = string
 }

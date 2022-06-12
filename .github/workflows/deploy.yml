@@ -20,12 +20,13 @@ jobs:
     name: Setup, Build, Publish, and Deploy
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-    - uses: google-github-actions/setup-gcloud@v0
+    - uses: actions/checkout@v3
+    - id: auth
+      uses: google-github-actions/auth@v0
       with:
-        export_default_credentials: true
-        project_id: soul-weight
-        service_account_key: ${{ secrets.GCP_SA_KEY }}
+        service_account: ${{ secrets.GOOGLE_SERVICE_ACCOUNT }}
+        token_format: access_token
+        workload_identity_provider: ${{ secrets.GOOGLE_WORKLOAD_IDENTITY_PROVIDER }}
     - uses: google-github-actions/get-gke-credentials@v0
       with:
         cluster_name: graph
@@ -42,11 +43,14 @@ jobs:
         tar xf kustomize.tar.gz
         sudo install kustomize /usr/local/bin
 
+    - uses: docker/login-action@v2
+      with:
+        password: ${{ steps.auth.outputs.access_token }}
+        registry: ${{ secrets.GOOGLE_REGION }}-docker.pkg.dev
+        username: oauth2accesstoken
+
     - name: Build, and Publish
-      run: |
-        gcloud auth configure-docker
-        skaffold build --file-output tags.json
+      run: skaffold build --file-output tags.json
 
     - name: Deploy
-      run: |
-        skaffold deploy --build-artifacts tags.json --status-check=false
+      run: skaffold deploy --build-artifacts tags.json --status-check=false
