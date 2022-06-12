@@ -266,7 +266,7 @@ resource "helm_release" "influxdb2" {
   name       = "influxdb2"
   repository = "https://helm.influxdata.com/"
   values     = [file("../influxdb2/values.yaml")]
-  version    = "2.2.0"
+  version    = "2.1.0   "
 }
 
 resource "github_actions_secret" "project" {
