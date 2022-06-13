@@ -1,9 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: grafana-datasources
-data:
-  datasources.yaml: |
-    apiVersion: 1
-
-    datasources: []

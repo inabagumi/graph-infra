@@ -280,6 +280,7 @@ module "gke" {
   source  = "terraform-google-modules/kubernetes-engine/google//modules/beta-autopilot-public-cluster"
   version = "21.1.0"
 
+  datapath_provider               = "ADVANCED_DATAPATH"
   enable_vertical_pod_autoscaling = true
   ip_range_pods                   = local.pods_range_name
   ip_range_services               = local.svc_range_name
@@ -289,6 +290,18 @@ module "gke" {
   region                          = var.region
   release_channel                 = "REGULAR"
   subnetwork                      = local.subnet_names[index(module.vpc.subnets_names, local.subnet_name)]
+}
+
+resource "random_string" "influxdb2_admin_password" {
+  length  = 32
+  numeric = false
+  special = false
+}
+
+resource "random_string" "influxdb2_admin_token" {
+  length  = 32
+  numeric = false
+  special = false
 }
 
 resource "kubernetes_config_map_v1" "telegraf_plugins_config" {
@@ -304,12 +317,12 @@ resource "kubernetes_config_map_v1" "telegraf_plugins_config" {
 
 resource "kubernetes_secret_v1" "telegraf-tokens" {
   data = {
-    INFLUXDB_TOKEN              = ""
-    GOOGLE_API_KEY              = ""
-    TWITTER_ACCESS_TOKEN        = ""
-    TWITTER_ACCESS_TOKEN_SECRET = ""
-    TWITTER_CONSUMER_KEY        = ""
-    TWITTER_CONSUMER_SECRET     = ""
+    INFLUX_TOKEN                = var.influx_token
+    GOOGLE_API_KEY              = var.google_api_key
+    TWITTER_ACCESS_TOKEN        = var.twitter_access_token
+    TWITTER_ACCESS_TOKEN_SECRET = var.twitter_access_token_secret
+    TWITTER_CONSUMER_KEY        = var.twitter_consumer_key
+    TWITTER_CONSUMER_SECRET     = var.twitter_consumer_secret
   }
   type = "Opaque"
 
@@ -324,6 +337,16 @@ resource "helm_release" "influxdb2" {
   repository = "https://helm.influxdata.com/"
   values     = [file("${path.module}/files/influxdb2/values.yaml")]
   version    = "2.1.0"
+
+  set_sensitive {
+    name  = "adminUser.password"
+    value = random_string.influxdb2_admin_password.result
+  }
+
+  set_sensitive {
+    name  = "adminUser.token"
+    value = random_string.influxdb2_admin_token.result
+  }
 }
 
 resource "helm_release" "telegraf" {
@@ -332,6 +355,11 @@ resource "helm_release" "telegraf" {
   repository = "https://helm.influxdata.com/"
   values     = [file("${path.module}/files/telegraf/values.yaml")]
   version    = "1.8.18"
+
+  set {
+    name  = "image.repo"
+    value = "${var.region}-docker.pkg.dev/${var.project}/containers/telegraf"
+  }
 }
 
 resource "github_actions_secret" "project" {
