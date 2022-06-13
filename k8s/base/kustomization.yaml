@@ -1,8 +1,0 @@
-bases:
-- influxdb2
-- telegraf
-- grafana-image-renderer
-- grafana
-
-resources:
-- ingress.yaml
