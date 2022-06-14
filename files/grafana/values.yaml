@@ -63,7 +63,7 @@ extraSecretMounts:
   secretName: grafana-secret-files
   readOnly: true
 
-dashboards:
+datasources:
   datasources.yaml:
     apiVersion: 1
 
