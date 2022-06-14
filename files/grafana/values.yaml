@@ -1,0 +1,94 @@
+autoscaling:
+  enabled: true
+  minReplicas: 1
+  maxReplicas: 5
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      targetAverageUtilization: 60
+  - type: Resource
+    resource:
+      name: memory
+      targetAverageUtilization: 60
+
+image:
+  repository: grafana/grafana
+  tag: 8.5.5
+
+testFramework:
+  enabled: false
+
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: graph-ip
+    networking.gke.io/managed-certificates: graph-certificate, graph-old-certificate
+    networking.gke.io/v1beta1.FrontendConfig: grafana-frontend-config
+  hosts:
+  - 21g.social
+
+nodeSelector:
+  beta.cloud.google.com/backend-config:
+    '{"default": "grafana-backend-config"}'
+  cloud.google.com/neg: '{"ingress": true}'
+
+env:
+  GF_ALERTING_ENABLED: "false"
+  GF_AUTH_ANONYMOUS_ENABLED: "true"
+  GF_AUTH_ANONYMOUS_ORG_NAME: Haneru Developers
+  GF_SECURITY_COOKIE_SECURE: "true"
+  GF_SECURITY_STRICT_TRANSPORT_SECURITY: "true"
+  GF_SECURITY_STRICT_TRANSPORT_SECURITY_MAX_AGE_SECONDS: "31536000"
+  GF_SECURITY_STRICT_TRANSPORT_SECURITY_PRELOAD: "true"
+  GF_SECURITY_STRICT_TRANSPORT_SECURITY_SUBDOMAINS: "true"
+  GF_SERVER_ENABLE_GZIP: "true"
+  GF_SERVER_DOMAIN: 21g.social
+  GF_SERVER_ENFORCE_DOMAIN: "true"
+  GF_SERVER_ROOT_URL: https://21g.social
+  GF_SNAPSHOTS_EXTERNAL_ENABLED: "false"
+  GF_UNIFIED_ALERTING_ENABLED: "true"
+
+envFromSecret: grafana-tokens
+
+extraSecretMounts:
+- name: secret-files
+  mountPath: /etc/secrets
+  secretName: grafana-secret-files
+  readOnly: true
+
+imageRenderer:
+  enabled: true
+  image:
+    repository: grafana/grafana-image-renderer
+    tag: 3.4.2
+  env:
+    BROWSER_TZ: Asia/Tokyo
+
+extraObjects:
+- apiVersion: networking.gke.io/v1
+  kind: ManagedCertificate
+  metadata:
+    name: graph-certificate
+  spec:
+    domains:
+    - 21g.social
+- apiVersion: networking.gke.io/v1beta1
+  kind: FrontendConfig
+  metadata:
+    name: grafana-frontend-config
+  spec:
+    redirectToHttps:
+      enabled: true
+      responseCodeName: PERMANENT_REDIRECT
+- apiVersion: cloud.google.com/v1beta1
+  kind: BackendConfig
+  metadata:
+    name: grafana-backend-config
+  spec:
+    cdn:
+      enabled: true
+      cachePolicy:
+        includeHost: false
+        includeProtocol: true
+        includeQueryString: false

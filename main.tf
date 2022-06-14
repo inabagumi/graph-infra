@@ -76,10 +76,6 @@ locals {
 
 data "google_client_config" "default" {}
 
-data "google_compute_network" "default" {
-  name = "default"
-}
-
 resource "google_service_account" "gha" {
   account_id   = "github-actions"
   description  = "Service Account for GitHub Actions"
@@ -182,8 +178,8 @@ module "mysql-db" {
   enable_default_db   = false
   enable_default_user = false
   ip_configuration = {
-    ipv4_enabled        = true
-    private_network     = data.google_compute_network.default.id
+    ipv4_enabled        = false
+    private_network     = module.vpc.network_id
     require_ssl         = false
     allocated_ip_range  = null
     authorized_networks = []
@@ -220,60 +216,6 @@ resource "google_artifact_registry_repository_iam_member" "gha" {
   project    = google_artifact_registry_repository.containers.project
   repository = google_artifact_registry_repository.containers.name
   role       = "roles/artifactregistry.writer"
-}
-
-resource "google_container_cluster" "main" {
-  name     = local.name
-  location = "${var.region}-c"
-
-  enable_shielded_nodes    = false
-  remove_default_node_pool = true
-  initial_node_count       = 1
-
-  master_auth {
-    client_certificate_config {
-      issue_client_certificate = false
-    }
-  }
-
-  release_channel {
-    channel = "REGULAR"
-  }
-
-  ip_allocation_policy {}
-}
-
-resource "google_container_node_pool" "main_nodes" {
-  name       = "${local.name}-node-pool"
-  location   = google_container_cluster.main.location
-  cluster    = google_container_cluster.main.name
-  node_count = 2
-
-  autoscaling {
-    min_node_count = 1
-    max_node_count = 5
-  }
-
-  management {
-    auto_repair  = true
-    auto_upgrade = true
-  }
-
-  node_config {
-    preemptible  = true
-    machine_type = "e2-small"
-    disk_size_gb = 10
-
-    metadata = {
-      disable-legacy-endpoints = "true"
-    }
-
-    oauth_scopes = [
-      "https://www.googleapis.com/auth/devstorage.read_only",
-      "https://www.googleapis.com/auth/logging.write",
-      "https://www.googleapis.com/auth/monitoring",
-    ]
-  }
 }
 
 module "gke" {
@@ -331,6 +273,34 @@ resource "kubernetes_secret_v1" "telegraf-tokens" {
   }
 }
 
+resource "kubernetes_secret_v1" "grafana_tokens" {
+  data = {
+    GF_DATABASE_HOST                       = module.mysql-db.private_ip_address
+    GF_DATABASE_NAME                       = "grafana"
+    GF_DATABASE_PASSWORD                   = var.db_password
+    GF_DATABASE_TYPE                       = "mysql"
+    GF_EXTERNAL_IMAGE_STORAGE_GCS_BUCKET   = "21g-social-images"
+    GF_EXTERNAL_IMAGE_STORAGE_GCS_KEY_FILE = "/etc/secrets/gcs-key.json"
+    GF_EXTERNAL_IMAGE_STORAGE_PROVIDER     = "gcs"
+  }
+  type = "Opaque"
+
+  metadata {
+    name = "grafana-tokens"
+  }
+}
+
+resource "kubernetes_secret_v1" "grafana_secret_files" {
+  data = {
+    "gcs-key.json" = var.gcs_key
+  }
+  type = "Opaque"
+
+  metadata {
+    name = "grafana-secret-files"
+  }
+}
+
 resource "helm_release" "influxdb2" {
   chart      = "influxdb2"
   name       = "influxdb2"
@@ -360,6 +330,14 @@ resource "helm_release" "telegraf" {
     name  = "image.repo"
     value = "${var.region}-docker.pkg.dev/${var.project}/containers/telegraf"
   }
+}
+
+resource "helm_release" "grafana" {
+  chart      = "grafana"
+  name       = "grafana"
+  repository = "https://grafana.github.io/helm-charts"
+  values     = [file("${path.module}/files/grafana/values.yaml")]
+  version    = "6.29.11"
 }
 
 resource "github_actions_secret" "project" {
