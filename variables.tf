@@ -1,3 +1,11 @@
+variable "db_password" {
+  type = string
+}
+
+variable "gcs_key" {
+  type = string
+}
+
 variable "google_api_key" {
   type = string
 }
