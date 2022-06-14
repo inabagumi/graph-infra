@@ -68,6 +68,10 @@ imageRenderer:
     tag: 3.4.2
   env:
     BROWSER_TZ: Asia/Tokyo
+  networkPolicy:
+    limitIngress: false
+  nodeSelector:
+    cloud.google.com/gke-spot: "true"
 
 extraObjects:
 - apiVersion: networking.gke.io/v1
