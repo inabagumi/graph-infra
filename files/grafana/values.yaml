@@ -52,6 +52,8 @@ env:
   GF_SERVER_ROOT_URL: https://21g.social
   GF_SNAPSHOTS_EXTERNAL_ENABLED: "false"
   GF_UNIFIED_ALERTING_ENABLED: "true"
+  GF_UNIFIED_ALERTING_SCREENSHOTS_CAPTURE: "true"
+  GF_UNIFIED_ALERTING_SCREENSHOTS_UPLOAD_EXTERNAL_IMAGE_STORAGE: "true"
 
 envFromSecret: grafana-tokens
 
@@ -60,6 +62,14 @@ extraSecretMounts:
   mountPath: /etc/secrets
   secretName: grafana-secret-files
   readOnly: true
+
+dashboards:
+  datasources.yaml:
+    apiVersion: 1
+
+    deleteDatasources:
+    - name: Twitter
+      orgId: 1
 
 imageRenderer:
   enabled: true
