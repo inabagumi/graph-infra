@@ -19,6 +19,12 @@ image:
 testFramework:
   enabled: false
 
+service:
+  annotations:
+    beta.cloud.google.com/backend-config:
+      '{"default": "grafana-backend-config"}'
+    cloud.google.com/neg: '{"ingress": true}'
+
 ingress:
   enabled: true
   annotations:
@@ -29,9 +35,7 @@ ingress:
   - 21g.social
 
 nodeSelector:
-  beta.cloud.google.com/backend-config:
-    '{"default": "grafana-backend-config"}'
-  cloud.google.com/neg: '{"ingress": true}'
+  cloud.google.com/gke-spot: "true"
 
 env:
   GF_ALERTING_ENABLED: "false"
