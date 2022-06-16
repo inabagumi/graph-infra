@@ -64,14 +64,15 @@ provider "kubernetes" {
 }
 
 locals {
-  db_name                = "grafana"
-  master_auth_subnetwork = "${local.name}-master-subnet"
-  name                   = "graph"
-  network_name           = "${local.name}-network"
-  pods_range_name        = "ip-range-pods-${local.name}"
-  subnet_name            = "${local.name}-subnet"
-  subnet_names           = [for subnet_self_link in module.vpc.subnets_self_links : split("/", subnet_self_link)[length(split("/", subnet_self_link)) - 1]]
-  svc_range_name         = "ip-range-svc-${local.name}"
+  db_name                   = "grafana"
+  master_auth_subnetwork    = "${local.name}-master-subnet"
+  name                      = "graph"
+  network_name              = "${local.name}-network"
+  pods_range_name           = "ip-range-pods-${local.name}"
+  subnet_name               = "${local.name}-subnet"
+  subnet_names              = [for subnet_self_link in module.vpc.subnets_self_links : split("/", subnet_self_link)[length(split("/", subnet_self_link)) - 1]]
+  svc_range_name            = "ip-range-svc-${local.name}"
+  telegraf_image_repository = "${var.region}-docker.pkg.dev/${var.project}/containers/telegraf"
 }
 
 data "google_client_config" "default" {}
@@ -280,7 +281,7 @@ resource "kubernetes_secret_v1" "grafana_tokens" {
     GF_DATABASE_PASSWORD                   = var.db_password
     GF_DATABASE_TYPE                       = "mysql"
     GF_DATABASE_USER                       = "grafana"
-    GF_EXTERNAL_IMAGE_STORAGE_GCS_BUCKET   = "21g-social-images"
+    GF_EXTERNAL_IMAGE_STORAGE_GCS_BUCKET   = google_storage_bucket.image-store.name
     GF_EXTERNAL_IMAGE_STORAGE_GCS_KEY_FILE = "/etc/secrets/gcs-key.json"
     GF_EXTERNAL_IMAGE_STORAGE_PROVIDER     = "gcs"
   }
@@ -329,7 +330,12 @@ resource "helm_release" "telegraf" {
 
   set {
     name  = "image.repo"
-    value = "${var.region}-docker.pkg.dev/${var.project}/containers/telegraf"
+    value = local.telegraf_image_repository
+  }
+
+  set {
+    name  = "image.tag"
+    value = "20220616"
   }
 }
 
