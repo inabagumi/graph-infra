@@ -110,3 +110,4 @@ extraObjects:
         includeHost: false
         includeProtocol: true
         includeQueryString: false
+    timeoutSec: 120
