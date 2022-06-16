@@ -1,3 +1,7 @@
+image:
+  repository: influxdb
+  tag: 2.2.0-alpine
+
 nodeSelector:
   cloud.google.com/gke-spot: "true"
 
