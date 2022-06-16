@@ -1,10 +1,10 @@
-FROM telegraf:1.23.0
+FROM alpine:3.16 AS download-deps
 
 ENV TWITTER_TELEGRAF_PLUGIN_VERSION 1.0.0
 ENV TWITTER_TELEGRAF_PLUGIN_SHA256 ef13d11feeb13ebe0946fdca4b5225af10bee3feb32d57fc8fc948c2a25e8fbc
 
-ENV YOUTUBE_TELEGRAF_PLUGIN_VERSION 1.0.0
-ENV YOUTUBE_TELEGRAF_PLUGIN_SHA256 ec63c2b35aedeaea927fc6aef909af74bd06b3f60de6641db3ab239c1d281ae4
+ENV YOUTUBE_TELEGRAF_PLUGIN_VERSION 1.1.1
+ENV YOUTUBE_TELEGRAF_PLUGIN_SHA256 70d614897ac86b86748708941058205bf66c4d2dac3a109de25d3f9c3ca5b088
 
 RUN set -x \
 	\
@@ -15,8 +15,6 @@ RUN set -x \
 	&& mkdir -p /usr/src/twitter-telegraf-plugin \
 	&& tar -xzf twitter-telegraf-plugin.tar.gz -C /usr/src/twitter-telegraf-plugin \
 	&& rm twitter-telegraf-plugin.tar.gz \
-	&& mv /usr/src/twitter-telegraf-plugin/twitter-telegraf-plugin /usr/local/bin \
-	&& rm -rf /usr/src/twitter-telegraf-plugin \
 	\
 	&& wget \
 		-O youtube-telegraf-plugin.tar.gz \
@@ -24,10 +22,15 @@ RUN set -x \
 	&& echo "$YOUTUBE_TELEGRAF_PLUGIN_SHA256 *youtube-telegraf-plugin.tar.gz" | sha256sum -c \
 	&& mkdir -p /usr/src/youtube-telegraf-plugin \
 	&& tar -xzf youtube-telegraf-plugin.tar.gz -C /usr/src/youtube-telegraf-plugin \
-	&& rm youtube-telegraf-plugin.tar.gz \
-	&& mv /usr/src/youtube-telegraf-plugin/youtube-telegraf-plugin /usr/local/bin \
-	&& rm -rf /usr/src/youtube-telegraf-plugin
+	&& rm youtube-telegraf-plugin.tar.gz
+
+FROM telegraf:1.23.0-alpine
+
+COPY --from=download-deps /usr/src/twitter-telegraf-plugin/twitter-telegraf-plugin /usr/local/bin/
+COPY --from=download-deps /usr/src/youtube-telegraf-plugin/youtube-telegraf-plugin /usr/local/bin/
 
 EXPOSE 8125/udp 8092/udp 8094
+
 ENTRYPOINT ["/entrypoint.sh"]
+
 CMD ["telegraf"]
