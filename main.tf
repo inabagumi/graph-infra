@@ -142,7 +142,7 @@ resource "google_dns_managed_zone" "default" {
 }
 
 resource "google_dns_record_set" "www" {
-  name = google_dns_managed_zone.default.dns_name
+  name = "www.${google_dns_managed_zone.default.dns_name}"
   type = "A"
   ttl  = 300
 
