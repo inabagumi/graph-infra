@@ -354,7 +354,7 @@ resource "helm_release" "grafana" {
   name       = "grafana"
   repository = "https://grafana.github.io/helm-charts"
   values     = [file("${path.module}/files/grafana/values.yaml")]
-  version    = "6.30.1"
+  version    = "6.30.2"
 }
 
 resource "github_actions_secret" "project" {
