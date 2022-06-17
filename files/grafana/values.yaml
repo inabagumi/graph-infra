@@ -33,6 +33,7 @@ ingress:
     networking.gke.io/v1beta1.FrontendConfig: grafana-frontend-config
   hosts:
   - 21g.social
+  - www.21g.social
 
 nodeSelector:
   cloud.google.com/gke-spot: "true"
@@ -92,6 +93,7 @@ extraObjects:
   spec:
     domains:
     - 21g.social
+    - www.21g.social
 - apiVersion: networking.gke.io/v1beta1
   kind: FrontendConfig
   metadata:
