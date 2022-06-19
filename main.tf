@@ -425,11 +425,9 @@ resource "helm_release" "telegraf" {
 }
 
 resource "helm_release" "promtail" {
-  chart      = "promtail"
+  chart      = "./charts/promtail"
   name       = "promtail"
-  repository = "https://grafana.github.io/helm-charts"
   values     = [file("${path.module}/files/promtail/values.yaml")]
-  version    = "5.1.0"
 }
 
 resource "helm_release" "grafana" {
