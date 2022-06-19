@@ -4,13 +4,14 @@ image:
 
 config:
   schema_config:
-  - from: 2022-06-19
-    store: boltdb-shipper
-    object_store: gcs
-    schema: v11
-    index:
-      prefix: index_
-      period: 24h
+    configs:
+    - from: 2022-06-19
+      store: boltdb-shipper
+      object_store: gcs
+      schema: v11
+      index:
+        prefix: index_
+        period: 24h
   storage_config:
     boltdb_shipper:
       shared_store: gcs
