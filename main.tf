@@ -84,6 +84,19 @@ resource "google_service_account" "gha" {
   project      = var.project
 }
 
+resource "google_service_account" "grafana" {
+  account_id   = "grafana"
+  description  = "Service Account for Grafana"
+  display_name = "Grafana"
+  project      = var.project
+}
+
+resource "google_project_iam_binding" "iam_workload_identity_user" {
+  members = ["serviceAccount:${google_service_account.grafana.email}"]
+  project = var.project
+  role    = "roles/iam.workloadIdentityUser"
+}
+
 module "gh_oidc" {
   source  = "terraform-google-modules/github-actions-runners/google//modules/gh-oidc"
   version = "3.0.0"
@@ -208,6 +221,13 @@ module "mysql-db" {
 resource "google_storage_bucket" "image-store" {
   name     = "21g-social-images"
   location = var.region
+  project  = var.project
+}
+
+resource "google_storage_bucket_iam_member" "image_store" {
+  bucket = google_storage_bucket.image-store.name
+  member = "serviceAccount:${google_service_account.grafana.email}"
+  role   = "roles/storage.objectCreator"
 }
 
 resource "google_artifact_registry_repository" "containers" {
@@ -292,7 +312,7 @@ resource "kubernetes_secret_v1" "grafana_tokens" {
     GF_DATABASE_TYPE                       = "mysql"
     GF_DATABASE_USER                       = "grafana"
     GF_EXTERNAL_IMAGE_STORAGE_GCS_BUCKET   = google_storage_bucket.image-store.name
-    GF_EXTERNAL_IMAGE_STORAGE_GCS_KEY_FILE = "/etc/secrets/gcs-key.json"
+    # GF_EXTERNAL_IMAGE_STORAGE_GCS_KEY_FILE = "/etc/secrets/gcs-key.json"
     GF_EXTERNAL_IMAGE_STORAGE_PROVIDER     = "gcs"
   }
   type = "Opaque"
@@ -355,6 +375,11 @@ resource "helm_release" "grafana" {
   repository = "https://grafana.github.io/helm-charts"
   values     = [file("${path.module}/files/grafana/values.yaml")]
   version    = "6.30.2"
+
+  set {
+    name  = "serviceAccount.annotations.iam\\.gke\\.io/gcp-service-account"
+    value = google_service_account.grafana.email
+  }
 }
 
 resource "github_actions_secret" "project" {
