@@ -17,6 +17,14 @@ mountPoints:
   mountPath: /etc/telegraf-plugins
   readOnly: true
 
+resources:
+  limits:
+    cpu: 250m
+    memory: 512Mi
+  requests:
+    cpu: 250m
+    memory: 512Mi
+
 nodeSelector:
   cloud.google.com/gke-spot: "true"
 
