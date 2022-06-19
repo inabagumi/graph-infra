@@ -388,6 +388,24 @@ resource "helm_release" "influxdb2" {
   }
 }
 
+resource "helm_release" "loki" {
+  chart      = "loki"
+  name       = "loki"
+  repository = "https://grafana.github.io/helm-charts"
+  values     = [file("${path.module}/files/loki/values.yaml")]
+  version    = "2.12.2"
+
+  set {
+    name  = "serviceAccount.annotations.iam\\.gke\\.io/gcp-service-account"
+    value = google_service_account.loki.email
+  }
+
+  set {
+    name  = "config.storage_config.gcs.bucket_name"
+    value = google_storage_bucket.loki_data.name
+  }
+}
+
 resource "helm_release" "telegraf" {
   chart      = "telegraf"
   name       = "telegraf"
@@ -406,22 +424,12 @@ resource "helm_release" "telegraf" {
   }
 }
 
-resource "helm_release" "loki" {
-  chart      = "loki"
-  name       = "loki"
+resource "helm_release" "promtail" {
+  chart      = "promtail"
+  name       = "promtail"
   repository = "https://grafana.github.io/helm-charts"
-  values     = [file("${path.module}/files/loki/values.yaml")]
-  version    = "2.12.2"
-
-  set {
-    name  = "serviceAccount.annotations.iam\\.gke\\.io/gcp-service-account"
-    value = google_service_account.loki.email
-  }
-
-  set {
-    name  = "config.storage_config.gcs.bucket_name"
-    value = google_storage_bucket.loki_data.name
-  }
+  values     = [file("${path.module}/files/promtail/values.yaml")]
+  version    = "5.1.0"
 }
 
 resource "helm_release" "grafana" {
