@@ -40,7 +40,6 @@ ingress:
 
 nodeSelector:
   cloud.google.com/gke-spot: "true"
-  iam.gke.io/gke-metadata-server-enabled: "true"
 
 env:
   GF_ALERTING_ENABLED: "false"
