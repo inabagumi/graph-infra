@@ -2,7 +2,7 @@ image:
   repository: grafana/promtail
   tag: 2.5.0
 
-resources: {}
+resources:
   limits:
     cpu: 200m
     memory: 128Mi
