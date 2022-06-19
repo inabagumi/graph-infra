@@ -10,9 +10,6 @@ resources:
     cpu: 100m
     memory: 128Mi
 
-nodeSelector:
-  cloud.google.com/gke-spot: "true"
-
 defaultVolumes:
 - name: run
   emptyDir: {}
