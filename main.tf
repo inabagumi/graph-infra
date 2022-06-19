@@ -98,13 +98,16 @@ resource "google_service_account" "grafana" {
   project      = var.project
 }
 
-resource "google_project_iam_binding" "iam_workload_identity_user" {
-  members = [
-    "serviceAccount:${google_service_account.loki.email}",
-    "serviceAccount:${google_service_account.grafana.email}",
-  ]
-  project = var.project
-  role    = "roles/iam.workloadIdentityUser"
+resource "google_service_account_iam_member" "loki" {
+  member             = "serviceAccount:${var.project}.svc.id.goog[default/loki]"
+  role               = "roles/iam.workloadIdentityUser"
+  service_account_id = google_service_account.loki.name
+}
+
+resource "google_service_account_iam_member" "grafana" {
+  member             = "serviceAccount:${var.project}.svc.id.goog[default/grafana]"
+  role               = "roles/iam.workloadIdentityUser"
+  service_account_id = google_service_account.grafana.name
 }
 
 module "gh_oidc" {
