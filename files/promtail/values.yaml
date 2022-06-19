@@ -13,9 +13,11 @@ resources:
 nodeSelector:
   cloud.google.com/gke-spot: "true"
 
-defaultVolumes: null
-
-defaultVolumeMounts: null
+defaultVolumes:
+- name: containers
+  emptyDir: {}
+- name: pods
+  emptyDir: {}
 
 config:
   clients:
