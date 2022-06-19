@@ -1,0 +1,21 @@
+image:
+  repository: grafana/loki
+  tag: 2.5.0
+
+config:
+  schema_config:
+  - from: 2022-06-19
+    store: boltdb-shipper
+    object_store: gcs
+    schema: v11
+    index:
+      prefix: index_
+      period: 24h
+  storage_config:
+    boltdb_shipper:
+      shared_store: gcs
+  compactor:
+    shared_store: gcs
+
+nodeSelector:
+  cloud.google.com/gke-spot: "true"

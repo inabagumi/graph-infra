@@ -84,6 +84,13 @@ resource "google_service_account" "gha" {
   project      = var.project
 }
 
+resource "google_service_account" "loki" {
+  account_id   = "grafana-loki"
+  description  = "Service Account for Grafana Loki"
+  display_name = "Grafana Loki"
+  project      = var.project
+}
+
 resource "google_service_account" "grafana" {
   account_id   = "grafana"
   description  = "Service Account for Grafana"
@@ -92,7 +99,10 @@ resource "google_service_account" "grafana" {
 }
 
 resource "google_project_iam_binding" "iam_workload_identity_user" {
-  members = ["serviceAccount:${google_service_account.grafana.email}"]
+  members = [
+    "serviceAccount:${google_service_account.loki.email}",
+    "serviceAccount:${google_service_account.grafana.email}",
+  ]
   project = var.project
   role    = "roles/iam.workloadIdentityUser"
 }
@@ -224,9 +234,21 @@ resource "google_storage_bucket" "image-store" {
   project  = var.project
 }
 
+resource "google_storage_bucket" "loki_data" {
+  name     = "21g-social-loki-data"
+  location = var.region
+  project  = var.project
+}
+
 resource "google_storage_bucket_iam_member" "image_store" {
   bucket = google_storage_bucket.image-store.name
   member = "serviceAccount:${google_service_account.grafana.email}"
+  role   = "roles/storage.objectCreator"
+}
+
+resource "google_storage_bucket_iam_member" "loki_data" {
+  bucket = google_storage_bucket.loki_data.name
+  member = "serviceAccount:${google_service_account.loki.email}"
   role   = "roles/storage.objectCreator"
 }
 
@@ -366,6 +388,24 @@ resource "helm_release" "telegraf" {
   set {
     name  = "image.tag"
     value = "20220616"
+  }
+}
+
+resource "helm_release" "loki" {
+  chart      = "loki"
+  name       = "loki"
+  repository = "https://grafana.github.io/helm-charts"
+  values     = [file("${path.module}/files/loki/values.yaml")]
+  version    = "2.12.2"
+
+  set {
+    name  = "serviceAccount.annotations.iam\\.gke\\.io/gcp-service-account"
+    value = google_service_account.loki.email
+  }
+
+  set {
+    name  = "config.storage_config.gcs.bucket_name"
+    value = google_storage_bucket.loki_data.name
   }
 }
 
