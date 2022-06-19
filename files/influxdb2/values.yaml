@@ -2,6 +2,14 @@ image:
   repository: influxdb
   tag: 2.3.0-alpine
 
+resources:
+  limits:
+    cpu: 500m
+    memory: 4Gi
+  requests:
+    cpu: 250m
+    memory: 2Gi
+
 nodeSelector:
   cloud.google.com/gke-spot: "true"
 

@@ -20,3 +20,11 @@ config:
 
 nodeSelector:
   cloud.google.com/gke-spot: "true"
+
+resources:
+  limits:
+    cpu: 250m
+    memory: 1Gi
+  requests:
+    cpu: 250m
+    memory: 512m
