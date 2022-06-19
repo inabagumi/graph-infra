@@ -19,7 +19,8 @@ defaultVolumes:
 - name: containers
   emptyDir: {}
 - name: pods
-  emptyDir: {}
+  hostPath:
+    path: /var/log/pods
 
 config:
   clients:
