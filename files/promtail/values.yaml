@@ -13,9 +13,9 @@ resources:
 nodeSelector:
   cloud.google.com/gke-spot: "true"
 
-defaultVolumes: []
+defaultVolumes: null
 
-defaultVolumeMounts: []
+defaultVolumeMounts: null
 
 config:
   clients:
