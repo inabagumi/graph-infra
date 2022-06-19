@@ -1,0 +1,18 @@
+image:
+  repository: grafana/promtail
+  tag: 2.5.0
+
+resources: {}
+  limits:
+    cpu: 200m
+    memory: 128Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+nodeSelector:
+  cloud.google.com/gke-spot: "true"
+
+config:
+  clients:
+  - url: http://loki:3031/loki/api/v1/push
