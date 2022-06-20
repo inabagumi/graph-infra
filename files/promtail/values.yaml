@@ -16,11 +16,16 @@ nodeSelector:
 defaultVolumes:
 - name: run
   emptyDir: {}
-- name: containers
-  emptyDir: {}
 - name: pods
   hostPath:
     path: /var/log/pods
+
+defaultVolumeMounts:
+- name: run
+  mountPath: /run/promtail
+- name: pods
+  mountPath: /var/log/pods
+  readOnly: true
 
 config:
   clients:
