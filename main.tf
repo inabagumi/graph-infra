@@ -349,24 +349,12 @@ resource "kubernetes_secret_v1" "grafana_tokens" {
     GF_DATABASE_TYPE                       = "mysql"
     GF_DATABASE_USER                       = "grafana"
     GF_EXTERNAL_IMAGE_STORAGE_GCS_BUCKET   = google_storage_bucket.image-store.name
-    # GF_EXTERNAL_IMAGE_STORAGE_GCS_KEY_FILE = "/etc/secrets/gcs-key.json"
     GF_EXTERNAL_IMAGE_STORAGE_PROVIDER     = "gcs"
   }
   type = "Opaque"
 
   metadata {
     name = "grafana-tokens"
-  }
-}
-
-resource "kubernetes_secret_v1" "grafana_secret_files" {
-  data = {
-    "gcs-key.json" = var.gcs_key
-  }
-  type = "Opaque"
-
-  metadata {
-    name = "grafana-secret-files"
   }
 }
 
