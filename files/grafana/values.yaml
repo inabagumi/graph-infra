@@ -85,8 +85,6 @@ imageRenderer:
     tag: 3.4.2
   env:
     BROWSER_TZ: Asia/Tokyo
-    # https://github.com/puppeteer/puppeteer/issues/3120#issuecomment-415553869
-    RENDERING_ARGS: --disable-gpu,--disable-dev-shm-usage,--disable-setuid-sandbox,--no-first-run,--no-sandbox,-no-zygote,--single-process
     RENDERING_CLUSTERING_MODE: contextPerRenderKey
     RENDERING_MODE: clustered
   networkPolicy:
