@@ -249,22 +249,10 @@ resource "google_storage_bucket_iam_member" "image_store_creator" {
   role   = "roles/storage.objectCreator"
 }
 
-resource "google_storage_bucket_iam_member" "image_store_viewer" {
-  bucket = google_storage_bucket.image-store.name
-  member = "serviceAccount:${google_service_account.grafana.email}"
-  role   = "roles/storage.objectViewer"
-}
-
-resource "google_storage_bucket_iam_member" "loki_data_creator" {
+resource "google_storage_bucket_iam_member" "loki_data_admin" {
   bucket = google_storage_bucket.loki_data.name
   member = "serviceAccount:${google_service_account.loki.email}"
-  role   = "roles/storage.objectCreator"
-}
-
-resource "google_storage_bucket_iam_member" "loki_data_viewer" {
-  bucket = google_storage_bucket.loki_data.name
-  member = "serviceAccount:${google_service_account.loki.email}"
-  role   = "roles/storage.objectViewer"
+  role   = "roles/storage.objectAdmin"
 }
 
 resource "google_artifact_registry_repository" "containers" {
