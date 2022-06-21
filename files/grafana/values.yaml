@@ -85,6 +85,8 @@ imageRenderer:
     tag: 3.4.2
   env:
     BROWSER_TZ: Asia/Tokyo
+    RENDERING_MODE: clustered
+    RENDERING_CLUSTERING_MODE: contextPerRenderKey
   networkPolicy:
     limitIngress: false
   resources:
