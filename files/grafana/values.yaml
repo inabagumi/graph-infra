@@ -103,6 +103,10 @@ imageRenderer:
   env:
     BROWSER_TZ: Asia/Tokyo
     ENABLE_METRICS: "true"
+    RENDERING_CLUSTERING_MAX_CONCURRENCY: "5"
+    RENDERING_CLUSTERING_MODE: contextPerRenderKey
+    RENDERING_CLUSTERING_TIMEOUT: "30"
+    RENDERING_MODE: clustered
   networkPolicy:
     limitIngress: false
   resources:
