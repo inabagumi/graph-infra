@@ -105,7 +105,6 @@ imageRenderer:
     # https://github.com/grafana/grafana-image-renderer/issues/124#issuecomment-606494641
     RENDERING_ARGS: --no-sandbox,--disable-setuid-sandbox,--disable-dev-shm-usage,--disable-accelerated-2d-canvas,--disable-gpu,--window-size=1920x1080
     ENABLE_METRICS: "true"
-    RENDERING_MODE: reusable
   networkPolicy:
     limitIngress: false
   resources:
