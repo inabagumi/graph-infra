@@ -85,6 +85,8 @@ imageRenderer:
     tag: 3.4.2
   env:
     BROWSER_TZ: Asia/Tokyo
+    # https://github.com/grafana/grafana-image-renderer/issues/124#issuecomment-606494641
+    RENDERING_ARGS: --no-sandbox,--disable-setuid-sandbox,--disable-dev-shm-usage,--disable-accelerated-2d-canvas,--disable-gpu,--window-size=1920x1080
     RENDERING_CLUSTERING_MODE: contextPerRenderKey
     RENDERING_MODE: clustered
   networkPolicy:
