@@ -1,7 +1,7 @@
 autoscaling:
   enabled: true
-  minReplicas: 1
-  maxReplicas: 5
+  minReplicas: 2
+  maxReplicas: 8
   metrics:
   - type: Resource
     resource:
@@ -13,7 +13,7 @@ autoscaling:
       targetAverageUtilization: 60
 
 podDisruptionBudget:
-  minAvailable: 1
+  minAvailable: 2
 
 image:
   repository: grafana/grafana
@@ -65,8 +65,15 @@ env:
   GF_SNAPSHOTS_EXTERNAL_ENABLED: "false"
   GF_DATAPROXY_TIMEOUT: "120"
   GF_UNIFIED_ALERTING_ENABLED: "true"
+  GF_UNIFIED_ALERTING_HA_LISTEN_ADDRESS: ${POD_IP}:9094
+  GF_UNIFIED_ALERTING_HA_PEERS: grafana:9094
   GF_UNIFIED_ALERTING_SCREENSHOTS_CAPTURE: "true"
   GF_UNIFIED_ALERTING_SCREENSHOTS_UPLOAD_EXTERNAL_IMAGE_STORAGE: "true"
+
+envValueFrom:
+  POD_IP:
+    fieldRef:
+      fieldPath: status.podIP
 
 envFromSecret: grafana-tokens
 
