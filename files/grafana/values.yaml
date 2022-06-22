@@ -107,11 +107,11 @@ imageRenderer:
     limitIngress: false
   resources:
     limits:
-      cpu: 250m
-      memory: 512Mi
+      cpu: 1000m
+      memory: 4Gi
     requests:
-      cpu: 250m
-      memory: 512Mi
+      cpu: 500m
+      memory: 2Gi
   nodeSelector:
     cloud.google.com/gke-spot: "true"
 
