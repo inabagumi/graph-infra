@@ -276,7 +276,7 @@ resource "google_artifact_registry_repository_iam_member" "gha" {
 
 module "gke" {
   source  = "terraform-google-modules/kubernetes-engine/google//modules/beta-autopilot-public-cluster"
-  version = "21.1.0"
+  version = "21.2.0"
 
   datapath_provider               = "ADVANCED_DATAPATH"
   enable_vertical_pod_autoscaling = true
