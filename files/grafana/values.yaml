@@ -29,10 +29,12 @@ service:
     cloud.google.com/neg: '{"ingress": true}'
 
 extraExposePorts:
-- name: grafana-unified-alerting
+- protocol: TCP
   port: 9094
   targetPort: 9094
-  type: ClusterIP
+- protocol: UDP
+  port: 9094
+  targetPort: 9094
 
 ingress:
   enabled: true
