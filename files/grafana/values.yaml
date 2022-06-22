@@ -28,6 +28,12 @@ service:
       '{"default": "grafana-backend-config"}'
     cloud.google.com/neg: '{"ingress": true}'
 
+extraExposePorts:
+- name: grafana-unified-alerting
+  port: 9094
+  targetPort: 9094
+  type: ClusterIP
+
 ingress:
   enabled: true
   annotations:
