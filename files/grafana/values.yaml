@@ -104,7 +104,7 @@ imageRenderer:
   env:
     BROWSER_TZ: Asia/Tokyo
     ENABLE_METRICS: "true"
-    RENDERING_CLUSTERING_MAX_CONCURRENCY: "5"
+    RENDERING_CLUSTERING_MAX_CONCURRENCY: "3"
     RENDERING_CLUSTERING_MODE: contextPerRenderKey
     RENDERING_CLUSTERING_TIMEOUT: "30"
     RENDERING_MODE: clustered
@@ -116,7 +116,7 @@ imageRenderer:
       memory: 4Gi
     requests:
       cpu: 500m
-      memory: 2Gi
+      memory: 4Gi
   nodeSelector:
     cloud.google.com/gke-spot: "true"
 
