@@ -2,6 +2,9 @@ image:
   repository: grafana/loki
   tag: 2.5.0
 
+tracing:
+  jaegerAgentHost: tempo
+
 config:
   schema_config:
     configs:
