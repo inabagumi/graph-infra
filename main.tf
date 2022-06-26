@@ -362,13 +362,14 @@ resource "kubernetes_secret_v1" "telegraf-tokens" {
 
 resource "kubernetes_secret_v1" "grafana_tokens" {
   data = {
-    GF_DATABASE_HOST                     = "${module.mysql-db.private_ip_address}:3306"
-    GF_DATABASE_NAME                     = "grafana"
-    GF_DATABASE_PASSWORD                 = var.db_password
-    GF_DATABASE_TYPE                     = "mysql"
-    GF_DATABASE_USER                     = "grafana"
-    GF_EXTERNAL_IMAGE_STORAGE_GCS_BUCKET = google_storage_bucket.image-store.name
-    GF_EXTERNAL_IMAGE_STORAGE_PROVIDER   = "gcs"
+    GF_DATABASE_HOST                      = "${module.mysql-db.private_ip_address}:3306"
+    GF_DATABASE_NAME                      = "grafana"
+    GF_DATABASE_PASSWORD                  = var.db_password
+    GF_DATABASE_TYPE                      = "mysql"
+    GF_DATABASE_USER                      = "grafana"
+    GF_EXTERNAL_IMAGE_STORAGE_GCS_BUCKET  = google_storage_bucket.image-store.name
+    GF_EXTERNAL_IMAGE_STORAGE_PROVIDER    = "gcs"
+    GF_TRACING_OPENTELEMETRY_OTLP_ADDRESS = "tempo:4317"
   }
   type = "Opaque"
 
