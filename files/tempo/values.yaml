@@ -1,0 +1,24 @@
+tempo:
+  repository: grafana/tempo
+  tag: 1.4.1
+
+  resources:
+    limits:
+      cpu: 250m
+      memory: 512Mi
+    requests:
+      cpu: 250m
+      memory: 512Mi
+
+  memBallastSizeMbs: 256
+
+  storage:
+    trace:
+      backend: gcs
+
+tempoQuery:
+  repository: grafana/tempo-query
+  tag: 1.4.1
+
+nodeSelector:
+  cloud.google.com/gke-spot: "true"

@@ -84,6 +84,13 @@ resource "google_service_account" "gha" {
   project      = var.project
 }
 
+resource "google_service_account" "tempo" {
+  account_id   = "grafana-tempo"
+  description  = "Service Account for Grafana Tempo"
+  display_name = "Grafana Tempo"
+  project      = var.project
+}
+
 resource "google_service_account" "loki" {
   account_id   = "grafana-loki"
   description  = "Service Account for Grafana Loki"
@@ -96,6 +103,12 @@ resource "google_service_account" "grafana" {
   description  = "Service Account for Grafana"
   display_name = "Grafana"
   project      = var.project
+}
+
+resource "google_service_account_iam_member" "tempo" {
+  member             = "serviceAccount:${var.project}.svc.id.goog[default/tempo]"
+  role               = "roles/iam.workloadIdentityUser"
+  service_account_id = google_service_account.tempo.name
 }
 
 resource "google_service_account_iam_member" "loki" {
@@ -231,8 +244,8 @@ module "mysql-db" {
   zone                            = "${var.region}-a"
 }
 
-resource "google_storage_bucket" "image-store" {
-  name     = "21g-social-images"
+resource "google_storage_bucket" "tempo_data" {
+  name     = "21g-social-tempo-data"
   location = var.region
   project  = var.project
 }
@@ -243,16 +256,28 @@ resource "google_storage_bucket" "loki_data" {
   project  = var.project
 }
 
-resource "google_storage_bucket_iam_member" "image_store_creator" {
-  bucket = google_storage_bucket.image-store.name
-  member = "serviceAccount:${google_service_account.grafana.email}"
-  role   = "roles/storage.objectCreator"
+resource "google_storage_bucket" "image-store" {
+  name     = "21g-social-images"
+  location = var.region
+  project  = var.project
+}
+
+resource "google_storage_bucket_iam_member" "tempo_data_admin" {
+  bucket = google_storage_bucket.tempo_data.name
+  member = "serviceAccount:${google_service_account.tempo.email}"
+  role   = "roles/storage.objectAdmin"
 }
 
 resource "google_storage_bucket_iam_member" "loki_data_admin" {
   bucket = google_storage_bucket.loki_data.name
   member = "serviceAccount:${google_service_account.loki.email}"
   role   = "roles/storage.objectAdmin"
+}
+
+resource "google_storage_bucket_iam_member" "image_store_creator" {
+  bucket = google_storage_bucket.image-store.name
+  member = "serviceAccount:${google_service_account.grafana.email}"
+  role   = "roles/storage.objectCreator"
 }
 
 resource "google_artifact_registry_repository" "containers" {
@@ -343,6 +368,24 @@ resource "kubernetes_secret_v1" "grafana_tokens" {
 
   metadata {
     name = "grafana-tokens"
+  }
+}
+
+resource "helm_release" "tempo" {
+  chart      = "tempo"
+  name       = "tempo"
+  repository = "https://grafana.github.io/helm-charts"
+  values     = [file("${path.module}/files/tempo/values.yaml")]
+  version    = "0.15.4"
+
+  set {
+    name  = "serviceAccount.annotations.iam\\.gke\\.io/gcp-service-account"
+    value = google_service_account.tempo.email
+  }
+
+  set {
+    name  = "tempo.storage.trace.gcs.bucket_name"
+    value = google_storage_bucket.tempo_data.name
   }
 }
 
