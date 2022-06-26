@@ -268,6 +268,12 @@ resource "google_storage_bucket_iam_member" "tempo_data_admin" {
   role   = "roles/storage.objectAdmin"
 }
 
+resource "google_storage_bucket_iam_member" "tempo_data_legacy_bucket_reader" {
+  bucket = google_storage_bucket.tempo_data.name
+  member = "serviceAccount:${google_service_account.tempo.email}"
+  role   = "roles/storage.legacyBucketReader"
+}
+
 resource "google_storage_bucket_iam_member" "loki_data_admin" {
   bucket = google_storage_bucket.loki_data.name
   member = "serviceAccount:${google_service_account.loki.email}"
