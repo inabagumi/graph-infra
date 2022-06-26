@@ -369,7 +369,7 @@ resource "kubernetes_secret_v1" "grafana_tokens" {
     GF_DATABASE_USER                      = "grafana"
     GF_EXTERNAL_IMAGE_STORAGE_GCS_BUCKET  = google_storage_bucket.image-store.name
     GF_EXTERNAL_IMAGE_STORAGE_PROVIDER    = "gcs"
-    GF_TRACING_OPENTELEMETRY_OTLP_ADDRESS = tempo:4317
+    GF_TRACING_OPENTELEMETRY_OTLP_ADDRESS = "tempo:4317"
   }
   type = "Opaque"
 
