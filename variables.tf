@@ -28,6 +28,14 @@ variable "repo_owner" {
   type    = string
 }
 
+variable "twitch_client_id" {
+  type = string
+}
+
+variable "twitch_client_secret" {
+  type = string
+}
+
 variable "twitter_access_token" {
   type = string
 }
