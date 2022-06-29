@@ -38,6 +38,7 @@ RUN set -x \
 
 FROM telegraf:1.23.0-alpine
 
+COPY --from=download-deps /usr/src/youtube-telegraf-plugin/twitch-telegraf-plugin /usr/local/bin/
 COPY --from=download-deps /usr/src/twitter-telegraf-plugin/twitter-telegraf-plugin /usr/local/bin/
 COPY --from=download-deps /usr/src/youtube-telegraf-plugin/youtube-telegraf-plugin /usr/local/bin/
 
