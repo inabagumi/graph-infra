@@ -449,7 +449,7 @@ resource "helm_release" "telegraf" {
 
   set {
     name  = "image.tag"
-    value = "20220629"
+    value = "20220629@sha256:6fb0b867b5f3f02abd380e9d6eb683cd5375fe02d65ff8b5fae57315b1803d9b"
   }
 }
 
