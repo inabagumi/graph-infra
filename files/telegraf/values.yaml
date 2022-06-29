@@ -137,6 +137,9 @@ config:
           1445647957412384777: HIYOCRO    # Yuri_Kohakuu
           1448968028972933127: HIYOCRO    # HIYOCRO_PT
           1509546454016495626: 774inc     # Nanashi_774inc
+
+          463093509: AniMare, # shiromiyamimi
+          801682194: VApArt,  # met_komori
   - enum:
       mapping:
         tag: id
@@ -159,6 +162,8 @@ config:
           1245697015066984451: "true" # Akane_Haibara
           1128841181222203393: "true" # shiromiya_mimi
 
+          463093509: "true" # shiromiyamimi
+
   outputs:
   - influxdb_v2:
       urls:
@@ -178,6 +183,15 @@ config:
 
       namepass:
       - account
+  # - influxdb_v2:
+  #     urls:
+  #       - http://influxdb2.default.svc
+  #     token: "${INFLUX_TOKEN}"
+  #     organization: "${INFLUX_ORG}"
+  #     bucket: twitch
+  #
+  #     namepass:
+  #     - user
 
   inputs:
   - execd:
@@ -198,6 +212,14 @@ config:
       - -config
       - /etc/telegraf-plugins/twitter-telegraf-plugin.conf
       signal: none
+  # - execd:
+  #     name_override: user
+  #
+  #     command:
+  #     - twitch-telegraf-plugin
+  #     - -config
+  #     - /etc/telegraf-plugins/twitch-telegraf-plugin.conf
+  #     signal: none
 
 metrics:
   health:

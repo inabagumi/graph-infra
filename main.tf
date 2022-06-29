@@ -335,6 +335,7 @@ resource "random_string" "influxdb2_admin_token" {
 
 resource "kubernetes_config_map_v1" "telegraf_plugins_config" {
   data = {
+    "twitch-telegraf-plugin.conf"  = file("${path.module}/files/telegraf/twitch-telegraf-plugin.conf")
     "twitter-telegraf-plugin.conf" = file("${path.module}/files/telegraf/twitter-telegraf-plugin.conf")
     "youtube-telegraf-plugin.conf" = file("${path.module}/files/telegraf/youtube-telegraf-plugin.conf")
   }
@@ -348,6 +349,8 @@ resource "kubernetes_secret_v1" "telegraf-tokens" {
   data = {
     INFLUX_TOKEN                = var.influx_token
     GOOGLE_API_KEY              = var.google_api_key
+    TWITCH_CLIENT_ID            = var.twitch_client_id
+    TWITCH_CLIENT_SECRET        = var.twitch_client_secret
     TWITTER_ACCESS_TOKEN        = var.twitter_access_token
     TWITTER_ACCESS_TOKEN_SECRET = var.twitter_access_token_secret
     TWITTER_CONSUMER_KEY        = var.twitter_consumer_key
