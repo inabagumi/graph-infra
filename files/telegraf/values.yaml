@@ -138,8 +138,8 @@ config:
           1448968028972933127: HIYOCRO    # HIYOCRO_PT
           1509546454016495626: 774inc     # Nanashi_774inc
 
-          463093509: AniMare, # shiromiyamimi
-          801682194: VApArt,  # met_komori
+          463093509: AniMare # shiromiyamimi
+          801682194: VApArt  # met_komori
   - enum:
       mapping:
         tag: id
