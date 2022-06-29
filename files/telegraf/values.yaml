@@ -183,15 +183,15 @@ config:
 
       namepass:
       - account
-  # - influxdb_v2:
-  #     urls:
-  #       - http://influxdb2.default.svc
-  #     token: "${INFLUX_TOKEN}"
-  #     organization: "${INFLUX_ORG}"
-  #     bucket: twitch
-  #
-  #     namepass:
-  #     - user
+  - influxdb_v2:
+      urls:
+        - http://influxdb2.default.svc
+      token: "${INFLUX_TOKEN}"
+      organization: "${INFLUX_ORG}"
+      bucket: twitch
+
+      namepass:
+      - user
 
   inputs:
   - execd:
@@ -212,14 +212,14 @@ config:
       - -config
       - /etc/telegraf-plugins/twitter-telegraf-plugin.conf
       signal: none
-  # - execd:
-  #     name_override: user
-  #
-  #     command:
-  #     - twitch-telegraf-plugin
-  #     - -config
-  #     - /etc/telegraf-plugins/twitch-telegraf-plugin.conf
-  #     signal: none
+  - execd:
+      name_override: user
+
+      command:
+      - twitch-telegraf-plugin
+      - -config
+      - /etc/telegraf-plugins/twitch-telegraf-plugin.conf
+      signal: none
 
 metrics:
   health:

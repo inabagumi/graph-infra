@@ -449,7 +449,7 @@ resource "helm_release" "telegraf" {
 
   set {
     name  = "image.tag"
-    value = "20220616"
+    value = "20220629"
   }
 }
 
