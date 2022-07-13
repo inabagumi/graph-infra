@@ -458,7 +458,7 @@ resource "helm_release" "promtail" {
   name       = "promtail"
   repository = "https://grafana.github.io/helm-charts"
   values     = [file("${path.module}/files/promtail/values.yaml")]
-  version    = "6.2.0"
+  version    = "6.2.1"
 }
 
 resource "helm_release" "grafana" {
