@@ -125,7 +125,7 @@ resource "google_service_account_iam_member" "grafana" {
 
 module "gh_oidc" {
   source  = "terraform-google-modules/github-actions-runners/google//modules/gh-oidc"
-  version = "3.0.0"
+  version = "3.1.0"
 
   pool_id               = "${var.repo_name}-pool"
   project_id            = var.project
