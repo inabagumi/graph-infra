@@ -422,7 +422,7 @@ resource "helm_release" "loki" {
   name       = "loki"
   repository = "https://grafana.github.io/helm-charts"
   values     = [file("${path.module}/files/loki/values.yaml")]
-  version    = "2.15.1"
+  version    = "2.15.2"
 
   set {
     name  = "serviceAccount.annotations.iam\\.gke\\.io/gcp-service-account"
