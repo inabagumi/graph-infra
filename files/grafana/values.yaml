@@ -17,7 +17,7 @@ podDisruptionBudget:
 
 image:
   repository: grafana/grafana
-  tag: 9.1.1
+  tag: 9.1.2
 
 testFramework:
   enabled: false
