@@ -51,6 +51,7 @@ config:
         dest: group
 
         value_mappings:
+          # YouTube
           UCkpqb53xiOvOgNYEbNpFSyw: HIYOCRO    # 茜音カンナ
           UC3EhsuKdEkI99TWZwZgWutg: VApArt     # 杏戸ゆげ
           UC_hjHmi-ODGhHlSzD16p5Pw: HIYOCRO    # 家入ポポ
@@ -94,6 +95,7 @@ config:
           UC2hc-00y-MSR6eYA4eQ4tjQ: SugarLyric # 龍ヶ崎リン
           UCJEpkwwDiTKS5lxwFttEbIQ: 774inc     # ななし公式チャンネル
 
+          # Twitter
           992355895051866112: VApArt      # _kanade_kanon
           993839162099810305: AniMare     # AniMare_cafe
           995247053977485313: AniMare     # Haneru_Inaba
@@ -138,8 +140,10 @@ config:
           1448968028972933127: HIYOCRO    # HIYOCRO_PT
           1509546454016495626: 774inc     # Nanashi_774inc
 
+          # Twitch
           463093509: AniMare # shiromiyamimi
           801682194: VApArt  # met_komori
+          822299689: AniMare # hikari_hira
   - enum:
       mapping:
         tag: id
