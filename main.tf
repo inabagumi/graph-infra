@@ -91,13 +91,6 @@ resource "google_service_account" "tempo" {
   project      = var.project
 }
 
-resource "google_service_account" "loki" {
-  account_id   = "grafana-loki"
-  description  = "Service Account for Grafana Loki"
-  display_name = "Grafana Loki"
-  project      = var.project
-}
-
 resource "google_service_account" "grafana" {
   account_id   = "grafana"
   description  = "Service Account for Grafana"
@@ -109,12 +102,6 @@ resource "google_service_account_iam_member" "tempo" {
   member             = "serviceAccount:${var.project}.svc.id.goog[default/tempo]"
   role               = "roles/iam.workloadIdentityUser"
   service_account_id = google_service_account.tempo.name
-}
-
-resource "google_service_account_iam_member" "loki" {
-  member             = "serviceAccount:${var.project}.svc.id.goog[default/loki]"
-  role               = "roles/iam.workloadIdentityUser"
-  service_account_id = google_service_account.loki.name
 }
 
 resource "google_service_account_iam_member" "grafana" {
@@ -250,12 +237,6 @@ resource "google_storage_bucket" "tempo_data" {
   project  = var.project
 }
 
-resource "google_storage_bucket" "loki_data" {
-  name     = "21g-social-loki-data"
-  location = var.region
-  project  = var.project
-}
-
 resource "google_storage_bucket" "image-store" {
   name     = "21g-social-images"
   location = var.region
@@ -272,12 +253,6 @@ resource "google_storage_bucket_iam_member" "tempo_data_legacy_bucket_reader" {
   bucket = google_storage_bucket.tempo_data.name
   member = "serviceAccount:${google_service_account.tempo.email}"
   role   = "roles/storage.legacyBucketReader"
-}
-
-resource "google_storage_bucket_iam_member" "loki_data_admin" {
-  bucket = google_storage_bucket.loki_data.name
-  member = "serviceAccount:${google_service_account.loki.email}"
-  role   = "roles/storage.objectAdmin"
 }
 
 resource "google_storage_bucket_iam_member" "image_store_creator" {
@@ -417,24 +392,6 @@ resource "helm_release" "influxdb2" {
   }
 }
 
-resource "helm_release" "loki" {
-  chart      = "loki"
-  name       = "loki"
-  repository = "https://grafana.github.io/helm-charts"
-  values     = [file("${path.module}/files/loki/values.yaml")]
-  version    = "3.0.0"
-
-  set {
-    name  = "serviceAccount.annotations.iam\\.gke\\.io/gcp-service-account"
-    value = google_service_account.loki.email
-  }
-
-  set {
-    name  = "config.storage_config.gcs.bucket_name"
-    value = google_storage_bucket.loki_data.name
-  }
-}
-
 resource "helm_release" "telegraf" {
   chart      = "telegraf"
   name       = "telegraf"
@@ -451,14 +408,6 @@ resource "helm_release" "telegraf" {
     name  = "image.tag"
     value = "20220629@sha256:6fb0b867b5f3f02abd380e9d6eb683cd5375fe02d65ff8b5fae57315b1803d9b"
   }
-}
-
-resource "helm_release" "promtail" {
-  chart      = "promtail"
-  name       = "promtail"
-  repository = "https://grafana.github.io/helm-charts"
-  values     = [file("${path.module}/files/promtail/values.yaml")]
-  version    = "6.3.0"
 }
 
 resource "helm_release" "grafana" {
