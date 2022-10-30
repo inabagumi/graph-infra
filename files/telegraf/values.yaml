@@ -147,6 +147,7 @@ config:
           822299689: AniMare # hikari_hira
           823830476: VApArt  # anko_kisaki
           825041113: AniMare # kuku_kazami
+          840391068: VApArt  # uge_and
   - enum:
       mapping:
         tag: id
