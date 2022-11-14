@@ -141,13 +141,14 @@ config:
           1509546454016495626: 774inc     # Nanashi_774inc
 
           # Twitch
-          463093509: AniMare # shiromiyamimi
-          517857559: AniMare # ran_hinokuma
-          801682194: VApArt  # met_komori
-          822299689: AniMare # hikari_hira
-          823830476: VApArt  # anko_kisaki
-          825041113: AniMare # kuku_kazami
-          840391068: VApArt  # uge_and
+          463093509: AniMare    # shiromiyamimi
+          517857559: AniMare    # ran_hinokuma
+          801682194: VApArt     # met_komori
+          822299689: AniMare    # hikari_hira
+          823830476: VApArt     # anko_kisaki
+          825041113: AniMare    # kuku_kazami
+          840391068: VApArt     # uge_and
+          846666539: HoneyStrap # charlotte_shimamura
   - enum:
       mapping:
         tag: id
