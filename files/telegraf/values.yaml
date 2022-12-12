@@ -151,6 +151,7 @@ config:
           822299689: AniMare    # hikari_hira
           823830476: VApArt     # anko_kisaki
           825041113: AniMare    # kuku_kazami
+          838406432: AniMare    # izumi_yunohara
           840391068: VApArt     # uge_and
           846666539: HoneyStrap # charlotte_shimamura
   - enum:
