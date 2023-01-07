@@ -53,15 +53,15 @@ config:
         value_mappings:
           # YouTube
           UCkpqb53xiOvOgNYEbNpFSyw: HIYOCRO    # 茜音カンナ
-          UC3EhsuKdEkI99TWZwZgWutg: VApArt     # 杏戸ゆげ
+          UC3EhsuKdEkI99TWZwZgWutg: 774inc     # 杏戸ゆげ
           UC_hjHmi-ODGhHlSzD16p5Pw: HIYOCRO    # 家入ポポ
           UC0Owc36U9lOyi9Gx9Ic-4qg: AniMare    # 因幡はねる
           UCGiFzwdasSAHILrx-DB1pVQ: AniMare    # 稲荷くろむ
           UChqYnJlFxlBi6DfRz6jRenQ: AniMare    # 宇森ひなこ
           UC3xG1XWzAKt5dxSxktJvtxg: AniMare    # 大浦るかこ
           UCXp7sNC0F_qkjickvlYkg-Q: AniMare    # 風見くく
-          UCmqrvfLMws-GLGHQcB5dasg: VApArt     # 花奏かのん
-          UChXm-xAYPfygrbyLo2yCASQ: VApArt     # 季咲あんこ
+          UCmqrvfLMws-GLGHQcB5dasg: 774inc     # 花奏かのん
+          UChXm-xAYPfygrbyLo2yCASQ: 774inc     # 季咲あんこ
           UC0xhrAce06OkQfHBqAfLQAQ: AniMare    # 奇想天外あにびっと!
           UCjm74OvxjKhpGOj1DP117kQ: AniMare    # きまぐれ委員会
           UCr83W-PdmmbstrvnCn9kdZQ: VApArt     # 銀猫ななし
@@ -69,7 +69,7 @@ config:
           UCvPPBoTOor5gm8zSlE2tg4w: 774inc     # 虎城アンナ
           UC4PrHgUcAtOoj_LKmUL-uLQ: AniMare    # 湖南みあ
           UCGyywYAJd2O5Y7yUyr7qBRQ: HIYOCRO    # 瑚白ユリ
-          UCzUNASdzI4PV5SlqtYwAkKQ: VApArt     # 小森めと
+          UCzUNASdzI4PV5SlqtYwAkKQ: 774inc     # 小森めと
           UCwePpiw1ocZRSNSkpKvVISw: HoneyStrap # 西園寺メアリ
           UC--A2dwZW7-M2kID0N6_lfA: SugarLyric # 獅子王クリス
           UC3MBUvkVTI9p-p0be7y7TQA: HIYOCRO    # 紫水キキ
@@ -88,7 +88,7 @@ config:
           UC_BlXOQe5OcRC7o0GX8kp8A: AniMare    # 羽柴なつみ
           UCRvpMpzAXBRKJQuk-8-Sdvg: AniMare    # 日ノ隈らん
           UCFsWaTQ7kT76jNNGeGIKNSA: AniMare    # 飛良ひかり
-          UCV4EoK6BVNl7wxuxpUvvSWA: VApArt     # 不磨わっと
+          UCV4EoK6BVNl7wxuxpUvvSWA: 774inc     # 不磨わっと
           UCoieZAlwgK3uLkIYiJARDQw: SugarLyric # 三毛猫ななし
           UCTsEofJvQymp0Dcd4wYBmVQ: AniMare    # 桃乃ゆらり
           UCW8WKciBixmaqaGqrlTITRQ: AniMare    # 柚原いづみ
@@ -98,7 +98,7 @@ config:
           UCRY0-zJ1pV4EiKUSLXCXTAg: SugarLyric # 狼森メイ
 
           # Twitter
-          992355895051866112: VApArt      # _kanade_kanon
+          992355895051866112: 774inc      # _kanade_kanon
           993839162099810305: AniMare     # AniMare_cafe
           995247053977485313: AniMare     # Haneru_Inaba
           995250952373391360: AniMare     # Hinako_Umori
@@ -111,10 +111,10 @@ config:
           1007331251685023744: HoneyStrap # Mary_HNST
           1007339408343777281: HoneyStrap # Mico_HNST
           1091634367158337536: VApArt     # Vtuber_ApArt
-          1091649332539846656: VApArt     # Uge_And
+          1091649332539846656: 774inc     # Uge_And
           1113405297949700096: AniMare    # tirol0_0lorit
           1128841181222203393: AniMare    # shiromiya_mimi
-          1184117947582697473: VApArt     # Anko_Kisaki
+          1184117947582697473: 774inc     # Anko_Kisaki
           1224952244719587328: AniMare    # Kuku_Kazami
           1224956450100764673: AniMare    # Izumi_Yunohara
           1234696406931136513: 774inc     # Anna_Kojo
@@ -125,8 +125,8 @@ config:
           1245695747602837504: AniMare    # Yurari_Momono
           1245697015066984451: AniMare    # Akane_Haibara
           1248507657226313728: AniMare    # KisoAnibit
-          1258264128780554241: VApArt     # Met_Komori
-          1258264848011366402: VApArt     # Wat_Huma
+          1258264128780554241: 774inc     # Met_Komori
+          1258264848011366402: 774inc     # Wat_Huma
           1308626156447436801: AniMare    # Rui_Seshima
           1308632177815420933: AniMare    # Hikari_Hira
           1351387644081520641: AniMare    # Rukako_Oura
@@ -147,12 +147,12 @@ config:
           # Twitch
           463093509: AniMare    # shiromiyamimi
           517857559: AniMare    # ran_hinokuma
-          801682194: VApArt     # met_komori
+          801682194: 774inc     # met_komori
           822299689: AniMare    # hikari_hira
-          823830476: VApArt     # anko_kisaki
+          823830476: 774inc     # anko_kisaki
           825041113: AniMare    # kuku_kazami
           838406432: AniMare    # izumi_yunohara
-          840391068: VApArt     # uge_and
+          840391068: 774inc     # uge_and
           846666539: HoneyStrap # charlotte_shimamura
   - enum:
       mapping:
