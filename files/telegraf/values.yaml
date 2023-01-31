@@ -168,15 +168,18 @@ config:
           UCOgONfZgrG2g0jntQKa6cDw: "true" # 灰原あかね
           UC_BlXOQe5OcRC7o0GX8kp8A: "true" # 羽柴なつみ
           UCtzCQnCT9E4o6U3mHHSHbQQ: "true" # 白宮みみ
+          UCzUNASdzI4PV5SlqtYwAkKQ: "true" # 小森めと
 
           995250952373391360: "true"  # Hinako_Umori
           1007290563756871681: "true" # Eli_HNST
           1245694490532175873: "true" # Natsumi_Hashiba
           1245695747602837504: "true" # Yurari_Momono
           1245697015066984451: "true" # Akane_Haibara
+          1258264128780554241: "true" # Met_Komori
           1128841181222203393: "true" # shiromiya_mimi
 
           463093509: "true" # shiromiyamimi
+          801682194: "true" # met_komori
 
   outputs:
   - influxdb_v2:
