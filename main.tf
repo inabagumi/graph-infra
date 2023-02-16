@@ -189,7 +189,7 @@ resource "google_dns_record_set" "frontend" {
 
 module "mysql-db" {
   source  = "GoogleCloudPlatform/sql-db/google//modules/mysql"
-  version = "13.0.1"
+  version = "14.0.1"
 
   availability_type = "ZONAL"
   backup_configuration = {
