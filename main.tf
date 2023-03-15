@@ -285,7 +285,8 @@ module "gke" {
   version = "25.0.0"
 
   datapath_provider               = "ADVANCED_DATAPATH"
-  enable_vertical_pod_autoscaling = true
+  enable_vertical_pod_autoscaling = false
+  horizontal_pod_autoscaling      = false
   ip_range_pods                   = local.pods_range_name
   ip_range_services               = local.svc_range_name
   name                            = local.name
