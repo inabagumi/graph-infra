@@ -128,7 +128,7 @@ module "gh_oidc" {
 
 module "vpc" {
   source  = "terraform-google-modules/network/google"
-  version = "6.0.1"
+  version = "7.0.0"
 
   network_name = local.network_name
   project_id   = var.project
