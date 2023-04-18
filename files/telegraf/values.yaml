@@ -96,6 +96,9 @@ config:
           UCJEpkwwDiTKS5lxwFttEbIQ: 774inc     # ななし公式チャンネル
           UCrt4cTM_sWH0iySLMkwwYLQ: SugarLyric # 蛇宵ティア
           UCRY0-zJ1pV4EiKUSLXCXTAg: SugarLyric # 狼森メイ
+          UCW98GVLrx8lG_ddOts3cl4g: 774inc     # 天羽衣
+          UCxCdPRbi-s5J74A6KgkxnQg: 774inc     # いなうるう
+          UCBhfuPYgo5ALbn6WmTXwHwg: 774inc     # 日向ましゅ
 
           # Twitter
           992355895051866112: 774inc      # _kanade_kanon
@@ -143,6 +146,9 @@ config:
           1509546454016495626: 774inc     # Nanashi_774inc
           1589558645267652608: SugarLyric # Tier_Hebiyoi
           1589562801189621760: SugarLyric # May_Oinomori
+          1615256057160560642: 774inc     # Amaui_
+          1627609242772582400: 774inc     # Uruu_Ina
+          1635953708445073409: 774inc     # Mashu_Hinata
 
           # Twitch
           463093509: AniMare    # shiromiyamimi
@@ -154,6 +160,9 @@ config:
           838406432: AniMare    # izumi_yunohara
           840391068: 774inc     # uge_and
           846666539: HoneyStrap # charlotte_shimamura
+          900270922: 774inc     # amaui0915
+          900273345: 774inc     # Inauruu1017
+          900274304: 774inc     # hinata_mashu1214
   - enum:
       mapping:
         tag: id
