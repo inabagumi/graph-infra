@@ -19,6 +19,9 @@ image:
   repository: grafana/grafana
   tag: 9.5.1
 
+rbac:
+  pspEnabled: false
+
 testFramework:
   enabled: false
 
