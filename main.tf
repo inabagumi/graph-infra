@@ -282,7 +282,7 @@ resource "google_artifact_registry_repository_iam_member" "gha" {
 
 module "gke" {
   source  = "terraform-google-modules/kubernetes-engine/google//modules/beta-autopilot-public-cluster"
-  version = "25.0.0"
+  version = "26.1.1"
 
   create_service_account = false
   ip_range_pods          = local.pods_range_name
