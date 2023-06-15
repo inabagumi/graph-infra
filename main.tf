@@ -284,17 +284,15 @@ module "gke" {
   source  = "terraform-google-modules/kubernetes-engine/google//modules/beta-autopilot-public-cluster"
   version = "25.0.0"
 
-  create_service_account          = false
-  datapath_provider               = "ADVANCED_DATAPATH"
-  enable_vertical_pod_autoscaling = true
-  ip_range_pods                   = local.pods_range_name
-  ip_range_services               = local.svc_range_name
-  name                            = local.name
-  network                         = module.vpc.network_name
-  project_id                      = var.project
-  region                          = var.region
-  release_channel                 = "REGULAR"
-  subnetwork                      = local.subnet_names[index(module.vpc.subnets_names, local.subnet_name)]
+  create_service_account = false
+  ip_range_pods          = local.pods_range_name
+  ip_range_services      = local.svc_range_name
+  name                   = local.name
+  network                = module.vpc.network_name
+  project_id             = var.project
+  region                 = var.region
+  release_channel        = "REGULAR"
+  subnetwork             = local.subnet_names[index(module.vpc.subnets_names, local.subnet_name)]
 }
 
 resource "random_string" "influxdb2_admin_password" {
