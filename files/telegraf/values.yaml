@@ -52,14 +52,14 @@ config:
 
         value_mappings:
           # YouTube
-          UCkpqb53xiOvOgNYEbNpFSyw: HIYOCRO    # 茜音カンナ
+          UCkpqb53xiOvOgNYEbNpFSyw: 774inc     # 茜音カンナ
           UC3EhsuKdEkI99TWZwZgWutg: 774inc     # 杏戸ゆげ
-          UC_hjHmi-ODGhHlSzD16p5Pw: HIYOCRO    # 家入ポポ
-          UC0Owc36U9lOyi9Gx9Ic-4qg: AniMare    # 因幡はねる
+          UC_hjHmi-ODGhHlSzD16p5Pw: 774inc     # 家入ポポ
+          UC0Owc36U9lOyi9Gx9Ic-4qg: 774inc     # 因幡はねる
           UCGiFzwdasSAHILrx-DB1pVQ: AniMare    # 稲荷くろむ
           UChqYnJlFxlBi6DfRz6jRenQ: AniMare    # 宇森ひなこ
-          UC3xG1XWzAKt5dxSxktJvtxg: AniMare    # 大浦るかこ
-          UCXp7sNC0F_qkjickvlYkg-Q: AniMare    # 風見くく
+          UC3xG1XWzAKt5dxSxktJvtxg: 774inc     # 大浦るかこ
+          UCXp7sNC0F_qkjickvlYkg-Q: 774inc     # 風見くく
           UCmqrvfLMws-GLGHQcB5dasg: 774inc     # 花奏かのん
           UChXm-xAYPfygrbyLo2yCASQ: 774inc     # 季咲あんこ
           UC0xhrAce06OkQfHBqAfLQAQ: AniMare    # 奇想天外あにびっと!
@@ -67,35 +67,35 @@ config:
           UCr83W-PdmmbstrvnCn9kdZQ: VApArt     # 銀猫ななし
           UC8BS2IrE9NmxKLX7ObRVyxQ: AniMare    # 黒猫ななし
           UCvPPBoTOor5gm8zSlE2tg4w: 774inc     # 虎城アンナ
-          UC4PrHgUcAtOoj_LKmUL-uLQ: AniMare    # 湖南みあ
-          UCGyywYAJd2O5Y7yUyr7qBRQ: HIYOCRO    # 瑚白ユリ
+          UC4PrHgUcAtOoj_LKmUL-uLQ: 774inc     # 湖南みあ
+          UCGyywYAJd2O5Y7yUyr7qBRQ: 774inc     # 瑚白ユリ
           UCzUNASdzI4PV5SlqtYwAkKQ: 774inc     # 小森めと
-          UCwePpiw1ocZRSNSkpKvVISw: HoneyStrap # 西園寺メアリ
-          UC--A2dwZW7-M2kID0N6_lfA: SugarLyric # 獅子王クリス
-          UC3MBUvkVTI9p-p0be7y7TQA: HIYOCRO    # 紫水キキ
-          UCYTz3uIgwVY3ZU-IQJS8r3A: HoneyStrap # 島村シャルロット
+          UCwePpiw1ocZRSNSkpKvVISw: 774inc     # 西園寺メアリ
+          UC--A2dwZW7-M2kID0N6_lfA: 774inc     # 獅子王クリス
+          UC3MBUvkVTI9p-p0be7y7TQA: 774inc     # 紫水キキ
+          UCYTz3uIgwVY3ZU-IQJS8r3A: 774inc     # 島村シャルロット
           UCtzCQnCT9E4o6U3mHHSHbQQ: AniMare    # 白宮みみ
-          UCeLzT-7b2PBcunJplmWtoDg: HoneyStrap # 周防パトラ
-          UCBJ6nejlzes6mm9UruaxQsA: HIYOCRO    # 涼海ネモ
-          UCDh2bWI5EDu7PavqwICkVpA: HoneyStrap # 堰代ミコ
-          UC_WOBIopwUih0rytRnr_1Ag: AniMare    # 瀬島るい
+          UCeLzT-7b2PBcunJplmWtoDg: 774inc     # 周防パトラ
+          UCBJ6nejlzes6mm9UruaxQsA: 774inc     # 涼海ネモ
+          UCDh2bWI5EDu7PavqwICkVpA: 774inc     # 堰代ミコ
+          UC_WOBIopwUih0rytRnr_1Ag: 774inc     # 瀬島るい
           UC2kyQhzGOB-JPgcQX9OMgEw: 774inc     # 宗谷いちか
           UC3UKMRQmBcjXWu66cvxcngA: HoneyStrap # 蒼月エリ
-          UCqskJ0nmw-_eweWfsKvbrzQ: AniMare    # 月野木ちろる
-          UCBxw5bdrbKO7E60E4s3KgQg: HIYOCRO    # 橙里セイ
+          UCqskJ0nmw-_eweWfsKvbrzQ: 774inc     # 月野木ちろる
+          UCBxw5bdrbKO7E60E4s3KgQg: 774inc     # 橙里セイ
           UCgqQ5iuvUyPRHp3rBLuOtCw: HoneyStrap # 灰猫ななし
           UCOgONfZgrG2g0jntQKa6cDw: AniMare    # 灰原あかね
           UC_BlXOQe5OcRC7o0GX8kp8A: AniMare    # 羽柴なつみ
-          UCRvpMpzAXBRKJQuk-8-Sdvg: AniMare    # 日ノ隈らん
-          UCFsWaTQ7kT76jNNGeGIKNSA: AniMare    # 飛良ひかり
+          UCRvpMpzAXBRKJQuk-8-Sdvg: 774inc     # 日ノ隈らん
+          UCFsWaTQ7kT76jNNGeGIKNSA: 774inc     # 飛良ひかり
           UCV4EoK6BVNl7wxuxpUvvSWA: 774inc     # 不磨わっと
           UCoieZAlwgK3uLkIYiJARDQw: SugarLyric # 三毛猫ななし
           UCTsEofJvQymp0Dcd4wYBmVQ: AniMare    # 桃乃ゆらり
-          UCW8WKciBixmaqaGqrlTITRQ: AniMare    # 柚原いづみ
-          UC2hc-00y-MSR6eYA4eQ4tjQ: SugarLyric # 龍ヶ崎リン
+          UCW8WKciBixmaqaGqrlTITRQ: 774inc     # 柚原いづみ
+          UC2hc-00y-MSR6eYA4eQ4tjQ: 774inc     # 龍ヶ崎リン
           UCJEpkwwDiTKS5lxwFttEbIQ: 774inc     # ななし公式チャンネル
-          UCrt4cTM_sWH0iySLMkwwYLQ: SugarLyric # 蛇宵ティア
-          UCRY0-zJ1pV4EiKUSLXCXTAg: SugarLyric # 狼森メイ
+          UCrt4cTM_sWH0iySLMkwwYLQ: 774inc     # 蛇宵ティア
+          UCRY0-zJ1pV4EiKUSLXCXTAg: 774inc     # 狼森メイ
           UCW98GVLrx8lG_ddOts3cl4g: 774inc     # 天羽衣
           UCxCdPRbi-s5J74A6KgkxnQg: 774inc     # いなうるう
           UCBhfuPYgo5ALbn6WmTXwHwg: 774inc     # 日向ましゅ
@@ -103,66 +103,66 @@ config:
           # Twitter
           992355895051866112: 774inc      # _kanade_kanon
           993839162099810305: AniMare     # AniMare_cafe
-          995247053977485313: AniMare     # Haneru_Inaba
+          995247053977485313: 774inc      # Haneru_Inaba
           995250952373391360: AniMare     # Hinako_Umori
           995253301472972801: 774inc      # Ichika_Souya
-          995258822556991493: AniMare     # Ran_Hinokuma
+          995258822556991493: 774inc      # Ran_Hinokuma
           1007247110167674881: HoneyStrap # HNST_official
-          1007268292648505344: HoneyStrap # Patra_HNST
+          1007268292648505344: 774inc     # Patra_HNST
           1007290563756871681: HoneyStrap # Eli_HNST
-          1007316805981892613: HoneyStrap # Charlotte_HNST
-          1007331251685023744: HoneyStrap # Mary_HNST
-          1007339408343777281: HoneyStrap # Mico_HNST
+          1007316805981892613: 774inc     # Charlotte_HNST
+          1007331251685023744: 774inc     # Mary_HNST
+          1007339408343777281: 774inc     # Mico_HNST
           1091634367158337536: VApArt     # Vtuber_ApArt
           1091649332539846656: 774inc     # Uge_And
-          1113405297949700096: AniMare    # tirol0_0lorit
+          1113405297949700096: 774inc     # tirol0_0lorit
           1128841181222203393: AniMare    # shiromiya_mimi
           1184117947582697473: 774inc     # Anko_Kisaki
-          1224952244719587328: AniMare    # Kuku_Kazami
-          1224956450100764673: AniMare    # Izumi_Yunohara
+          1224952244719587328: 774inc     # Kuku_Kazami
+          1224956450100764673: 774inc     # Izumi_Yunohara
           1234696406931136513: 774inc     # Anna_Kojo
-          1234697406542802950: SugarLyric # Rene_Ryugasaki
+          1234697406542802950: 774inc     # Rene_Ryugasaki
           1234698396297859072: SugarLyric # SugarLyric_PI
-          1240652791892172800: SugarLyric # ChrisShishio
+          1240652791892172800: 774inc     # ChrisShishio
           1245694490532175873: AniMare    # Natsumi_Hashiba
           1245695747602837504: AniMare    # Yurari_Momono
           1245697015066984451: AniMare    # Akane_Haibara
           1248507657226313728: AniMare    # KisoAnibit
           1258264128780554241: 774inc     # Met_Komori
           1258264848011366402: 774inc     # Wat_Huma
-          1308626156447436801: AniMare    # Rui_Seshima
-          1308632177815420933: AniMare    # Hikari_Hira
-          1351387644081520641: AniMare    # Rukako_Oura
-          1351423100026425344: AniMare    # Mia_Konan
+          1308626156447436801: 774inc     # Rui_Seshima
+          1308632177815420933: 774inc     # Hikari_Hira
+          1351387644081520641: 774inc     # Rukako_Oura
+          1351423100026425344: 774inc     # Mia_Konan
           1397780980597882883: AniMare    # kimagureiinkai
           1414380215002746881: 774inc     # 774inc_vacation
-          1445646417385574414: HIYOCRO    # Sei_Touri
-          1445646752430784519: HIYOCRO    # Nemo_Suzumi
-          1445647446638399492: HIYOCRO    # Canna_Akane
-          1445647483925717000: HIYOCRO    # Popo_Ieiri
-          1445647873882742785: HIYOCRO    # Kiki_Shisui
-          1445647957412384777: HIYOCRO    # Yuri_Kohakuu
-          1448968028972933127: HIYOCRO    # HIYOCRO_PT
+          1445646417385574414: 774inc     # Sei_Touri
+          1445646752430784519: 774inc     # Nemo_Suzumi
+          1445647446638399492: 774inc     # Canna_Akane
+          1445647483925717000: 774inc     # Popo_Ieiri
+          1445647873882742785: 774inc     # Kiki_Shisui
+          1445647957412384777: 774inc     # Yuri_Kohakuu
+          1448968028972933127: 774inc     # HIYOCRO_PT
           1509546454016495626: 774inc     # Nanashi_774inc
-          1589558645267652608: SugarLyric # Tier_Hebiyoi
-          1589562801189621760: SugarLyric # May_Oinomori
+          1589558645267652608: 774inc     # Tier_Hebiyoi
+          1589562801189621760: 774inc     # May_Oinomori
           1615256057160560642: 774inc     # Amaui_
           1627609242772582400: 774inc     # Uruu_Ina
           1635953708445073409: 774inc     # Mashu_Hinata
 
           # Twitch
-          463093509: AniMare    # shiromiyamimi
-          517857559: AniMare    # ran_hinokuma
-          801682194: 774inc     # met_komori
-          822299689: AniMare    # hikari_hira
-          823830476: 774inc     # anko_kisaki
-          825041113: AniMare    # kuku_kazami
-          838406432: AniMare    # izumi_yunohara
-          840391068: 774inc     # uge_and
-          846666539: HoneyStrap # charlotte_shimamura
-          900270922: 774inc     # amaui0915
-          900273345: 774inc     # Inauruu1017
-          900274304: 774inc     # hinata_mashu1214
+          463093509: AniMare # shiromiyamimi
+          517857559: 774inc  # ran_hinokuma
+          801682194: 774inc  # met_komori
+          822299689: 774inc  # hikari_hira
+          823830476: 774inc  # anko_kisaki
+          825041113: 774inc  # kuku_kazami
+          838406432: 774inc  # izumi_yunohara
+          840391068: 774inc  # uge_and
+          846666539: 774inc  # charlotte_shimamura
+          900270922: 774inc  # amaui0915
+          900273345: 774inc  # Inauruu1017
+          900274304: 774inc  # hinata_mashu1214
   - enum:
       mapping:
         tag: id
@@ -170,6 +170,7 @@ config:
         default: "false"
 
         value_mappings:
+          # YouTube
           UCGiFzwdasSAHILrx-DB1pVQ: "true" # 稲荷くろむ
           UC3UKMRQmBcjXWu66cvxcngA: "true" # 蒼月エリ
           UChqYnJlFxlBi6DfRz6jRenQ: "true" # 宇森ひなこ
@@ -177,8 +178,17 @@ config:
           UCOgONfZgrG2g0jntQKa6cDw: "true" # 灰原あかね
           UC_BlXOQe5OcRC7o0GX8kp8A: "true" # 羽柴なつみ
           UCtzCQnCT9E4o6U3mHHSHbQQ: "true" # 白宮みみ
+          UC0xhrAce06OkQfHBqAfLQAQ: "true" # 奇想天外あにびっと!
+          UCjm74OvxjKhpGOj1DP117kQ: "true" # きまぐれ委員会
           UCzUNASdzI4PV5SlqtYwAkKQ: "true" # 小森めと
+          UCr83W-PdmmbstrvnCn9kdZQ: "true" # 銀猫ななし
+          UC8BS2IrE9NmxKLX7ObRVyxQ: "true" # 黒猫ななし
+          UCgqQ5iuvUyPRHp3rBLuOtCw: "true" # 灰猫ななし
+          UCoieZAlwgK3uLkIYiJARDQw: "true" # 三毛猫ななし
+          UCeLzT-7b2PBcunJplmWtoDg: "true" # 周防パトラ
+          UC3xG1XWzAKt5dxSxktJvtxg: "true" # 大浦るかこ
 
+          # Twitter
           995250952373391360: "true"  # Hinako_Umori
           1007290563756871681: "true" # Eli_HNST
           1245694490532175873: "true" # Natsumi_Hashiba
@@ -186,7 +196,17 @@ config:
           1245697015066984451: "true" # Akane_Haibara
           1258264128780554241: "true" # Met_Komori
           1128841181222203393: "true" # shiromiya_mimi
+          1248507657226313728: "true" # KisoAnibit
+          1397780980597882883: "true" # kimagureiinkai
+          993839162099810305: "true"  # AniMare_cafe
+          1007247110167674881: "true" # HNST_official
+          1091634367158337536: "true" # Vtuber_ApArt
+          1234698396297859072: "true" # SugarLyric_PI
+          1448968028972933127: "true" # HIYOCRO_PT
+          1007268292648505344: "true" # Patra_HNST
+          1351387644081520641: "true" # Rukako_Oura
 
+          # Twitch
           463093509: "true" # shiromiyamimi
           801682194: "true" # met_komori
 
