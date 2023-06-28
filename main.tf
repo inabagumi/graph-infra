@@ -20,7 +20,7 @@ terraform {
 
     github = {
       source  = "integrations/github"
-      version = "5.28.1"
+      version = "5.29.0"
     }
 
     helm = {
