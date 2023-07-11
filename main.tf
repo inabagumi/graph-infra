@@ -396,7 +396,7 @@ resource "helm_release" "telegraf" {
   name       = "telegraf"
   repository = "https://helm.influxdata.com/"
   values     = [file("${path.module}/files/telegraf/values.yaml")]
-  version    = "1.8.28"
+  version    = "1.8.29"
 
   set {
     name  = "image.repo"
