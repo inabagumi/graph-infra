@@ -17,7 +17,7 @@ podDisruptionBudget:
 
 image:
   repository: grafana/grafana
-  tag: 10.0.2
+  tag: 10.0.3
 
 rbac:
   pspEnabled: false
