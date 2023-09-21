@@ -103,7 +103,7 @@ imageRenderer:
   enabled: true
   image:
     repository: grafana/grafana-image-renderer
-    tag: 3.8.1
+    tag: 3.8.2
   env:
     BROWSER_TZ: Asia/Tokyo
     ENABLE_METRICS: "true"
