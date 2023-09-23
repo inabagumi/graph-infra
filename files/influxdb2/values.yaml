@@ -17,4 +17,4 @@ startupProbe:
   enabled: true
 
 persistence:
-  size: 10Gi
+  size: 24Gi
