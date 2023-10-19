@@ -360,7 +360,7 @@ resource "helm_release" "tempo" {
   name       = "tempo"
   repository = "https://grafana.github.io/helm-charts"
   values     = [file("${path.module}/files/tempo/values.yaml")]
-  version    = "1.6.2"
+  version    = "1.6.3"
 
   set {
     name  = "serviceAccount.annotations.iam\\.gke\\.io/gcp-service-account"
