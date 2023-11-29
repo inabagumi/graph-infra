@@ -414,7 +414,7 @@ resource "helm_release" "grafana" {
   name       = "grafana"
   repository = "https://grafana.github.io/helm-charts"
   values     = [file("${path.module}/files/grafana/values.yaml")]
-  version    = "7.0.9"
+  version    = "7.0.11"
 
   set {
     name  = "serviceAccount.annotations.iam\\.gke\\.io/gcp-service-account"
