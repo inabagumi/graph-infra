@@ -378,7 +378,7 @@ resource "helm_release" "influxdb2" {
   name       = "influxdb2"
   repository = "https://helm.influxdata.com/"
   values     = [file("${path.module}/files/influxdb2/values.yaml")]
-  version    = "2.1.1"
+  version    = "2.1.2"
 
   set_sensitive {
     name  = "adminUser.password"
