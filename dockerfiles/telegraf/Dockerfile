@@ -1,4 +1,4 @@
-FROM alpine:3.18 AS download-deps
+FROM alpine:3.19 AS download-deps
 
 ENV TWITCH_TELEGRAF_PLUGIN_REPOSITORY inabagumi/twitch-telegraf-plugin
 ENV TWITCH_TELEGRAF_PLUGIN_VERSION 1.1.0
